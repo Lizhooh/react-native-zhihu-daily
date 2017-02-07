@@ -1,5 +1,5 @@
 ## 知乎日报 （非官方）
-知乎日报，Using React Native (Android and iOS).
+知乎日报，Using **React Native** (Android and iOS).
 
 ## Use
 

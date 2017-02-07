@@ -72,8 +72,10 @@
 "position",
 
 "resizeMode",
+
 "right",
 "rotation",
+
 "scaleX",
 "scaleY",
 
@@ -87,6 +89,7 @@
 "textDecorationColor",
 "textDecorationLine",
 "textDecorationStyle",
+
 "textShadowColor",
 "textShadowOffset",
 "textShadowRadius",

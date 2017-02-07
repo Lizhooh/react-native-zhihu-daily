@@ -1,0 +1,30 @@
+{
+	"name": "zhihu-daily",
+	"version": "1.0.0",
+	"private": true,
+	"author": "Lizhooh <960316408@qq.com>",
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"react": "15.4.2",
+		"react-native": "0.41.2",
+		"react-addons-shallow-compare": "^15.4.1",
+		"react-native-drawer": "^2.3.0",
+		"react-native-vector-icons": "^3.0.0"
+	},
+	"devDependencies": {
+		"babel-jest": "18.0.0",
+		"babel-preset-react-native": "1.9.1",
+		"jest": "18.1.0",
+		"react-test-renderer": "15.4.2"
+	},
+	"jest": {
+		"preset": "react-native"
+	},
+	"engines": {
+		"node": ">= 4.0.0",
+		"npm": ">= 3.0.0"
+	}
+}

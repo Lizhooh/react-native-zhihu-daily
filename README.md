@@ -13,3 +13,6 @@ npm install
 # serve with hot reload at localhost:3000
 npm start
 ```
+
+## License
+[Apache License 2.0](LICENSE)

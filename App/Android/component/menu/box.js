@@ -7,8 +7,7 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 export default class Box extends Component {
@@ -43,8 +42,8 @@ export default class Box extends Component {
                 <View style={styles.bottom}>
 
                     <View style={styles.pick}>
-                        <Ionicons
-                            name="md-star"
+                        <MaterialIcons
+                            name="star"
                             color="#fff"
                             size={20}
                             />
@@ -52,8 +51,8 @@ export default class Box extends Component {
                     </View>
 
                     <View style={styles.pick}>
-                        <Ionicons
-                            name="md-download"
+                        <MaterialIcons
+                            name="file-download"
                             color="#fff"
                             size={18}
                             />
@@ -73,6 +72,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 5,
+        justifyContent: 'center',
     },
     bottom: {
         flex: 1,

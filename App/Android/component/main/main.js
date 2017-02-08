@@ -6,12 +6,18 @@ import {
     Dimensions,
     Image,
     Text,
+    ToolbarAndroid,
     TouchableOpacity as Touch,
 } from 'react-native';
 
-const window = Dimensions.get('window');
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Global from '../../Global';
 import Menu from '../menu/menu';
+import Toolbar from './toolbar';
+import Home from '../home/home';
+
+// 全局变量，主题颜色
+const window = Dimensions.get('window');
 
 // ## 抽屉菜单
 export default class Main extends Component {
@@ -20,10 +26,14 @@ export default class Main extends Component {
         super(props);
 
         this.state = {
-            activeMainView: { // -1 是首页, 其他为主题的 id
+            // -1 是首页, 其他为主题的 id
+            activeMainView: {
                 id: -1,
                 name: '首页',
             },
+
+            // 缓存数据
+            data: null,
         };
     }
 
@@ -38,15 +48,24 @@ export default class Main extends Component {
     renderMenu = () => (
         // 菜单视图
         <Menu
+            navigator={this.props.navigator}
             onSelectChanng={(event, id, name) => {
                 // ok
-                this.setState({ activeMainView: { id, name } });
+                this.setState({
+                    activeMainView: { id, name }
+                }, () => {
+                    this._drawer.closeDrawer();
+                });
             } }
             />
     );
 
     renderMainView = (data) => {
+        // request => update this.state.data
 
+        // if (!this.state.data) return null;
+
+        return <Home />
     };
 
     componentDidMount() {
@@ -62,16 +81,31 @@ export default class Main extends Component {
             <View style={styles.contanter}>
                 <DrawerLayoutAndroid
                     keyboardDismissMode='on-drag'
-                    drawerWidth={window.width * 0.8}
+                    drawerWidth={window.width * 0.75}
                     renderNavigationView={this.renderMenu}
                     drawerPosition={DrawerLayoutAndroid.positions.Left}
                     ref={(drawer) => this._drawer = drawer}
                     >
 
-                    <View>{
-                        // 根据 activeMainView 来渲染视图
-                        this.renderMainView(this.state.activeMainView)
-                    }</View>
+                    <Toolbar
+                        isHome={this.state.activeMainView.id === -1}
+                        onIconClicked={() => this._drawer.openDrawer()}
+                        onActionSelected={null}
+                        />
+
+                    <View>
+                        {/* 用来覆盖 */}
+                        <View style={styles.otherToolbar}>
+                            <Text style={styles.otherToolbarText}>{
+                                this.state.activeMainView.name
+                            }</Text>
+                        </View>
+
+                        {
+                            // 根据 activeMainView 来渲染主视图
+                            this.renderMainView(this.state.activeMainView)
+                        }
+                    </View>
 
                 </DrawerLayoutAndroid>
             </View>
@@ -83,4 +117,23 @@ const styles = StyleSheet.create({
     contanter: {
         flex: 1,
     },
+    toolbar: {
+        height: 55,
+        backgroundColor: 'rgba(30, 150, 255, 0.0)',
+    },
+    otherToolbar: {
+        height: 55,
+        backgroundColor: Global.themeColor,
+        position: 'absolute',
+        top: -55,
+        left: 0, right: 0,
+        zIndex: -1,
+        justifyContent: 'center',
+    },
+    otherToolbarText: {
+        color: '#fff',
+        fontSize: 20,
+        marginLeft: 60,
+        fontWeight: '100',
+    }
 });

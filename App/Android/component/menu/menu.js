@@ -8,12 +8,9 @@ import {
     ScrollView,
 } from 'react-native';
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Global from '../../Global';
 import Toolbar from './box';
-
-const globalColor = 'rgba(30, 165, 255, 1)';
 
 // ## 菜单视图
 export default class Menu extends Component {
@@ -70,10 +67,10 @@ export default class Menu extends Component {
                         this.props.onSelectChanng(event, -1, '首页');
                     } }
                     >
-                    <Ionicons
-                        name="md-home"
+                    <MaterialIcons
+                        name="home"
                         size={20}
-                        color={globalColor}
+                        color={Global.themeColor}
                         />
                     <Text style={styles.homeText}>首页</Text>
                 </Touch>
@@ -89,11 +86,11 @@ export default class Menu extends Component {
                             } }
                             >
                             <Text style={theme.text}>{item.name}</Text>
-                            <Ionicons
+                            <MaterialIcons
                                 style={theme.icon}
-                                name="md-add"
+                                name="add"
                                 color="#ccc"
-                                size={18}
+                                size={19}
                                 />
                         </Touch>
                     ))
@@ -108,11 +105,11 @@ export default class Menu extends Component {
 const styles = StyleSheet.create({
     contanter: {
         flex: 1,
-        backgroundColor: globalColor,
+        backgroundColor: Global.themeColor,
     },
     toolbar: {
         height: 110,
-        backgroundColor: globalColor,
+        backgroundColor: Global.themeColor,
         padding: 10,
     },
     home: {
@@ -123,7 +120,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
     },
     homeText: {
-        color: globalColor,
+        color: Global.themeColor,
         marginLeft: 20,
         fontSize: 16,
     },
@@ -150,3 +147,4 @@ const theme = StyleSheet.create({
         paddingRight: 20,
     }
 });
+

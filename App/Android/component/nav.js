@@ -60,7 +60,7 @@ export default class Nav extends Component {
 
     render() {
         return (
-            <View style={styles.contanter}>
+            <View style={styles.contanter} collapsable={true}>
                 <Navigator
                     initialRoute={{
                         id: '',

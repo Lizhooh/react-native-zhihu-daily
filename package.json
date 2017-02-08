@@ -11,7 +11,6 @@
     "react": "15.4.2",
     "react-addons-shallow-compare": "^15.4.1",
     "react-native": "0.41.2",
-    "react-native-drawer": "^2.3.0",
     "react-native-fence-html": "^1.0.6",
     "react-native-vector-icons": "^3.0.0"
   },

@@ -54,3 +54,7 @@ fastlane/screenshots
 
 # design image
 _design
+
+
+# vscode debug
+.vscode

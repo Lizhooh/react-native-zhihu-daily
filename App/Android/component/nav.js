@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
     StyleSheet,
     View,
@@ -6,6 +6,8 @@ import {
     BackAndroid,
     ToastAndroid,
 } from 'react-native';
+
+import Main from './main/main';
 
 // ## 路由
 export default class Nav extends Component {
@@ -49,7 +51,7 @@ export default class Nav extends Component {
 
         };
 
-        return null;
+        return <Main navigator={navigator} />;
     };
 
     configureScene = (route, routeStack) => {
@@ -58,7 +60,7 @@ export default class Nav extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.contanter}>
                 <Navigator
                     initialRoute={{
                         id: '',
@@ -72,3 +74,9 @@ export default class Nav extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    contanter: {
+        flex: 1,
+    },
+});

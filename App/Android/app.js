@@ -7,7 +7,7 @@ import {
 
 import Nav from './component/nav';
 
-export default class Main extends Component {
+export default class App extends Component {
 
     constructor(props) {
         super(props);
@@ -15,9 +15,15 @@ export default class Main extends Component {
 
     render() {
         return (
-            <View>
-                <Nav />
+            <View style={styles.contanter}>
+                <Nav style={styles.contanter} />
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    contanter: {
+        flex: 1,
+    },
+});

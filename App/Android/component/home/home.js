@@ -37,9 +37,7 @@ export default class Home extends Component {
             <View style={styles.contanter}>
 
                 <List
-                    renderSlideView={() => (
-                        <Slide data={this.slideData} />
-                    )}
+                    slideData={this.slideData}
                     />
 
             </View>

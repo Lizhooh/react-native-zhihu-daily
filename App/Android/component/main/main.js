@@ -36,6 +36,8 @@ export default class Main extends Component {
             // 缓存数据
             data: null,
         };
+
+        this.requestAnimationFrame = requestAnimationFrame;
     }
 
     static defaultProps = {
@@ -54,7 +56,7 @@ export default class Main extends Component {
             onSelectChanng={(event, id, name) => {
                 this._drawer.closeDrawer();
 
-                requestAnimationFrame(() => {
+                this.requestAnimationFrame(() => {
                     this.setState({
                         activeMainView: { id, name }
                     });

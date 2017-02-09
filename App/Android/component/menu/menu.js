@@ -34,6 +34,7 @@ export default class Menu extends Component {
                 { id: 9, name: '动漫日报', star: false },
                 { id: 8, name: '体育日报', star: false },
             ],
+            active: -1,
         };
     }
 
@@ -67,8 +68,9 @@ export default class Menu extends Component {
 
                 <Touch
                     activeOpacity={1}
-                    style={styles.home}
+                    style={[styles.home, this.state.active === -1 && styles.active]}
                     onPress={(event) => {
+                        this.setState({ active: -1 });
                         this.props.onSelectChanng(event, -1, '首页');
                     } }
                     >
@@ -81,16 +83,17 @@ export default class Menu extends Component {
                 </Touch>
 
                 <View style={styles.theme}>{
-                    this.state.themes.map((item, index) => (
+                    this.state.themes.map((it, index) => (
                         <Touch
-                            style={theme.item}
+                            style={[theme.item, this.state.active === it.id && styles.active]}
                             activeOpacity={1}
                             key={`theme-${index}`}
                             onPress={(event) => {
-                                this.props.onSelectChanng(event, item.id, item.name);
+                                this.setState({ active: it.id });
+                                this.props.onSelectChanng(event, it.id, it.name);
                             } }
                             >
-                            <Text style={theme.text}>{item.name}</Text>
+                            <Text style={theme.text}>{it.name}</Text>
                             <MaterialIcons
                                 style={theme.icon}
                                 name="add"
@@ -118,8 +121,9 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     home: {
-        height: 45,
-        backgroundColor: '#f4f4f4',
+        height: 50,
+        // backgroundColor: '#f4f4f4',
+        backgroundColor: '#fff',
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
@@ -130,9 +134,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     theme: {
-        padding: 10,
+        paddingVertical: 5,
         backgroundColor: '#fff',
     },
+    active: {
+        backgroundColor: '#f4f4f4',
+    }
 });
 
 
@@ -141,6 +148,7 @@ const theme = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 15,
+        paddingHorizontal: 25,
     },
     text: {
         flex: 1,

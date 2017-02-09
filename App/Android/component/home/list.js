@@ -6,10 +6,13 @@ import {
     Image,
     ListView,
     ScrollView,
-    TouchableOpacity as Touch
+    TouchableOpacity as Touch,
+    ActivityIndicator,
 } from 'react-native';
 
 import shallowCompare from 'react-addons-shallow-compare';
+import Slide from './slide';
+import Global from '../../Global';
 
 const data = [
     { img: require('./img/a1.jpg'), title: '今天天气很好1', id: 1 },
@@ -31,11 +34,11 @@ export default class List extends Component {
     }
 
     static defaultProps = {
-        renderSlideView: null,
+        slideData: null,
     };
 
     static propTypes = {
-        renderSlideView: PropTypes.func.isRequired,
+        slideData: PropTypes.array.isRequired,
     };
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
@@ -57,13 +60,30 @@ export default class List extends Component {
         </View>
     );
 
-    // getDataSource = () => {
-    //     var ds = new ListView.DataSource({
-    //         rowHasChanged: (r1, r2) => r1 !== r2
-    //     });
+    getDataSource = () => {
+        var ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
 
-    //     return ds.cloneWithRows(data);
-    // };
+        return ds.cloneWithRows(data);
+    };
+
+    renderHeader = () => (
+        <View style={{ marginBottom: 20 }}>
+            <Slide data={this.props.slideData} />
+        </View>
+    );
+
+    renderFooter = () => (
+        <View style={{ margin: 10 }}>
+            <ActivityIndicator
+                animating={true}
+                color={Global.themeColor}
+                size={'large'}
+                />
+        </View>
+    );
+
 
     // 性能优化
     shouldComponentUpdate(nextProps, nextState) {
@@ -73,34 +93,24 @@ export default class List extends Component {
     render() {
         return (
             <View style={styles.contanter}>
-                <ScrollView
+                <ListView
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     removeClippedSubviews={true}
-                    // renderRow={this.renderRow}
-                    // dataSource={this.getDataSource()}
-                    // initialListSize={10}
-                    // pageSize={1}
+                    renderRow={this.renderRow}
+                    renderHeader={this.renderHeader}
+                    renderFooter={this.renderFooter}
+                    dataSource={this.getDataSource()}
+                    initialListSize={10}
+                    pageSize={1}
+                    scrollRenderAheadDistance={100}
                     // 滚动刷新
-                    // onEndReachedThreshold={null}
-                    // onEndReached={null}
+                    onEndReachedThreshold={500}
+                    onEndReached={() => {
+
+                    } }
                     >
-
-                    <View collapsable={true}>{
-                        this.props.renderSlideView()
-                    }
-                    </View>
-
-                    <View
-                        collapsable={true}
-                        style={{ paddingVertical: 20 }}
-                        >{
-                            data.map((it, index, list) => {
-                                return this.renderRow(it, 0, index, 0);
-                            })
-                        }
-                    </View>
-                </ScrollView>
+                </ListView>
             </View>
         );
     }
@@ -114,6 +124,7 @@ const styles = StyleSheet.create({
     box: {
         backgroundColor: '#ccc',
         margin: 10,
+        marginHorizontal: 15,
         borderRadius: 3,
         paddingBottom: 1,
     },

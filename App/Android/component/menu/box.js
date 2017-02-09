@@ -34,7 +34,10 @@ export default class Box extends Component {
 
                 <View style={styles.top}>
                     <View style={styles.img}>
-                        <Image />
+                        <Image
+                            style={styles.img}
+                            source={require('./img/user.jpg')}
+                            />
                     </View>
                     <Text style={styles.login}>请登录</Text>
                 </View>
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 30,
-        backgroundColor: '#fff',
     },
     login: {
         color: '#fff',

@@ -7,18 +7,19 @@ import {
     Dimensions,
 } from 'react-native';
 
-import Slide from './slide';
 import List from './list';
 const window = Dimensions.get('window');
 
-export default class Home extends Component {
+export default class Other extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
             data: this.props.data,
-        }
+        };
+
+        this.requestAnimationFrame = requestAnimationFrame;
     }
 
     static defaultProps = {
@@ -43,6 +44,15 @@ export default class Home extends Component {
             <View style={styles.contanter}>
                 <List
                     data={this.state.data}
+                    openEditor={(event, list) => {
+                        this.requestAnimationFrame(() => {
+                            this.props.navigator.push({
+                                id: 5,
+                                title: '主编',
+                                data: list,
+                            });
+                        })
+                    } }
                     />
             </View>
         );
@@ -54,4 +64,3 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-

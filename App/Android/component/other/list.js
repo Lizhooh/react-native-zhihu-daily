@@ -7,12 +7,14 @@ import {
     ListView,
     TouchableOpacity as Touch,
     ActivityIndicator,
+    Dimensions,
 } from 'react-native';
 
 import shallowCompare from 'react-addons-shallow-compare';
-import Slide from './slide';
 import Global from '../../Global';
-import { styles } from './style/style';
+import { styles, pice, editor } from './style/style';
+
+const window = Dimensions.get('window');
 
 export default class List extends Component {
 
@@ -22,10 +24,20 @@ export default class List extends Component {
 
     static defaultProps = {
         data: null,
+        openEditor: () => { },
     };
 
     static propTypes = {
-        data: PropTypes.object.isRequired,
+        data: PropTypes.array.isRequired,
+        openEditor: PropTypes.func.isRequired,
+    };
+
+    getDataSource = () => {
+        var ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+
+        return ds.cloneWithRows(this.props.data.stories);
     };
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
@@ -40,30 +52,57 @@ export default class List extends Component {
                 </View>
                 {
                     !!data.images && <View style={styles.right}>
-                        <Image
-                            source={{ uri: data.images[0] }}
-                            style={styles.rightImg}
-                            />
+                        <Image source={{ uri: data.images[0] }} style={styles.rightImg} />
                     </View>
                 }
             </Touch>
         </View>
     );
 
-    getDataSource = () => {
-        var ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-        return ds.cloneWithRows(this.props.data.stories);
-    };
-
+    // 列表头
     renderHeader = () => (
-        <View style={{ marginBottom: 20 }}>
-            <Slide data={this.props.data.top_stories} />
+        <View style={{ marginBottom: 10 }}>
+            <Touch
+                style={pice.contanter}
+                activeOpacity={0.9}
+                onPress={null}
+                >
+                <Image
+                    style={pice.contanter}
+                    source={{ uri: this.props.data.background }}
+                    />
+
+                <View style={pice.box}>
+                    <Text style={pice.text}>{
+                        this.props.data.description
+                    }</Text>
+                </View>
+            </Touch>
+
+            <View style={editor.contanter}>
+                <Text style={editor.text}>主编</Text>
+                <View style={editor.list}>{
+                    this.props.data.editors &&
+                    this.props.data.editors.map((it, index) => (
+                        <Touch
+                            style={editor.user}
+                            activeOpacity={0.8}
+                            onPress={(event) => {
+                                this.props.openEditor(event, this.props.data.editors)
+                            } }
+                            >
+                            <Image
+                                style={editor.avatar}
+                                source={{ uri: it.avatar }}
+                                />
+                        </Touch>
+                    ))
+                }</View>
+            </View>
         </View>
     );
 
+    // 列表尾
     renderFooter = () => (
         <View style={{ margin: 10 }}>
             <ActivityIndicator
@@ -81,7 +120,7 @@ export default class List extends Component {
 
     componentWillReceiveProps(nextProps) {
         this._listview &&
-        this._listview.scrollTo({ x: 0, y: 0, animated: true });
+            this._listview.scrollTo({ x: 0, y: 0, animated: true });
     }
 
     render() {
@@ -110,3 +149,4 @@ export default class List extends Component {
         );
     }
 }
+

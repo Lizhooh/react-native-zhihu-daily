@@ -16,9 +16,10 @@ import Global from '../../Global';
 import Menu from '../menu/menu';
 import Toolbar from './toolbar';
 import Home from '../home/home';
+import Other from './../other/other';
+import Api from '../../../Server/api';
 
 const window = Dimensions.get('window');
-
 
 // ## 抽屉菜单
 export default class Main extends Component {
@@ -34,10 +35,14 @@ export default class Main extends Component {
             },
 
             // 缓存数据
-            data: null,
+            menu_data: null,
+            home_data: null,
+            other_data: null,
         };
 
         this.requestAnimationFrame = requestAnimationFrame;
+        this.request.themes();
+        this.request.latest();
     }
 
     static defaultProps = {
@@ -51,17 +56,20 @@ export default class Main extends Component {
     renderMenu = () => (
         // 菜单视图
         <Menu
+            data={this.state.menu_data}
             navigator={this.props.navigator}
-            drawer={this._drawer}
             onSelectChanng={(event, id, name) => {
                 this._drawer.closeDrawer();
 
-                // this.requestAnimationFrame(() => {
-                    if(id === this.state.activeMainView.id) return;
-                    this.setState({
-                        activeMainView: { id, name }
-                    });
-                // });
+                if (id === this.state.activeMainView.id) return;
+
+                this.requestAnimationFrame(() => {
+                    this.request.theme(id);
+                });
+
+                this.setState({
+                    activeMainView: { id, name }
+                });
             } }
             />
     );
@@ -70,9 +78,32 @@ export default class Main extends Component {
         // request => update this.state.data
 
         if (this.state.activeMainView.id === -1) {
-            return <Home />
+            return <Home data={this.state.home_data} navigator={this.props.navigator} />
         }
+        else if (this.state.activeMainView.id > 0) {
+            return <Other data={this.state.other_data} navigator={this.props.navigator} />
+        }
+
         return null;
+    };
+
+    // 网络请求
+    request = {
+        themes: () => {
+            Api.themes.get().then((result) => {
+                this.setState({ menu_data: result });
+            });
+        },
+        latest: () => {
+            Api.latest.get().then((result) => {
+                this.setState({ home_data: result });
+            });
+        },
+        theme: (id) => {
+            Api.theme.get(id).then((result) => {
+                this.setState({ other_data: result });
+            });
+        }
     };
 
     componentDidMount() {

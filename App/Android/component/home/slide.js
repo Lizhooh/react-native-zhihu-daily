@@ -4,21 +4,12 @@ import {
     View,
     Text,
     Image,
-    ScrollView,
     TouchableOpacity as Touch,
     Dimensions,
 } from 'react-native';
 
 import ViewPager from 'react-native-viewpager';
 import shallowCompare from 'react-addons-shallow-compare';
-
-const data = [
-    { img: require('./img/a1.jpg'), title: '今天天气很好1', id: 1 },
-    { img: require('./img/a2.jpg'), title: '今天天气很好2', id: 2 },
-    { img: require('./img/a3.jpg'), title: '今天天气很好3', id: 3 },
-    { img: require('./img/a4.jpg'), title: '今天天气很好4', id: 4 },
-    { img: require('./img/a5.jpg'), title: '今天天气很好5', id: 5 },
-];
 
 const window = Dimensions.get('window');
 
@@ -47,14 +38,14 @@ export default class Slide extends Component {
     static propTypes = {
         height: PropTypes.number,
         width: PropTypes.number,
-        data: PropTypes.array,
+        data: PropTypes.array.isRequired
     };
 
     renderPage = (data, position) => (
         <View collapsable={true}>
             <Image
                 style={{ width: window.width, height: 220 }}
-                source={data.img}
+                source={{ uri: data.image }}
                 resizeMode="cover"
                 />
             <Touch
@@ -89,7 +80,7 @@ export default class Slide extends Component {
                     <View collapsable={true}>
                         <Image
                             style={{ width: window.width, height: 220 }}
-                            source={this.props.data[0].img}
+                            source={{ uri: this.props.data[0].image }}
                             resizeMode="cover"
                             />
                         <Touch
@@ -114,14 +105,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0, bottom: 0,
         left: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.1)',
+        backgroundColor: 'rgba(1, 1, 1, 0.2)',
     },
     title: {
         position: 'absolute',
-        bottom: 0,
+        bottom: 3,
         color: '#fff',
         fontSize: 20,
-        padding: 8,
+        padding: 10,
         paddingBottom: 18,
     },
 });

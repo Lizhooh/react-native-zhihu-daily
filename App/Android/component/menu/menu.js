@@ -20,31 +20,28 @@ export default class Menu extends Component {
         super(props);
 
         this.state = {
-            themes: [
-                { id: 13, name: '日常心理学', star: false },
-                { id: 12, name: '用户推荐日报', star: false },
-                { id: 3, name: '电影日报', star: false },
-                { id: 11, name: '不许无聊', star: false },
-                { id: 4, name: '设计日报', star: false },
-                { id: 5, name: '大公司日报', star: false },
-                { id: 6, name: '财经日报', star: false },
-                { id: 10, name: '互联网安全', star: false },
-                { id: 2, name: '开始游戏', star: false },
-                { id: 7, name: '音乐日报', star: false },
-                { id: 9, name: '动漫日报', star: false },
-                { id: 8, name: '体育日报', star: false },
-            ],
+            themes: require('./themes.json'),
             active: -1,
         };
     }
 
     static defaultProps = {
         onSelectChanng: null,
+        data: null,
     };
 
     static propTypes = {
         onSelectChanng: PropTypes.func.isRequired,
+        data: PropTypes.object,
     };
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.data) {
+            if (Array.isArray(nextProps.data.others)) {
+                this.setState({ themes: nextProps.data });
+            }
+        }
+    }
 
     render() {
         if (this.props.drawer) {
@@ -70,7 +67,6 @@ export default class Menu extends Component {
                     activeOpacity={1}
                     style={[styles.home, this.state.active === -1 && styles.active]}
                     onPress={(event) => {
-                        // if(this.state.active === -1) return;
                         this.setState({ active: -1 });
                         this.props.onSelectChanng(event, -1, '首页');
                     } }
@@ -84,13 +80,12 @@ export default class Menu extends Component {
                 </Touch>
 
                 <View style={styles.theme}>{
-                    this.state.themes.map((it, index) => (
+                    this.state.themes.others.map((it, index) => (
                         <Touch
                             style={[theme.item, this.state.active === it.id && styles.active]}
                             activeOpacity={1}
                             key={`theme-${index}`}
                             onPress={(event) => {
-                                // if(this.state.active === it.id) return;
                                 this.setState({ active: it.id });
                                 this.props.onSelectChanng(event, it.id, it.name);
                             } }
@@ -124,7 +119,6 @@ const styles = StyleSheet.create({
     },
     home: {
         height: 50,
-        // backgroundColor: '#f4f4f4',
         backgroundColor: '#fff',
         flexDirection: 'row',
         alignItems: 'center',

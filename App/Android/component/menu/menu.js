@@ -70,6 +70,7 @@ export default class Menu extends Component {
                     activeOpacity={1}
                     style={[styles.home, this.state.active === -1 && styles.active]}
                     onPress={(event) => {
+                        // if(this.state.active === -1) return;
                         this.setState({ active: -1 });
                         this.props.onSelectChanng(event, -1, '首页');
                     } }
@@ -89,6 +90,7 @@ export default class Menu extends Component {
                             activeOpacity={1}
                             key={`theme-${index}`}
                             onPress={(event) => {
+                                // if(this.state.active === it.id) return;
                                 this.setState({ active: it.id });
                                 this.props.onSelectChanng(event, it.id, it.name);
                             } }

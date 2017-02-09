@@ -10,7 +10,7 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-// import shallowCompare from 'react-addons-shallow-compare';
+import shallowCompare from 'react-addons-shallow-compare';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Global from '../../Global';
 import Menu from '../menu/menu';
@@ -56,11 +56,12 @@ export default class Main extends Component {
             onSelectChanng={(event, id, name) => {
                 this._drawer.closeDrawer();
 
-                this.requestAnimationFrame(() => {
+                // this.requestAnimationFrame(() => {
+                    if(id === this.state.activeMainView.id) return;
                     this.setState({
                         activeMainView: { id, name }
                     });
-                });
+                // });
             } }
             />
     );
@@ -83,9 +84,9 @@ export default class Main extends Component {
     }
 
     // 性能优化
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return shallowCompare(this, nextProps, nextState);
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     get title() {
         return this.state.activeMainView.name;

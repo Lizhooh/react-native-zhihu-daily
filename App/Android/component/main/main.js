@@ -54,7 +54,10 @@ export default class Main extends Component {
                 this.setState({
                     activeMainView: { id, name }
                 }, () => {
-                    this._drawer.closeDrawer();
+                    // 异步调度
+                    setTimeout(() => {
+                        this._drawer.closeDrawer();
+                    }, 50);
                 });
             } }
             />
@@ -65,7 +68,10 @@ export default class Main extends Component {
 
         // if (!this.state.data) return null;
 
-        return <Home />
+        if(this.state.activeMainView.id === -1) {
+            return <Home />
+        }
+        return null;
     };
 
     componentDidMount() {
@@ -93,18 +99,18 @@ export default class Main extends Component {
                         onActionSelected={null}
                         />
 
-                    <View>
+                    <View style={{ flex: 1 }}>
                         {/* 用来覆盖 */}
                         <View style={styles.otherToolbar}>
                             <Text style={styles.otherToolbarText}>{
                                 this.state.activeMainView.name
                             }</Text>
                         </View>
-
                         {
                             // 根据 activeMainView 来渲染主视图
                             this.renderMainView(this.state.activeMainView)
                         }
+
                     </View>
 
                 </DrawerLayoutAndroid>

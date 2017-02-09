@@ -12,7 +12,8 @@
     "react-addons-shallow-compare": "^15.4.1",
     "react-native": "0.41.2",
     "react-native-fence-html": "^1.0.6",
-    "react-native-vector-icons": "^3.0.0"
+    "react-native-vector-icons": "^3.0.0",
+    "react-native-viewpager": "^0.2.13"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
@@ -22,9 +23,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
   }
 }

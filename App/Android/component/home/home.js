@@ -4,9 +4,11 @@ import {
     View,
     Text,
     Image,
+    Dimensions,
 } from 'react-native';
 
 import Slide from './slide';
+const window = Dimensions.get('window');
 
 export default class Home extends Component {
 
@@ -17,7 +19,7 @@ export default class Home extends Component {
     render() {
         return (
             <View style={styles.contanter}>
-                <Slide style={styles.slide} />
+                <Slide />
             </View>
         );
     }
@@ -27,8 +29,13 @@ const styles = StyleSheet.create({
     contanter: {
         flex: 1,
     },
-    slide: {
-        height: 200,
-    }
+    title: {
+        position: 'absolute',
+        bottom: 20,
+        color: '#fff',
+        fontSize: 20,
+        padding: 8,
+        paddingBottom: 0,
+    },
 });
 

@@ -6,15 +6,20 @@ import {
     Image,
     ScrollView,
     TouchableOpacity as Touch,
+    Dimensions,
 } from 'react-native';
 
+import ViewPager from 'react-native-viewpager';
+
 const data = [
-    { img: '', title: '今天天气很好1', id: 1 },
-    { img: '', title: '今天天气很好2', id: 2 },
-    { img: '', title: '今天天气很好3', id: 3 },
-    { img: '', title: '今天天气很好4', id: 4 },
-    { img: '', title: '今天天气很好5', id: 5 },
+    { img: require('./img/a1.jpg'), title: '今天天气很好1', id: 1 },
+    // { img: require('./img/a2.jpg'), title: '今天天气很好2', id: 2 },
+    // { img: require('./img/a3.jpg'), title: '今天天气很好3', id: 3 },
+    // { img: require('./img/a4.jpg'), title: '今天天气很好4', id: 4 },
+    // { img: require('./img/a5.jpg'), title: '今天天气很好5', id: 5 },
 ];
+
+const window = Dimensions.get('window');
 
 
 // 轮播图，幻灯片
@@ -22,41 +27,66 @@ export default class Slide extends Component {
 
     constructor(props) {
         super(props);
+
+        var dataSource = new ViewPager.DataSource({
+            pageHasChanged: (p1, p2) => p1 !== p2,
+        });
+
+        this.state = {
+            dataSource: dataSource.cloneWithPages(data),
+        };
     }
+
+    static defaultProps = {
+        height: 220,
+        width: window.width,
+    };
+
+    static propTypes = {
+        height: PropTypes.number,
+        width: PropTypes.number,
+    };
+
+    renderPage = (data, position) => (
+        <View>
+            <Image
+                style={{ width: window.width, height: 220 }}
+                source={data.img}
+                resizeMode="cover"
+                />
+            <View style={styles.shade}>
+                <Text style={styles.title}>
+                    {data.title}
+                </Text>
+            </View>
+        </View>
+    );
 
     render() {
         return (
-            <View style={styles.contanter}>
-                <ScrollView
-                    ref="scrollView"
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    removeClippedSubviews={!true}
-                    keyboardDismissMode="on-drag"
-                    keyboardShouldPersistTaps="always"
-                    horizontal={true}
-                    pagingEnabled={true}
-                    onScrollBeginDrag={null}
-                    onScrollEndDrag={(event) => {
-                        let offset = event.nativeEvent.contentOffset;
-                        let width = this.props.width, x = this.state.x;
-
-                        // this.setState({
-                        //     x: Math.floor(offset.x / width) * width
-                        // }, () => this.timingStart());
-                    } }
-                    >{
-                        data.map((item, index) => {
-                            <View style={{ flex: 1 }}>
-                                <Image
-                                    source={{uri: 'http://a.hiphotos.baidu.com/image/pic/item/8601a18b87d6277f1ee195d42c381f30e824fc6f.jpg'}}
-                                    style={{ height: 200, width: 200 }}
-                                    />
-                            </View>
-                        })
-                    }
-                </ScrollView>
-            </View>
+            <View style={{ height: this.props.height, width: this.props.width }}>{
+                data.length > 1 ?
+                    <ViewPager
+                        dataSource={this.state.dataSource}
+                        renderPage={this.renderPage}
+                        isLoop={true}
+                        autoPlay={true}
+                        time={7000}
+                        />
+                    :
+                    <View collapsable={true}>
+                        <Image
+                            style={{ width: window.width, height: 220 }}
+                            source={data[0].img}
+                            resizeMode="cover"
+                            />
+                        <View style={styles.shade}>
+                            <Text style={styles.title}>
+                                {data[0].title}
+                            </Text>
+                        </View>
+                    </View>
+            }</View>
         );
     }
 }
@@ -64,6 +94,20 @@ export default class Slide extends Component {
 const styles = StyleSheet.create({
     contanter: {
         flex: 1,
+    },
+    shade: {
+        position: 'absolute',
+        top: 0, bottom: 0,
+        left: 0, right: 0,
+        backgroundColor: 'rgba(1, 1, 1, 0.2)',
+    },
+    title: {
+        position: 'absolute',
+        bottom: 0,
+        color: '#fff',
+        fontSize: 20,
+        padding: 8,
+        paddingBottom: 18,
     },
 });
 

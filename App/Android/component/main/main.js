@@ -10,14 +10,15 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
+import shallowCompare from 'react-addons-shallow-compare';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Global from '../../Global';
 import Menu from '../menu/menu';
 import Toolbar from './toolbar';
 import Home from '../home/home';
 
-// 全局变量，主题颜色
 const window = Dimensions.get('window');
+
 
 // ## 抽屉菜单
 export default class Main extends Component {
@@ -49,15 +50,14 @@ export default class Main extends Component {
         // 菜单视图
         <Menu
             navigator={this.props.navigator}
+            drawer={this._drawer}
             onSelectChanng={(event, id, name) => {
-                // ok
-                this.setState({
-                    activeMainView: { id, name }
-                }, () => {
-                    // 异步调度
-                    setTimeout(() => {
-                        this._drawer.closeDrawer();
-                    }, 50);
+                this._drawer.closeDrawer();
+
+                requestAnimationFrame(() => {
+                    this.setState({
+                        activeMainView: { id, name }
+                    });
                 });
             } }
             />
@@ -66,9 +66,7 @@ export default class Main extends Component {
     renderMainView = (data) => {
         // request => update this.state.data
 
-        // if (!this.state.data) return null;
-
-        if(this.state.activeMainView.id === -1) {
+        if (this.state.activeMainView.id === -1) {
             return <Home />
         }
         return null;
@@ -80,6 +78,11 @@ export default class Main extends Component {
 
     componentWillUnmount() {
         this._drawer.closeDrawer();
+    }
+
+    // 性能优化
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
     }
 
     render() {
@@ -106,6 +109,7 @@ export default class Main extends Component {
                                 this.state.activeMainView.name
                             }</Text>
                         </View>
+
                         {
                             // 根据 activeMainView 来渲染主视图
                             this.renderMainView(this.state.activeMainView)

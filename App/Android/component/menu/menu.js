@@ -6,6 +6,7 @@ import {
     Image,
     TouchableOpacity as Touch,
     ScrollView,
+    InteractionManager,
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -45,6 +46,10 @@ export default class Menu extends Component {
     };
 
     render() {
+        if (this.props.drawer) {
+            this._drawer = this.props.drawer;
+        }
+
         return (
             <ScrollView
                 style={styles.contanter}

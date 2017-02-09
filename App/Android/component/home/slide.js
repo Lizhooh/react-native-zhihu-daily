@@ -10,13 +10,14 @@ import {
 } from 'react-native';
 
 import ViewPager from 'react-native-viewpager';
+import shallowCompare from 'react-addons-shallow-compare';
 
 const data = [
     { img: require('./img/a1.jpg'), title: '今天天气很好1', id: 1 },
-    // { img: require('./img/a2.jpg'), title: '今天天气很好2', id: 2 },
-    // { img: require('./img/a3.jpg'), title: '今天天气很好3', id: 3 },
-    // { img: require('./img/a4.jpg'), title: '今天天气很好4', id: 4 },
-    // { img: require('./img/a5.jpg'), title: '今天天气很好5', id: 5 },
+    { img: require('./img/a2.jpg'), title: '今天天气很好2', id: 2 },
+    { img: require('./img/a3.jpg'), title: '今天天气很好3', id: 3 },
+    { img: require('./img/a4.jpg'), title: '今天天气很好4', id: 4 },
+    { img: require('./img/a5.jpg'), title: '今天天气很好5', id: 5 },
 ];
 
 const window = Dimensions.get('window');
@@ -33,58 +34,72 @@ export default class Slide extends Component {
         });
 
         this.state = {
-            dataSource: dataSource.cloneWithPages(data),
+            dataSource: dataSource.cloneWithPages(this.props.data),
         };
     }
 
     static defaultProps = {
         height: 220,
         width: window.width,
+        data: [],
     };
 
     static propTypes = {
         height: PropTypes.number,
         width: PropTypes.number,
+        data: PropTypes.array,
     };
 
     renderPage = (data, position) => (
-        <View>
+        <View collapsable={true}>
             <Image
                 style={{ width: window.width, height: 220 }}
                 source={data.img}
                 resizeMode="cover"
                 />
-            <View style={styles.shade}>
+            <Touch
+                activeOpacity={0.7}
+                style={styles.shade}
+                onPress={null}
+                >
                 <Text style={styles.title}>
                     {data.title}
                 </Text>
-            </View>
+            </Touch>
         </View>
     );
+
+    // 性能优化
+    shouldComponentUpdate(nextProps, nextState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
 
     render() {
         return (
             <View style={{ height: this.props.height, width: this.props.width }}>{
-                data.length > 1 ?
+                this.props.data.length > 1 ?
                     <ViewPager
                         dataSource={this.state.dataSource}
                         renderPage={this.renderPage}
                         isLoop={true}
                         autoPlay={true}
-                        time={7000}
+                        time={6000}
                         />
                     :
                     <View collapsable={true}>
                         <Image
                             style={{ width: window.width, height: 220 }}
-                            source={data[0].img}
+                            source={this.props.data[0].img}
                             resizeMode="cover"
                             />
-                        <View style={styles.shade}>
+                        <Touch
+                            style={styles.shade}
+                            onPress={null}
+                            >
                             <Text style={styles.title}>
-                                {data[0].title}
+                                {this.props.data[0].title}
                             </Text>
-                        </View>
+                        </Touch>
                     </View>
             }</View>
         );
@@ -99,7 +114,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0, bottom: 0,
         left: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.2)',
+        backgroundColor: 'rgba(1, 1, 1, 0.1)',
     },
     title: {
         position: 'absolute',

@@ -22,10 +22,12 @@ export default class List extends Component {
 
     static defaultProps = {
         data: null,
+        openArticle: () => { },
     };
 
     static propTypes = {
         data: PropTypes.object.isRequired,
+        openArticle: PropTypes.func.isRequired,
     };
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
@@ -33,7 +35,7 @@ export default class List extends Component {
             <Touch
                 activeOpacity={0.7}
                 style={styles.touch}
-                onPress={null}
+                onPress={(event) => this.props.openArticle(event, data.id)}
                 >
                 <View style={styles.left}>
                     <Text style={styles.leftTitle}>{data.title}</Text>
@@ -81,7 +83,7 @@ export default class List extends Component {
 
     componentWillReceiveProps(nextProps) {
         this._listview &&
-        this._listview.scrollTo({ x: 0, y: 0, animated: true });
+            this._listview.scrollTo({ x: 0, y: 0, animated: true });
     }
 
     render() {

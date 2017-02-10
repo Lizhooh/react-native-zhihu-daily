@@ -44,6 +44,13 @@ export default class Home extends Component {
             <View style={styles.contanter}>
                 <List
                     data={this.state.data}
+                    openArticle={(event, id) => {
+                        this.props.navigator.push({
+                            id: 2,
+                            title: '文章',
+                            data: { id },
+                        })
+                    } }
                     />
             </View>
         );

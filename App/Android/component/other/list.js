@@ -25,11 +25,13 @@ export default class List extends Component {
     static defaultProps = {
         data: null,
         openEditor: () => { },
+        openArticle: () => { },
     };
 
     static propTypes = {
         data: PropTypes.object.isRequired,
         openEditor: PropTypes.func.isRequired,
+        openArticle: PropTypes.func,
     };
 
     getDataSource = () => {
@@ -45,7 +47,7 @@ export default class List extends Component {
             <Touch
                 activeOpacity={0.7}
                 style={styles.touch}
-                onPress={null}
+                onPress={(event) => this.props.openArticle(event, data.id)}
                 >
                 <View style={styles.left}>
                     <Text style={styles.leftTitle}>{data.title}</Text>
@@ -62,6 +64,7 @@ export default class List extends Component {
     // 列表头
     renderHeader = () => (
         <View style={{ marginBottom: 10 }}>
+            {/* 背景图 */}
             <Touch
                 style={pice.contanter}
                 activeOpacity={0.9}
@@ -79,6 +82,7 @@ export default class List extends Component {
                 </View>
             </Touch>
 
+            {/* 主编 */}
             <View style={editor.contanter}>
                 <Text style={editor.text}>主编</Text>
                 <View style={editor.list}>{

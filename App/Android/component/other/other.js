@@ -50,6 +50,13 @@ export default class Other extends Component {
                             data: list,
                         });
                     } }
+                    openArticle={(event, id) => {
+                        this.props.navigator.push({
+                            id: 2,
+                            title: '文章',
+                            data: { id },
+                        })
+                    } }
                     />
             </View>
         );

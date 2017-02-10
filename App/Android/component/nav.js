@@ -10,6 +10,7 @@ import {
 import Main from './main/main';
 import EditorList from './editor/editor-list';
 import Editor from './editor/editor';
+import Article from './article/article';
 
 // ## 路由
 export default class Nav extends Component {
@@ -30,12 +31,16 @@ export default class Nav extends Component {
             return <Main navigator={navigator} />;
         }
 
+        if (route.id === 2 && route.title === '文章') {
+            return <Article navigator={navigator} data={route.data} />
+        }
+
         if (route.id === 5 && route.title === '主编') {
             return <EditorList navigator={navigator} data={route.data} />
         }
 
         if (route.id === 6 && route.title === '主编资料') {
-            return <Editor navigator={navigator} data={route.data}/>
+            return <Editor navigator={navigator} data={route.data} />
         }
 
         return null;

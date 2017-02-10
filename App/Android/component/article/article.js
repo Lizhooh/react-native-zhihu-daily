@@ -24,6 +24,8 @@ export default class Article extends Component {
         super(props);
 
         this.state = {
+            toolbarOpacity: 1,
+
             article_data: null,
             extra_data: {},
         };
@@ -35,6 +37,8 @@ export default class Article extends Component {
             this.request.story(id);
             this.request.storyExtra(id);
         });
+
+        this._y = 0;
     }
 
     static defaultProps = {
@@ -64,17 +68,20 @@ export default class Article extends Component {
         },
     };
 
+    // 渲染文章主体
     get renderBody() {
         const { article_data } = this.state;
         return (
             article_data &&
             <WebViewAuto
+                style={styles.webview}
                 css={article_data.css}
                 body={article_data.body}
                 />
         );
     }
 
+    // 文章头部的图片
     get renderHeader() {
         const { article_data } = this.state;
 
@@ -90,6 +97,35 @@ export default class Article extends Component {
         );
     }
 
+    scrollViewOnScroll = (event) => {
+        // 根据滚动条的变化，Toolbar 的透明度会产生变化
+        const { contentOffset: offset } = event.nativeEvent;
+        const len = 200;
+
+        if (offset.y - this._y > 0) {
+            if (offset.y <= len) {
+                this.setState({
+                    toolbarOpacity: 1 - offset.y / len,
+                });
+                this._y = offset.y;
+            }
+            // 方向向下
+            else {
+                if (this.state.toolbarOpacity > 0) {
+                    this.setState({ toolbarOpacity: 0 });
+                }
+                this._y = offset.y;
+            }
+        }
+        else if (offset.y - this._y < -50) {
+            if (this.state.toolbarOpacity < 1) {
+                this.setState({ toolbarOpacity: 1 });
+            }
+            // 缓存上次的值，用于计算方向
+            this._y = offset.y;
+        }
+    }
+
     render() {
         const { article_data, extra_data } = this.state;
 
@@ -100,6 +136,7 @@ export default class Article extends Component {
                     style={styles.body}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
+                    onScroll={this.scrollViewOnScroll}
                     >
                     {this.renderHeader}
                     {this.renderBody}
@@ -107,7 +144,7 @@ export default class Article extends Component {
 
                 <View style={{ flex: 0 }}>
                     <Toolbar
-                        style={styles.toolbar}
+                        style={[styles.toolbar, { opacity: this.state.toolbarOpacity }]}
                         onBack={this.back}
                         data={extra_data}
                         />
@@ -129,6 +166,7 @@ const styles = StyleSheet.create({
         top: -window.height + 25,
         left: 0,
         right: 0,
+        zIndex: 10,
     },
     body: {
         flex: 1,
@@ -143,4 +181,6 @@ const styles = StyleSheet.create({
         height: 220,
         width: window.width,
     },
+    webview: {
+    }
 });

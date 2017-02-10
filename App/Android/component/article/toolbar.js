@@ -29,7 +29,6 @@ export default class Toolbar extends Component {
 
     // 大于 1000 时，显示 k
     setFormat = (value) => {
-        console.log(value % 100, value % 10, value);
         if (value > 1000 && (value += '')) {
             value = value.substr(0, value.length - 2);
             return  value / 10 + 'k';

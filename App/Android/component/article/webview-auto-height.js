@@ -50,7 +50,7 @@ export default class WebviewAutoHeight extends Component {
 
         const body = this.props.body
             .replace('<div class="img-place-holder"></div>', '')
-            .replace(/\<a/g, '<span style="color: #3C96EB;"')
+            .replace(/\<a/g, '<span')
             .replace(/\<\/a\>/g, '</span>')
             ;
 
@@ -80,14 +80,14 @@ export default class WebviewAutoHeight extends Component {
                 domStorageEnabled={true}
                 javaScriptEnabled={true}
                 scalesPageToFit={false}
-                style={{ height: this.state.height }}
+                style={[{ height: this.state.height }, this.props.style]}
                 source={{ html: html }}
                 onNavigationStateChange={(document) => {
                     if (document.title) {
                         this.props.onloadHTML(document);
                         if (this.state.height === document.title) return;
                         this.setState({
-                            height: parseInt(document.title) + 50,
+                            height: parseInt(document.title) + 55,
                         });
                     }
                 } }

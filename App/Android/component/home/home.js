@@ -11,6 +11,7 @@ import Slide from './slide';
 import List from './list';
 const window = Dimensions.get('window');
 
+//  ## 首页
 export default class Home extends Component {
 
     constructor(props) {

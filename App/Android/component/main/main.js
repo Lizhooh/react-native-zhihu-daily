@@ -40,7 +40,6 @@ export default class Main extends Component {
             other_data: null,
         };
 
-        this.requestAnimationFrame = requestAnimationFrame;
         this.request.themes();
         this.request.latest();
     }
@@ -63,9 +62,11 @@ export default class Main extends Component {
 
                 if (id === this.state.activeMainView.id) return;
 
-                this.requestAnimationFrame(() => {
-                    this.request.theme(id);
-                });
+                this._timer = setTimeout(() => {
+                    id === - 1 ?
+                        this.request.themes() :
+                        this.request.theme(id);
+                }, 0);
 
                 this.setState({
                     activeMainView: { id, name }
@@ -112,6 +113,7 @@ export default class Main extends Component {
 
     componentWillUnmount() {
         this._drawer.closeDrawer();
+        this._timer && clearTimeout(this._timer);
     }
 
     // 性能优化

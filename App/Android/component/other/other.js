@@ -10,6 +10,7 @@ import {
 import List from './list';
 const window = Dimensions.get('window');
 
+// ## 除首页外的主题
 export default class Other extends Component {
 
     constructor(props) {
@@ -18,8 +19,6 @@ export default class Other extends Component {
         this.state = {
             data: this.props.data,
         };
-
-        this.requestAnimationFrame = requestAnimationFrame;
     }
 
     static defaultProps = {
@@ -44,14 +43,12 @@ export default class Other extends Component {
             <View style={styles.contanter}>
                 <List
                     data={this.state.data}
-                    openEditor={(event, list) => {
-                        this.requestAnimationFrame(() => {
-                            this.props.navigator.push({
-                                id: 5,
-                                title: '主编',
-                                data: list,
-                            });
-                        })
+                    openEditors={(event, list) => {
+                        this.props.navigator.push({
+                            id: 5,
+                            title: '主编',
+                            data: list,
+                        });
                     } }
                     />
             </View>

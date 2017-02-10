@@ -28,7 +28,7 @@ export default class List extends Component {
     };
 
     static propTypes = {
-        data: PropTypes.array.isRequired,
+        data: PropTypes.object.isRequired,
         openEditor: PropTypes.func.isRequired,
     };
 
@@ -85,10 +85,11 @@ export default class List extends Component {
                     this.props.data.editors &&
                     this.props.data.editors.map((it, index) => (
                         <Touch
+                            key={`editors-${index}`}
                             style={editor.user}
                             activeOpacity={0.8}
                             onPress={(event) => {
-                                this.props.openEditor(event, this.props.data.editors)
+                                this.props.openEditors(event, this.props.data.editors)
                             } }
                             >
                             <Image

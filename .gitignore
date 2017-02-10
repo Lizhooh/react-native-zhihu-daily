@@ -55,6 +55,11 @@ fastlane/screenshots
 # design image
 _design
 
-
 # vscode debug
 .vscode
+
+## android log
+android/*.log
+
+## android build
+android/app/build

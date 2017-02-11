@@ -8,6 +8,7 @@ import {
     TouchableOpacity as Touch,
     ActivityIndicator,
     Dimensions,
+    RefreshControl,
 } from 'react-native';
 
 import shallowCompare from 'react-addons-shallow-compare';
@@ -20,18 +21,24 @@ export default class List extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            isRefreshing: false,
+        };
     }
 
     static defaultProps = {
         data: null,
         openEditor: () => { },
         openArticle: () => { },
+        onRefresh: () => { },
     };
 
     static propTypes = {
         data: PropTypes.object.isRequired,
         openEditor: PropTypes.func.isRequired,
         openArticle: PropTypes.func,
+        onRefresh: PropTypes.func,
     };
 
     getDataSource = () => {
@@ -118,6 +125,21 @@ export default class List extends Component {
         </View>
     );
 
+    get refreshControl() {
+        return (
+            <RefreshControl
+                enabled={true}
+                refreshing={this.state.isRefreshing}
+                onRefresh={this.props.onRefresh}
+                tintColor={Global.themeColor}
+                title="Loading..."
+                titleColor={Global.themeColor}
+                colors={[Global.themeColor]}
+                progressBackgroundColor="#fff"
+                />
+        );
+    }
+
     // 性能优化
     shouldComponentUpdate(nextProps, nextState) {
         return shallowCompare(this, nextProps, nextState);
@@ -143,6 +165,8 @@ export default class List extends Component {
                     initialListSize={10}
                     pageSize={1}
                     scrollRenderAheadDistance={300}
+                    // 下拉刷新
+                    refreshControl={this.refreshControl}
                     // 滚动刷新
                     onEndReachedThreshold={500}
                     onEndReached={() => {

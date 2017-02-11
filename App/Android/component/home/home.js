@@ -25,11 +25,13 @@ export default class Home extends Component {
     static defaultProps = {
         data: null,
         navigator: null,
+        onRefresh: null,
     };
 
     static propTypes = {
         data: PropTypes.object,
         navigator: PropTypes.object,
+        onRefresh: PropTypes.func,
     };
 
     componentWillReceiveProps(nextProps) {
@@ -51,6 +53,7 @@ export default class Home extends Component {
                             data: { id },
                         })
                     } }
+                    onRefresh={this.props.onRefresh}
                     />
             </View>
         );

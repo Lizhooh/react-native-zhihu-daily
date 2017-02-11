@@ -1,7 +1,9 @@
 
-// 颜色切换，实现夜间模式
+// 颜色切换
 
 export default {
-    themeColor: 'rgba(30, 165, 255, 1)',
-    // themeColor: 'rgba(250, 165, 30, 1)',
+    // themeColor: 'rgba(30, 165, 255, 1)',
+    themeColor: 'rgba(255, 180, 50, 1)',
+    // themeColor: 'rgba(204, 130, 255, 1)',
+    // themeColor: 'rgba(51, 210, 0, 1)',
 };

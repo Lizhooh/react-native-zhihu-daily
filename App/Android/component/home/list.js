@@ -7,6 +7,7 @@ import {
     ListView,
     TouchableOpacity as Touch,
     ActivityIndicator,
+    RefreshControl,
 } from 'react-native';
 
 import shallowCompare from 'react-addons-shallow-compare';
@@ -18,16 +19,22 @@ export default class List extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            isRefreshing: false,
+        };
     }
 
     static defaultProps = {
         data: null,
         openArticle: () => { },
+        onRefresh: () => { },
     };
 
     static propTypes = {
         data: PropTypes.object.isRequired,
         openArticle: PropTypes.func.isRequired,
+        onRefresh: PropTypes.func,
     };
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
@@ -41,6 +48,7 @@ export default class List extends Component {
                     <Text style={styles.leftTitle}>{data.title}</Text>
                 </View>
                 {
+                    // 右边的小图片
                     !!data.images && <View style={styles.right}>
                         <Image
                             source={{ uri: data.images[0] }}
@@ -89,6 +97,21 @@ export default class List extends Component {
             this._listview.scrollTo({ x: 0, y: 0, animated: true });
     }
 
+    get refreshControl() {
+        return (
+            <RefreshControl
+                enabled={true}
+                refreshing={this.state.isRefreshing}
+                onRefresh={this.props.onRefresh}
+                tintColor={Global.themeColor}
+                title="Loading..."
+                titleColor={Global.themeColor}
+                colors={[Global.themeColor]}
+                progressBackgroundColor="#fff"
+                />
+        );
+    }
+
     render() {
         return (
             <View style={styles.contanter}>
@@ -104,6 +127,8 @@ export default class List extends Component {
                     initialListSize={10}
                     pageSize={1}
                     scrollRenderAheadDistance={300}
+                    // 下拉刷新
+                    refreshControl={this.refreshControl}
                     // 滚动刷新
                     onEndReachedThreshold={500}
                     onEndReached={() => {

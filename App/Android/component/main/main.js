@@ -29,7 +29,7 @@ export default class Main extends Component {
 
         this.state = {
             // -1 是首页, 其他为主题的 id
-            activeMainView: {
+            activeMain: {
                 id: -1,
                 name: '首页',
             },
@@ -60,7 +60,7 @@ export default class Main extends Component {
             onSelectChanng={(event, id, name) => {
                 this._drawer.closeDrawer();
 
-                if (id === this.state.activeMainView.id) return;
+                if (id === this.state.activeMain.id) return;
 
                 this._timer = setTimeout(() => {
                     id === - 1 ?
@@ -69,24 +69,31 @@ export default class Main extends Component {
                 }, 0);
 
                 this.setState({
-                    activeMainView: { id, name }
+                    activeMain: { id, name }
                 });
             } }
             />
     );
 
-    renderMainView = (data) => {
-        // request => update this.state.data
-
-        if (this.state.activeMainView.id === -1) {
-            return <Home data={this.state.home_data} navigator={this.props.navigator} />
-        }
-        else if (this.state.activeMainView.id > 0) {
-            return <Other data={this.state.other_data} navigator={this.props.navigator} />
-        }
-
-        return null;
-    };
+    renderMainView = (data) => (
+        this.state.activeMain.id === -1 ?
+            <Home
+                data={this.state.home_data}
+                navigator={this.props.navigator}
+                onRefresh={(event) => {
+                    this.request.latest();
+                } }
+                />
+            :
+            <Other
+                data={this.state.other_data}
+                navigator={this.props.navigator}
+                onRefresh={(event) => {
+                    const id = this.state.activeMain.id;
+                    id > 0 && this.request.theme(id);
+                } }
+                />
+    );
 
     // 网络请求
     request = {
@@ -121,10 +128,6 @@ export default class Main extends Component {
         return shallowCompare(this, nextProps, nextState);
     }
 
-    get title() {
-        return this.state.activeMainView.name;
-    };
-
     render() {
         return (
             <View style={styles.contanter}>
@@ -137,22 +140,22 @@ export default class Main extends Component {
                     >
 
                     <Toolbar
-                        isHome={this.state.activeMainView.id === -1}
+                        isHome={this.state.activeMain.id === -1}
                         onIconClicked={() => this._drawer.openDrawer()}
                         onActionSelected={null}
                         />
 
                     <View style={{ flex: 1 }}>
-                        {/* 用来覆盖 */}
+                        {/* 用来覆盖 Toolbar */}
                         <View style={styles.otherToolbar}>
                             <Text style={styles.otherToolbarText}>{
-                                this.title
+                                this.state.activeMain.name
                             }</Text>
                         </View>
 
                         {
-                            // 根据 activeMainView 来渲染主视图
-                            this.renderMainView(this.state.activeMainView)
+                            // 根据 activeMain 来渲染主视图
+                            this.renderMainView(this.state.activeMain)
                         }
 
                     </View>

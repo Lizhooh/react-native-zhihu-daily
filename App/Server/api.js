@@ -3,7 +3,7 @@ import React from 'react';
 import ReactNative from 'react-native';
 
 const version = 4;
-const protocol = 'http';
+const protocol = 'http'; // or https
 
 const themes = {
     url: `${protocol}://news-at.zhihu.com/api/${version}/themes`,
@@ -41,11 +41,37 @@ const theme = {
     }
 };
 
+const story = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/story/`,
+    get(id) {
+        return fetch(this.url + id)
+            .then(res => res.json())
+            .then(jsondata => {
+                return jsondata;
+            })
+            .catch(err => console.error("story api Error: " + err))
+    }
+};
+
+const storyExtra = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/story-extra/`,
+    get(id) {
+        return fetch(this.url + id)
+            .then(res => res.json())
+            .then(jsondata => {
+                return jsondata;
+            })
+            .catch(err => console.error("storyExtra api Error: " + err))
+    }
+};
+
 const Api = {
     themes,
     latest,
     theme,
-}
+    story,
+    storyExtra,
+};
 
 export default Api;
 

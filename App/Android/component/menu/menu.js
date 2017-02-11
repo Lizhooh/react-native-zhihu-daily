@@ -20,6 +20,7 @@ export default class Menu extends Component {
         super(props);
 
         this.state = {
+            // 默认
             themes: require('./themes.json'),
             active: -1,
         };

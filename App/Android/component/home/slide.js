@@ -33,12 +33,14 @@ export default class Slide extends Component {
         height: 220,
         width: window.width,
         data: [],
+        onPress: () => { },
     };
 
     static propTypes = {
         height: PropTypes.number,
         width: PropTypes.number,
-        data: PropTypes.array.isRequired
+        data: PropTypes.array.isRequired,
+        onPress: PropTypes.func,
     };
 
     renderPage = (data, position) => (
@@ -51,7 +53,7 @@ export default class Slide extends Component {
             <Touch
                 activeOpacity={0.7}
                 style={styles.shade}
-                onPress={null}
+                onPress={(event) => this.props.onPress(event, data.id)}
                 >
                 <Text style={styles.title}>
                     {data.title}

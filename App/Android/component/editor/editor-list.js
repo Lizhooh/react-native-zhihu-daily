@@ -44,7 +44,7 @@ export default class EditorList extends Component {
 
     render() {
         return (
-            <View style={styles.contaner}>
+            <View style={styles.contanier}>
 
                 <Toolbar title="主编" onBack={this.back} />
 
@@ -76,7 +76,7 @@ export default class EditorList extends Component {
 }
 
 const styles = StyleSheet.create({
-    contaner: {
+    contanier: {
         flex: 1,
         backgroundColor: '#fff',
     },

@@ -62,7 +62,10 @@ export default class List extends Component {
 
     renderHeader = () => (
         <View style={{ marginBottom: 20 }}>
-            <Slide data={this.props.data.top_stories} />
+            <Slide
+                data={this.props.data.top_stories}
+                onPress={this.props.openArticle}
+                />
         </View>
     );
 

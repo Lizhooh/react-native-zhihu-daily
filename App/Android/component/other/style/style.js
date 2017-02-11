@@ -45,7 +45,7 @@ const pice = StyleSheet.create({
     contanter: {
         width: window.width,
         height: 220,
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(1, 1, 1, 0.7)',
     },
     box: {
         position: 'absolute',

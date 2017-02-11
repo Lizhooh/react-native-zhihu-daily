@@ -51,7 +51,7 @@ export default class Editor extends Component {
 
     render() {
         return (
-            <View style={styles.contaner}>
+            <View style={styles.contanier}>
                 <Toolbar title="主编资料" onBack={this.back} />
                 <WebView source={{ uri: this.state.url }} />
             </View>
@@ -60,7 +60,7 @@ export default class Editor extends Component {
 }
 
 const styles = StyleSheet.create({
-    contaner: {
+    contanier: {
         flex: 1,
         backgroundColor: '#fff',
     },

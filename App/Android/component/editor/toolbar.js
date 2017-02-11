@@ -37,7 +37,7 @@ export default class Editor extends Component {
                     <MaterialIcons
                         name="arrow-back"
                         color="#fff"
-                        size={28}
+                        size={26}
                         />
                 </Touch>
 
@@ -52,9 +52,6 @@ export default class Editor extends Component {
 }
 
 const styles = StyleSheet.create({
-    contaner: {
-        flex: 1,
-    },
     toolbar: {
         height: 55,
         backgroundColor: Global.themeColor,

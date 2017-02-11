@@ -166,6 +166,7 @@ export default class Main extends Component {
 const styles = StyleSheet.create({
     contanter: {
         flex: 1,
+        backgroundColor: '#fff',
     },
     toolbar: {
         height: 55,
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     },
     otherToolbarText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 18,
         marginLeft: 60,
         fontWeight: '100',
     }

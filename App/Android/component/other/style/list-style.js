@@ -39,6 +39,25 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 2,
     },
+    multipic: {
+        position: 'absolute',
+        bottom: 0, right: 0,
+        backgroundColor: 'rgba(1, 1, 1, 0.6)',
+        flexDirection: 'row',
+        padding: 3,
+        alignItems: 'center',
+    },
+    multipicText: {
+        fontSize: 11,
+        color: '#fff',
+        marginLeft: 3,
+        textShadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        textShadowRadius: 1,
+        textShadowColor: 'rgba(1, 1, 1, 0.6)',
+    },
 });
 
 const pice = StyleSheet.create({

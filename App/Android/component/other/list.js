@@ -60,8 +60,26 @@ export default class List extends Component {
                     <Text style={styles.leftTitle}>{data.title}</Text>
                 </View>
                 {
-                    !!data.images && <View style={styles.right}>
-                        <Image source={{ uri: data.images[0] }} style={styles.rightImg} />
+                    !!data.images &&
+                    <View style={styles.right}>
+                        <Image
+                            style={styles.rightImg}
+                            source={{ uri: data.images[0] }}
+                            />
+                        {
+                            // 多图
+                            data.multipic &&
+                            <View style={styles.multipic}>
+                                <MaterialIcons
+                                    name="filter-none"
+                                    size={11}
+                                    color="#fff"
+                                    />
+                                <Text style={styles.multipicText}>
+                                    多图
+                                </Text>
+                            </View>
+                        }
                     </View>
                 }
             </Touch>

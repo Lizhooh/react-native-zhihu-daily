@@ -9,6 +9,7 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Global from '../../Global';
 
+// ## 文章工具栏
 export default class Toolbar extends Component {
 
     constructor(props) {

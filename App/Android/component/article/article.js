@@ -20,6 +20,7 @@ import { styles } from './style/article-style';
 
 const window = Dimensions.get('window');
 
+// 文章
 export default class Article extends Component {
 
     constructor(props) {

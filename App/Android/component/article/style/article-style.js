@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         paddingTop: 53,
+        backgroundColor: '#fff',
     },
     header: {
         height: 220,
@@ -32,28 +33,6 @@ const styles = StyleSheet.create({
         width: window.width,
     },
     webview: {
-    },
-
-    recommenders: {
-        height: 60,
-        backgroundColor: '#efefef',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        marginBottom: 10,
-    },
-    text: {
-        color: '#333',
-    },
-    box: {
-        paddingHorizontal: 10,
-        flexDirection: 'row',
-        flex: 1,
-    },
-    avatar: {
-        width: 30,
-        height: 30,
-        borderRadius: 30,
     },
 });
 

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     contanter: {
         flex: 1,
-        backgroundColor: '#f4f4f4',
+        backgroundColor: '#f1f1f1',
     },
     box: {
         backgroundColor: '#ddd',

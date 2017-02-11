@@ -10,6 +10,7 @@ import {
 
 const window = Dimensions.get('window');
 
+// ## 文章的头部
 export default class Header extends Component {
 
     constructor(props) {
@@ -75,11 +76,32 @@ export default class Header extends Component {
 }
 
 const styles = StyleSheet.create({
+    recommenders: {
+        height: 60,
+        backgroundColor: '#efefef',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        marginBottom: 10,
+    },
+    text: {
+        color: '#333',
+    },
+    box: {
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        flex: 1,
+    },
+    avatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 30,
+    },
     shade: {
         position: 'absolute',
         top: 0, bottom: 0,
         left: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.35)',
+        backgroundColor: 'rgba(1, 1, 1, 0.3)',
         justifyContent: 'flex-end',
         padding: 10,
     },

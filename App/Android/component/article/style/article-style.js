@@ -20,16 +20,16 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        paddingTop: 53,
+        paddingTop: 50,
         backgroundColor: '#fff',
     },
     header: {
-        height: 220,
+        height: 230,
         width: window.width,
         backgroundColor: 'rgba(1, 1, 1, 0.05)',
     },
     image: {
-        height: 220,
+        height: 230,
         width: window.width,
     },
     webview: {

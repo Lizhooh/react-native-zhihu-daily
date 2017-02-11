@@ -78,7 +78,7 @@ export default class Article extends Component {
             data &&
             <WebViewAuto
                 style={styles.webview}
-                css={data.css}
+                css={data.style}
                 body={data.body}
                 />
         );
@@ -103,7 +103,7 @@ export default class Article extends Component {
                 });
                 this._y = offset.y;
             }
-            else {
+            else if (offset.y - this._y > 0) {
                 if (this.state.toolbarOpacity > 0) {
                     this.setState({ toolbarOpacity: 0 });
                 }
@@ -136,6 +136,7 @@ export default class Article extends Component {
                     {this.renderBody}
                 </ScrollView>
 
+                {/* 实现浮动效果，必须把要浮动的组件放在后面 */}
                 <View style={{ flex: 0 }}>
                     <Toolbar
                         style={[styles.toolbar, { opacity: this.state.toolbarOpacity }]}

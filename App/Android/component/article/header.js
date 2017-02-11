@@ -77,12 +77,12 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
     recommenders: {
-        height: 60,
-        backgroundColor: '#efefef',
+        height: 65,
+        backgroundColor: '#f1f1f1',
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 20,
-        marginBottom: 10,
+        marginBottom: 3,
     },
     text: {
         color: '#333',

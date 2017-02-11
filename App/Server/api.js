@@ -47,7 +47,20 @@ const story = {
         return fetch(this.url + id)
             .then(res => res.json())
             .then(jsondata => {
-                return jsondata;
+                jsondata.style = '';
+
+                if (Array.isArray(jsondata.css) && jsondata.css.length > 0) {
+                    return fetch(jsondata.css[0])
+                        .then(res => res.text())
+                        .then(css => {
+                            jsondata.style = css;
+
+                            return jsondata;
+                        });
+                }
+                else {
+                    return jsondata;
+                }
             })
             .catch(err => console.error("story api Error: " + err))
     }

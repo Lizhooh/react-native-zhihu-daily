@@ -63,7 +63,7 @@ export default class WebviewAutoHeight extends Component {
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
                 ${css}
             </head>
-            <body>
+            <body style="background-color: #fff">
                 ${body}
                 <script>
                     window.onload = function() {
@@ -87,7 +87,7 @@ export default class WebviewAutoHeight extends Component {
                         this.props.onloadHTML(document);
                         if (this.state.height === document.title) return;
                         this.setState({
-                            height: parseInt(document.title) + 55,
+                            height: parseInt(document.title) + 60,
                         });
                     }
                 } }

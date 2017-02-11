@@ -15,6 +15,7 @@ import Global from '../../Global';
 import Toolbar from './toolbar';
 import Api from '../../../Server/api';
 import WebViewAuto from './webview-auto-height';
+import { styles } from './style/style';
 
 const window = Dimensions.get('window');
 
@@ -79,29 +80,55 @@ export default class Article extends Component {
                 body={article_data.body}
                 />
         );
-    }
+    };
 
-    // 文章头部的图片
+    // 文章头部
     get renderHeader() {
-        const { article_data } = this.state;
+        const { article_data: data } = this.state;
+        if (!data) return;
 
         return (
-            article_data &&
-            article_data.image &&
-            <View style={styles.header}>
-                <Image
-                    style={{ width: window.width, height: 220 }}
-                    source={{ uri: article_data.image }}
-                    />
+            <View>
+                {
+                    data.image &&
+                    <View style={styles.header}>
+                        <Image
+                            style={{ width: window.width, height: 220 }}
+                            source={{ uri: data.image }}
+                            />
+                    </View>
+                }
+                {
+                    data.recommenders &&
+                    <View style={styles.recommenders}>
+                        <Text style={styles.text}>
+                            推荐者
+                        </Text>
+                        <View style={styles.box}>{
+                            data.recommenders.map((it, index) => (
+                                <View
+                                    key={`recommenders-${index}`}
+                                    style={[styles.avatar, { margin: 5 }]}
+                                    >
+                                    <Image
+                                        source={{ uri: it.avatar }}
+                                        style={styles.avatar}
+                                        />
+                                </View>
+                            ))
+                        }</View>
+                    </View>
+                }
             </View>
         );
-    }
+    };
 
+    // 根据滚动条的变化，Toolbar 的透明度会产生变化
     scrollViewOnScroll = (event) => {
-        // 根据滚动条的变化，Toolbar 的透明度会产生变化
         const { contentOffset: offset } = event.nativeEvent;
         const len = 200;
 
+        // 方向向下
         if (offset.y - this._y > 0) {
             if (offset.y <= len) {
                 this.setState({
@@ -109,7 +136,6 @@ export default class Article extends Component {
                 });
                 this._y = offset.y;
             }
-            // 方向向下
             else {
                 if (this.state.toolbarOpacity > 0) {
                     this.setState({ toolbarOpacity: 0 });
@@ -117,7 +143,8 @@ export default class Article extends Component {
                 this._y = offset.y;
             }
         }
-        else if (offset.y - this._y < -50) {
+        // 方向向上
+        else if (offset.y - this._y < -80) {
             if (this.state.toolbarOpacity < 1) {
                 this.setState({ toolbarOpacity: 1 });
             }
@@ -127,7 +154,7 @@ export default class Article extends Component {
     }
 
     render() {
-        const { article_data, extra_data } = this.state;
+        const { extra_data } = this.state;
 
         return (
             <View style={styles.contanier}>
@@ -155,32 +182,3 @@ export default class Article extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    contanier: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    // 实现浮动层
-    toolbar: {
-        position: 'absolute',
-        top: -window.height + 25,
-        left: 0,
-        right: 0,
-        zIndex: 10,
-    },
-    body: {
-        flex: 1,
-        paddingTop: 50,
-    },
-    header: {
-        height: 220,
-        width: window.width,
-        backgroundColor: 'rgba(1, 1, 1, 0.05)',
-    },
-    image: {
-        height: 220,
-        width: window.width,
-    },
-    webview: {
-    }
-});

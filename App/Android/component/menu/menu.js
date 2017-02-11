@@ -6,7 +6,6 @@ import {
     Image,
     TouchableOpacity as Touch,
     ScrollView,
-    InteractionManager,
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';

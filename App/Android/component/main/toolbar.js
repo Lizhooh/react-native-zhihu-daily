@@ -2,9 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import {
     StyleSheet,
     View,
-    DrawerLayoutAndroid,
-    Dimensions,
-    Image,
     Text,
     ToolbarAndroid,
     TouchableOpacity as Touch,

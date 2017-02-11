@@ -5,7 +5,6 @@ import {
     Text,
     Image,
     TouchableOpacity as Touch,
-    Dimensions,
     PixelRatio,
     InteractionManager,
 } from 'react-native';

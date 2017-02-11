@@ -15,7 +15,8 @@ import Global from '../../Global';
 import Toolbar from './toolbar';
 import Api from '../../../Server/api';
 import WebViewAuto from './webview-auto-height';
-import { styles } from './style/style';
+import Header from './header';
+import { styles } from './style/article-style';
 
 const window = Dimensions.get('window');
 
@@ -71,13 +72,13 @@ export default class Article extends Component {
 
     // 渲染文章主体
     get renderBody() {
-        const { article_data } = this.state;
+        const { article_data: data } = this.state;
         return (
-            article_data &&
+            data &&
             <WebViewAuto
                 style={styles.webview}
-                css={article_data.css}
-                body={article_data.body}
+                css={data.css}
+                body={data.body}
                 />
         );
     };
@@ -85,42 +86,7 @@ export default class Article extends Component {
     // 文章头部
     get renderHeader() {
         const { article_data: data } = this.state;
-        if (!data) return;
-
-        return (
-            <View>
-                {
-                    data.image &&
-                    <View style={styles.header}>
-                        <Image
-                            style={{ width: window.width, height: 220 }}
-                            source={{ uri: data.image }}
-                            />
-                    </View>
-                }
-                {
-                    data.recommenders &&
-                    <View style={styles.recommenders}>
-                        <Text style={styles.text}>
-                            推荐者
-                        </Text>
-                        <View style={styles.box}>{
-                            data.recommenders.map((it, index) => (
-                                <View
-                                    key={`recommenders-${index}`}
-                                    style={[styles.avatar, { margin: 5 }]}
-                                    >
-                                    <Image
-                                        source={{ uri: it.avatar }}
-                                        style={styles.avatar}
-                                        />
-                                </View>
-                            ))
-                        }</View>
-                    </View>
-                }
-            </View>
-        );
+        return data && <Header data={data} />
     };
 
     // 根据滚动条的变化，Toolbar 的透明度会产生变化

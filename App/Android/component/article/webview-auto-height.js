@@ -86,6 +86,7 @@ export default class WebviewAutoHeight extends Component {
                     if (document.title) {
                         this.props.onloadHTML(document);
                         if (this.state.height === document.title) return;
+
                         this.setState({
                             height: parseInt(document.title) + 60,
                         });

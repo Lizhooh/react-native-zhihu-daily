@@ -12,7 +12,7 @@ import {
 import shallowCompare from 'react-addons-shallow-compare';
 import Slide from './slide';
 import Global from '../../Global';
-import { styles } from './style/style';
+import { styles } from './style/list-style';
 
 export default class List extends Component {
 

@@ -31,7 +31,7 @@ export default class Toolbar extends Component {
     setFormat = (value) => {
         if (value > 1000 && (value += '')) {
             value = value.substr(0, value.length - 2);
-            return  value / 10 + 'k';
+            return value / 10 + 'k';
         }
         return value;
     };

@@ -12,7 +12,7 @@ import {
 
 import shallowCompare from 'react-addons-shallow-compare';
 import Global from '../../Global';
-import { styles, pice, editor } from './style/style';
+import { styles, pice, editor } from './style/list-style';
 
 const window = Dimensions.get('window');
 

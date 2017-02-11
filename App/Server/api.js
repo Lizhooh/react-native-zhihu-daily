@@ -1,6 +1,8 @@
 
 import React from 'react';
-import ReactNative from 'react-native';
+import {
+    AsyncStorage,
+} from 'react-native';
 
 const version = 4;
 const protocol = 'http'; // or https
@@ -50,13 +52,56 @@ const story = {
                 jsondata.style = '';
 
                 if (Array.isArray(jsondata.css) && jsondata.css.length > 0) {
-                    return fetch(jsondata.css[0])
-                        .then(res => res.text())
-                        .then(css => {
-                            jsondata.style = css;
+                    // 本地存储
+                    // 1. 使用 AsyncStorage 存储 css
+                    // 2. 判断 css 的 Url 变化，决定是否重新缓存
+                    const link = jsondata.css[0];
+                    const keyName = 'css';
+
+                    return AsyncStorage.getItem(keyName).then(value => {
+                        // 没有这个 key
+                        if (value === null) {
+                            return fetch(link)
+                                .then(res => res.text())
+                                .then(css => {
+                                    jsondata.style = css;
+
+                                    // 进行缓存 css
+                                    return AsyncStorage
+                                        .setItem(keyName, JSON.stringify({
+                                            url: link,
+                                            style: css,
+                                        }))
+                                        .then(_ => jsondata);
+                                });
+                        }
+
+                        // 解析取到的值
+                        const cssCache = JSON.parse(value);
+
+                        // url 相等直接取缓存
+                        if (cssCache.url === link) {
+                            jsondata.style = cssCache.style;
 
                             return jsondata;
-                        });
+                        }
+                        // 不相等，重新缓存
+                        else {
+                            return fetch(link)
+                                .then(res => res.text())
+                                .then(css => {
+                                    jsondata.style = css;
+
+                                    // 进行缓存 css
+                                    return AsyncStorage
+                                        .setItem(keyName, JSON.stringify({
+                                            url: link,
+                                            style: css,
+                                        }))
+                                        .then(_ => jsondata);
+                                });
+                        }
+                    });
                 }
                 else {
                     return jsondata;

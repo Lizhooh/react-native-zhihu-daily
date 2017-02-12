@@ -139,7 +139,7 @@ export default class List extends Component {
                     renderHeader={this.renderHeader}
                     renderFooter={this.renderFooter}
                     dataSource={this.getDataSource()}
-                    initialListSize={10}
+                    initialListSize={20}
                     pageSize={1}
                     scrollRenderAheadDistance={300}
                     // 下拉刷新

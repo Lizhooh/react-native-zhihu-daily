@@ -12,12 +12,12 @@ import {
 
 import shallowCompare from 'react-addons-shallow-compare';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Global from '../../Global';
 import Menu from '../menu/menu';
 import Toolbar from './toolbar';
 import Home from '../home/home';
 import Other from './../other/other';
 import Api from '../../../Server/api';
+import { styles } from './style/main-style';
 
 const window = Dimensions.get('window');
 
@@ -35,9 +35,19 @@ export default class Main extends Component {
             },
 
             // 缓存数据
-            menu_data: null,
-            home_data: null,
-            other_data: null,
+            menu: {
+                data: null
+            },
+            home: {
+                data: null,
+                laststoryid: 0,
+                nomore: false,
+            },
+            other: {
+                data: null,
+                laststoryid: 0,
+                nomore: false,
+            },
         };
 
         this.request.themes();
@@ -55,7 +65,7 @@ export default class Main extends Component {
     renderMenu = () => (
         // 菜单视图
         <Menu
-            data={this.state.menu_data}
+            data={this.state.menu.data}
             navigator={this.props.navigator}
             onSelectChanng={(event, id, name) => {
                 this._drawer.closeDrawer();
@@ -78,7 +88,7 @@ export default class Main extends Component {
     renderMainView = (data) => (
         this.state.activeMain.id === -1 ?
             <Home
-                data={this.state.home_data}
+                data={this.state.home.data}
                 navigator={this.props.navigator}
                 onRefresh={(event) => {
                     this.request.latest();
@@ -86,11 +96,23 @@ export default class Main extends Component {
                 />
             :
             <Other
-                data={this.state.other_data}
+                data={this.state.other.data}
                 navigator={this.props.navigator}
                 onRefresh={(event) => {
                     const id = this.state.activeMain.id;
                     id > 0 && this.request.theme(id);
+                } }
+                onMore={(event) => {
+                    // 加载更多
+                    const other = this.state.other;
+                    const stories = other.data.stories;
+                    const lastid = stories[stories.length - 1].id;
+                    const themeid = this.state.activeMain.id;
+
+                    if (other.laststoryid !== lastid && !other.nomore) {
+                        this.request.themeMore(themeid, lastid);
+                        other.laststoryid = lastid;
+                    }
                 } }
                 />
     );
@@ -99,19 +121,34 @@ export default class Main extends Component {
     request = {
         themes: () => {
             Api.themes.get().then((result) => {
-                this.setState({ menu_data: result });
+                this.setState({ menu: { data: result } });
             });
         },
         latest: () => {
             Api.latest.get().then((result) => {
-                this.setState({ home_data: result });
+                this.setState({ home: { data: result } });
             });
         },
         theme: (id) => {
             Api.theme.get(id).then((result) => {
-                this.setState({ other_data: result });
+                this.setState({ other: { data: result } });
             });
-        }
+        },
+        themeMore: (themeid, storyid) => {
+            Api.themeMore.get(themeid, storyid).then((result) => {
+                // 没有更多了
+                if (result.stories.length === 0) {
+                    this.setState({ other: { nomore: true } });
+                    return;
+                }
+
+                const interim = this.state.other.data;
+                interim.stories = interim.stories.concat(result.stories);
+                this.setState({
+                    other: { data: interim },
+                });
+            });
+        },
     };
 
     componentDidMount() {
@@ -165,29 +202,3 @@ export default class Main extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    contanter: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    toolbar: {
-        height: 55,
-        backgroundColor: 'rgba(30, 150, 255, 0.0)',
-    },
-    otherToolbar: {
-        height: 55,
-        backgroundColor: Global.themeColor,
-        position: 'absolute',
-        top: -55,
-        left: 0, right: 0,
-        zIndex: -1,
-        justifyContent: 'center',
-    },
-    otherToolbarText: {
-        color: '#fff',
-        fontSize: 18,
-        marginLeft: 60,
-        fontWeight: '100',
-    }
-});

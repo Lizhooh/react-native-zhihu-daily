@@ -24,12 +24,14 @@ export default class Other extends Component {
         data: null,
         navigator: null,
         onRefresh: null,
+        onMore: null,
     };
 
     static propTypes = {
         data: PropTypes.object,
         navigator: PropTypes.object,
         onRefresh: PropTypes.func,
+        onMore: PropTypes.func,
     };
 
     componentWillReceiveProps(nextProps) {
@@ -59,6 +61,7 @@ export default class Other extends Component {
                         })
                     } }
                     onRefresh={this.props.onRefresh}
+                    onMore={this.props.onMore}
                     />
             </View>
         );

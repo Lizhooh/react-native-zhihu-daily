@@ -32,6 +32,7 @@ export default class List extends Component {
         openEditor: () => { },
         openArticle: () => { },
         onRefresh: () => { },
+        onMore: () => { },
     };
 
     static propTypes = {
@@ -39,6 +40,7 @@ export default class List extends Component {
         openEditor: PropTypes.func.isRequired,
         openArticle: PropTypes.func,
         onRefresh: PropTypes.func,
+        onMore: PropTypes.func,
     };
 
     getDataSource = () => {
@@ -135,11 +137,7 @@ export default class List extends Component {
     // 列表尾
     renderFooter = () => (
         <View style={{ margin: 10 }}>
-            <ActivityIndicator
-                animating={true}
-                color={Global.themeColor}
-                size={'large'}
-                />
+
         </View>
     );
 
@@ -164,8 +162,10 @@ export default class List extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this._listview &&
+        if(this.props.data.name !== nextProps.data.name) {
+            this._listview &&
             this._listview.scrollTo({ x: 0, y: 0, animated: true });
+        }
     }
 
     render() {
@@ -174,22 +174,20 @@ export default class List extends Component {
                 <ListView
                     ref={(listview) => this._listview = listview}
                     showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={!false}
                     removeClippedSubviews={true}
                     renderRow={this.renderRow}
                     renderHeader={this.renderHeader}
                     renderFooter={this.renderFooter}
                     dataSource={this.getDataSource()}
-                    initialListSize={10}
-                    pageSize={1}
-                    scrollRenderAheadDistance={300}
+                    initialListSize={15}
+                    pageSize={10}
+                    scrollRenderAheadDistance={500}
                     // 下拉刷新
                     refreshControl={this.refreshControl}
                     // 滚动刷新
-                    onEndReachedThreshold={500}
-                    onEndReached={() => {
-
-                    } }
+                    onEndReachedThreshold={1000}
+                    onEndReached={this.props.onMore}
                     >
                 </ListView>
             </View>

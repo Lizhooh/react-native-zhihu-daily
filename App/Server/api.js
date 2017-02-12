@@ -111,6 +111,7 @@ const story = {
     }
 };
 
+// 文章点赞，评论信息
 const storyExtra = {
     url: `${protocol}://news-at.zhihu.com/api/${version}/story-extra/`,
     get(id) {
@@ -123,12 +124,26 @@ const storyExtra = {
     }
 };
 
+// 加载更多的
+const themeMore = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/theme/`,
+    get(themeid, storyid) {
+        return fetch(this.url + `${themeid}/before/${storyid}`)
+            .then(res => res.json())
+            .then(jsondata => {
+                return jsondata;
+            })
+            .catch(err => console.error("themeMore api Error: " + err))
+    }
+};
+
 const Api = {
     themes,
     latest,
     theme,
     story,
     storyExtra,
+    themeMore,
 };
 
 export default Api;

@@ -19,6 +19,22 @@ export default class WebviewAutoHeight extends Component {
         this.state = {
             height: 0,
         };
+
+        // 使用 window.onload 会被重写的可能
+        this.script =
+            `
+                (function __isComplete() {
+                    if (document.readyState == "complete" &&
+                        document.documentElement.offsetWidth > 0) {
+
+                        window.location.hash = 1;
+                        document.title = document.body.clientHeight;
+                    }
+                    else {
+                        setTimeout(__isComplete, 100);
+                    }
+                })();
+            `;
     }
 
     static defaultProps = {
@@ -39,23 +55,8 @@ export default class WebviewAutoHeight extends Component {
     };
 
     render() {
-        // let css;
 
-        // if (Array.isArray(this.props.css)) {
-        //     css = this.props.css.map(it => `<link href="${it}" rel="stylesheet />`).join('\n');
-        // }
-        // else if (typeof this.props.css === 'string') {
-        //     css = `<link href="${this.props.css}" rel="stylesheet" />`;
-        // }
-
-        const body = this.props.body
-            .replace('<div class="img-place-holder"></div>', '')
-            // .replace(/\<a/g, '<span')
-            // .replace(/\<\/a\>/g, '</span>')
-        //     .replace(/\<h1/g, '<h1 style="color: #222;"')
-        //     .replace(/class="headline"/g, 'class="headline" style="border-bottom: none"')
-        //     ;
-
+        const body = this.props.body;
         const css = this.props.css;
 
         const html = `
@@ -67,35 +68,31 @@ export default class WebviewAutoHeight extends Component {
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
                 <style>
                     ${css}
-                    .headline {
-                        border-bottom: none;
-                    }
-                    a {
-                        color: ${Global.themeColor} !important;
-                    }
-                    .view-more a {
-                        color: #aaa !important;
-                    }
-                    .content {
-                        font-size: 17px !important;
-                        color: #444;
-                    }
-                    blockquote {
-                        border-left: 3px solid ${Global.themeColor};
-                    }
+                    .headline {border-bottom: none !important;}
+                    .img-place-holder {height: 0 !important;}
+                    .view-more a {color: #aaa !important;}
+                    .content {font-size: 17px !important;color: #444;}
+                    a {color: ${Global.themeColor} !important;}
+                    blockquote {border-left: 3px solid #D0E5F2; color: #888;}
+                    blockquote em { font-weight: normal !important;}
                 </style>
             </head>
             <body>
                 ${body}
                 <script>
-                    window.onload = function() {
-                        window.location.hash = 1;
-                        document.title = document.body.clientHeight;
-                    }
+                    ${this.script}
                 </script>
             </body>
             </html>
         `;
+
+        // body 会有 null
+        if (this.props.body) {
+            var source = { html: html };
+        }
+        else {
+            var source = { url: this.props.url };
+        }
 
         return (
             <WebView
@@ -103,7 +100,8 @@ export default class WebviewAutoHeight extends Component {
                 javaScriptEnabled={true}
                 scalesPageToFit={false}
                 style={[{ height: this.state.height }, this.props.style]}
-                source={{ html: html }}
+                source={source}
+                injectedJavaScript={this.script}
                 onNavigationStateChange={(document) => {
                     if (document.title) {
                         this.props.onloadHTML(document);

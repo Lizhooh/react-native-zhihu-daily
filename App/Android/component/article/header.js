@@ -101,18 +101,30 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0, bottom: 0,
         left: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.3)',
+        backgroundColor: 'rgba(1, 1, 1, 0.32)',
         justifyContent: 'flex-end',
         padding: 10,
     },
     title: {
-        fontSize: 24,
+        fontSize: 22,
         color: '#fff',
+        textShadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        textShadowRadius: 5,
+        textShadowColor: 'rgba(1, 1, 1, 0.6)',
     },
     image_source: {
-        color: 'rgba(255, 255, 255, 0.65)',
+        color: 'rgba(255, 255, 255, 0.8)',
         fontSize: 11,
         textAlign: 'right',
         paddingTop: 5,
+        textShadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        textShadowRadius: 5,
+        textShadowColor: 'rgba(1, 1, 1, 0.6)',
     },
 })

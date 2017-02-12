@@ -80,6 +80,7 @@ export default class Article extends Component {
                 style={styles.webview}
                 css={data.style}
                 body={data.body}
+                url={data.share_url}
                 />
         );
     };

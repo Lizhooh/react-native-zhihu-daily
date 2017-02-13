@@ -8,6 +8,7 @@ import {
     Dimensions,
     ScrollView,
     Image,
+    Modal,
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -28,6 +29,10 @@ export default class Article extends Component {
 
         this.state = {
             toolbarOpacity: 1,
+            modal: {
+                visible: false,
+                imageSrc: '',
+            },
 
             article_data: null,
             extra_data: {},
@@ -81,6 +86,15 @@ export default class Article extends Component {
                 css={data.style}
                 body={data.body}
                 url={data.share_url}
+                onImagePress={(event) => {
+                    this.setState({
+                        modal: {
+                            visible: true,
+                            imageSrc: event.nativeEvent.data,
+                        }
+                    });
+                    // console.log(this.state.modal);
+                } }
                 />
         );
     };
@@ -126,6 +140,30 @@ export default class Article extends Component {
 
         return (
             <View style={styles.contanier}>
+
+                <Modal
+                    animationType={"fade"}
+                    transparent={true}
+                    visible={this.state.modal.visible}
+                    >
+                    <Touch
+                        style={styles.modal}
+                        activeOpacity={1}
+                        onPress={(event) => {
+                            this.setState({
+                                modal: {
+                                    visible: false,
+                                }
+                            });
+                        }}
+                        >
+                        <Image
+                            source={{ uri: this.state.modal.imageSrc }}
+                            style={{ width: window.width, height: window.height }}
+                            resizeMode="contain"
+                            />
+                    </Touch>
+                </Modal>
 
                 <ScrollView
                     style={styles.body}

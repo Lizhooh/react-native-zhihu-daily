@@ -29,9 +29,22 @@ export default class WebviewAutoHeight extends Component {
 
                         window.location.hash = 1;
                         document.title = document.body.clientHeight;
+
+                        var imglist = [].slice.call(document.querySelectorAll('img'));
+
+                        function imgOnClick(event) {
+                            window.postMessage &&
+                            window.postMessage(event.target.src);
+                        }
+
+                        for(var i in imglist) {
+                            imglist[i].removeEventListener('click', imgOnClick);
+                            imglist[i].addEventListener('click', imgOnClick);
+                        }
                     }
                     else {
-                        setTimeout(__isComplete, 100);
+                        setTimeout(__isComplete, 5
+                        0);
                     }
                 })();
             `;
@@ -42,6 +55,7 @@ export default class WebviewAutoHeight extends Component {
         htmlStyle: '',
         body: null,
         onloadHTML: () => { },
+        onImagePress: () => { },
     };
 
     static propTypes = {
@@ -52,6 +66,7 @@ export default class WebviewAutoHeight extends Component {
         body: PropTypes.string,
         htmlStyle: PropTypes.string,
         onloadHTML: PropTypes.func,
+        onImagePress: PropTypes.func.isRequired,
     };
 
     render() {
@@ -102,6 +117,7 @@ export default class WebviewAutoHeight extends Component {
                 style={[{ height: this.state.height }, this.props.style]}
                 source={source}
                 injectedJavaScript={this.script}
+                onMessage={this.props.onImagePress}
                 onNavigationStateChange={(document) => {
                     if (document.title) {
                         this.props.onloadHTML(document);
@@ -116,7 +132,3 @@ export default class WebviewAutoHeight extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-
-});

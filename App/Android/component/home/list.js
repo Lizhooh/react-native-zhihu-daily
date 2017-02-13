@@ -92,19 +92,22 @@ export default class List extends Component {
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
         <View
-            onLayout={event => {
-                if (rowID * 1 === 0) {
-                    // 注意：会重复触发
-                    const name = this.getSectionName(sectionID);
-                    const position = event.nativeEvent.layout.y;
+            // onLayout={event => {
+            //     if (rowID * 1 === 0 &&
+            //         this.sectionPos.length <
+            //         Object.keys(this.props.data).length
+            //     ) {
+            //         // 注意：会重复触发
+            //         const name = this.getSectionName(sectionID);
+            //         const position = event.nativeEvent.layout.y;
 
-                    const has = this.sectionPos
-                        .filter(it => it.name === name && it.position === position)
-                        .length !== 0;
+            //         const has = this.sectionPos
+            //             .filter(it => it.name === name && it.position === position)
+            //             .length !== 0;
 
-                    !has && this.sectionPos.push({ name, position });
-                }
-            } }
+            //         !has && this.sectionPos.push({ name, position });
+            //     }
+            // } }
             >
             {this.renderSection(sectionID, rowID)}
 
@@ -228,7 +231,7 @@ export default class List extends Component {
                     onEndReachedThreshold={1000}
                     onEndReached={null}
                     // 实现滚动时改变 toolbar 标题
-                    onScroll={this.onScroll}
+                    // onScroll={this.onScroll}
                     scrollEventThrottle={1}
                     >
                 </ListView>

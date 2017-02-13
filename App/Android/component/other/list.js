@@ -11,6 +11,7 @@ import {
     RefreshControl,
 } from 'react-native';
 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import shallowCompare from 'react-addons-shallow-compare';
 import Global from '../../Global';
 import { styles, pice, editor } from './style/list-style';

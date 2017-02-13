@@ -40,15 +40,26 @@ export default class Main extends Component {
             },
             home: {
                 data: null,
+                /*{
+                    date1: [],
+                    date2: [],
+                    date3: [],
+                }*/
                 laststoryid: 0,
                 nomore: false,
+                title: '首页',
             },
             other: {
                 data: null,
+                /*{
+                    date: '',
+                    stories: [],
+                }*/
                 laststoryid: 0,
                 nomore: false,
             },
         };
+
 
         this.request.themes();
         this.request.latest();
@@ -89,21 +100,34 @@ export default class Main extends Component {
         this.state.activeMain.id === -1 ?
             <Home
                 data={this.state.home.data}
+                topStories={this.state.home.topStories}
                 navigator={this.props.navigator}
-                onRefresh={(event) => {
+                onTitleChange={(event, title) => {
+                    if (title === undefined) return;
+
+                    let home = this.state.home;
+                    home.title = title;
+                    this.setState({ home: home });
+                } }
+                onRefresh={event => {
                     this.request.latest();
+                } }
+                onMore={event => {
+
                 } }
                 />
             :
             <Other
                 data={this.state.other.data}
                 navigator={this.props.navigator}
-                onRefresh={(event) => {
+                onRefresh={event => {
                     const id = this.state.activeMain.id;
                     id > 0 && this.request.theme(id);
                 } }
-                onMore={(event) => {
+                onMore={event => {
                     // 加载更多
+                    if (!this.state.other.data) return;
+
                     const other = this.state.other;
                     const stories = other.data.stories;
                     const lastid = stories[stories.length - 1].id;
@@ -126,7 +150,14 @@ export default class Main extends Component {
         },
         latest: () => {
             Api.latest.get().then((result) => {
-                this.setState({ home: { data: result } });
+                let home = {
+                    title: '首页',
+                    data: {},
+                    topStories: result.top_stories || [],
+                };
+                home.data[result.date] = result.stories;
+
+                this.setState({ home: home });
             });
         },
         theme: (id) => {
@@ -144,8 +175,12 @@ export default class Main extends Component {
 
                 const interim = this.state.other.data;
                 interim.stories = interim.stories.concat(result.stories);
+
+                let other = this.state.other;
+                other.data = interim;
+
                 this.setState({
-                    other: { data: interim },
+                    other: other,
                 });
             });
         },
@@ -161,9 +196,9 @@ export default class Main extends Component {
     }
 
     // 性能优化
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return shallowCompare(this, nextProps, nextState);
+    // }
 
     render() {
         return (
@@ -186,7 +221,9 @@ export default class Main extends Component {
                         {/* 用来覆盖 Toolbar */}
                         <View style={styles.otherToolbar}>
                             <Text style={styles.otherToolbarText}>{
-                                this.state.activeMain.name
+                                this.state.activeMain.id === -1 ?
+                                    this.state.home.title :
+                                    this.state.activeMain.name
                             }</Text>
                         </View>
 

@@ -43,8 +43,7 @@ export default class WebviewAutoHeight extends Component {
                         }
                     }
                     else {
-                        setTimeout(__isComplete, 5
-                        0);
+                        setTimeout(__isComplete, 25);
                     }
                 })();
             `;

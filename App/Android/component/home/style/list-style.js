@@ -57,6 +57,13 @@ const styles = StyleSheet.create({
         textShadowRadius: 1,
         textShadowColor: 'rgba(1, 1, 1, 0.6)',
     },
+    section: {
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+    sectionText: {
+        color: '#666',
+    }
 });
 
 export {

@@ -18,6 +18,7 @@ export default class Home extends Component {
 
         this.state = {
             data: this.props.data,
+            topStories: this.props.topStories,
         }
     }
 
@@ -25,26 +26,33 @@ export default class Home extends Component {
         data: null,
         navigator: null,
         onRefresh: null,
+        onTitleChange: null,
     };
 
     static propTypes = {
         data: PropTypes.object,
         navigator: PropTypes.object,
         onRefresh: PropTypes.func,
+        onTitleChange: PropTypes.func,
     };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data) {
-            this.setState({ data: nextProps.data });
+            this.setState({
+                data: nextProps.data,
+                topStories: nextProps.topStories,
+            });
         }
     }
 
     render() {
         return (
             this.state.data &&
+            this.state.topStories.length > 0 &&
             <View style={styles.contanter}>
                 <List
                     data={this.state.data}
+                    topStories={this.state.topStories}
                     openArticle={(event, id) => {
                         this.props.navigator.push({
                             id: 2,
@@ -53,6 +61,7 @@ export default class Home extends Component {
                         })
                     } }
                     onRefresh={this.props.onRefresh}
+                    onTitleChange={this.props.onTitleChange}
                     />
             </View>
         );

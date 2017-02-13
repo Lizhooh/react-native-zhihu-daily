@@ -54,7 +54,7 @@ export default class EditorList extends Component {
                             key={`editer-${index}`}
                             style={styles.editer}
                             activeOpacity={0.8}
-                            onPress={(event) => this.openEditor(event, it.id)}
+                            onPress={event => this.openEditor(event, it.id)}
                             >
 
                             <View style={editer.left}>

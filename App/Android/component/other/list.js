@@ -26,6 +26,11 @@ export default class List extends Component {
         this.state = {
             isRefreshing: false,
         };
+
+        this.ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+
     }
 
     static defaultProps = {
@@ -45,11 +50,7 @@ export default class List extends Component {
     };
 
     getDataSource = () => {
-        var ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-        return ds.cloneWithRows(this.props.data.stories);
+        return this.ds.cloneWithRows(this.props.data.stories);
     };
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
@@ -57,7 +58,7 @@ export default class List extends Component {
             <Touch
                 activeOpacity={0.7}
                 style={styles.touch}
-                onPress={(event) => this.props.openArticle(event, data.id)}
+                onPress={event => this.props.openArticle(event, data.id)}
                 >
                 <View style={styles.left}>
                     <Text style={styles.leftTitle}>{data.title}</Text>
@@ -120,7 +121,7 @@ export default class List extends Component {
                             key={`editors-${index}`}
                             style={editor.user}
                             activeOpacity={0.8}
-                            onPress={(event) => {
+                            onPress={event => {
                                 this.props.openEditors(event, this.props.data.editors)
                             } }
                             >
@@ -163,9 +164,9 @@ export default class List extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.data.name !== nextProps.data.name) {
+        if (this.props.data.name !== nextProps.data.name) {
             this._listview &&
-            this._listview.scrollTo({ x: 0, y: 0, animated: true });
+                this._listview.scrollTo({ x: 0, y: 0, animated: true });
         }
     }
 

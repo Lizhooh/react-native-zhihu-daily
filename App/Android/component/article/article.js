@@ -42,8 +42,10 @@ export default class Article extends Component {
 
         // 等待动画完成后才 request
         InteractionManager.runAfterInteractions(() => {
-            this.request.story(id);
-            this.request.storyExtra(id);
+            setTimeout(() => {
+                this.request.story(id);
+                this.request.storyExtra(id);
+            }, 0);
         });
 
         this._y = 0;
@@ -86,14 +88,13 @@ export default class Article extends Component {
                 css={data.style}
                 body={data.body}
                 url={data.share_url}
-                onImagePress={(event) => {
+                onImagePress={event => {
                     this.setState({
                         modal: {
                             visible: true,
                             imageSrc: event.nativeEvent.data,
                         }
                     });
-                    // console.log(this.state.modal);
                 } }
                 />
         );
@@ -106,7 +107,7 @@ export default class Article extends Component {
     };
 
     // 根据滚动条的变化，Toolbar 的透明度会产生变化
-    scrollViewOnScroll = (event) => {
+    scrollViewOnScroll = event => {
         const { contentOffset: offset } = event.nativeEvent;
         const len = 200;
 
@@ -145,17 +146,18 @@ export default class Article extends Component {
                     animationType={"fade"}
                     transparent={true}
                     visible={this.state.modal.visible}
+                    onRequestClose={event => { } }
                     >
                     <Touch
                         style={styles.modal}
                         activeOpacity={1}
-                        onPress={(event) => {
+                        onPress={event => {
                             this.setState({
                                 modal: {
                                     visible: false,
                                 }
                             });
-                        }}
+                        } }
                         >
                         <Image
                             source={{ uri: this.state.modal.imageSrc }}
@@ -179,6 +181,7 @@ export default class Article extends Component {
                 <View style={{ flex: 0 }}>
                     <Toolbar
                         style={[styles.toolbar, { opacity: this.state.toolbarOpacity }]}
+                        opacity={this.state.toolbarOpacity}
                         onBack={this.back}
                         data={extra_data}
                         />

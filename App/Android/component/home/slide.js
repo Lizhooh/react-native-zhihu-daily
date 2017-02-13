@@ -53,7 +53,7 @@ export default class Slide extends Component {
             <Touch
                 activeOpacity={0.7}
                 style={styles.shade}
-                onPress={(event) => this.props.onPress(event, data.id)}
+                onPress={event => this.props.onPress(event, data.id)}
                 >
                 <Text style={styles.title}>
                     {data.title}

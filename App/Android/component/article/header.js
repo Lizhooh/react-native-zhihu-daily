@@ -34,7 +34,7 @@ export default class Header extends Component {
                     data.image &&
                     <View style={styles.header}>
                         <Image
-                            style={{ width: window.width, height: 220 }}
+                            style={styles.image}
                             source={{ uri: data.image }}
                             />
 
@@ -76,6 +76,15 @@ export default class Header extends Component {
 }
 
 const styles = StyleSheet.create({
+    header: {
+        height: 210,
+        width: window.width,
+        backgroundColor: 'rgba(1, 1, 1, 0.05)',
+    },
+    image: {
+        height: 210,
+        width: window.width,
+    },
     recommenders: {
         height: 65,
         backgroundColor: '#f1f1f1',

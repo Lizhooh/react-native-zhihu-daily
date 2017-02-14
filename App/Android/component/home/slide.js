@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 3,
         color: '#fff',
-        fontSize: 20,
+        fontSize: 22,
         padding: 10,
         paddingBottom: 18,
     },

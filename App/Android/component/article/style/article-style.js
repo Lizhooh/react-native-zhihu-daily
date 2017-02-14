@@ -23,15 +23,6 @@ const styles = StyleSheet.create({
         paddingTop: 55,
         backgroundColor: '#fff',
     },
-    header: {
-        height: 220,
-        width: window.width,
-        backgroundColor: 'rgba(1, 1, 1, 0.05)',
-    },
-    image: {
-        height: 220,
-        width: window.width,
-    },
     webview: {
     },
 

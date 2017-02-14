@@ -10,17 +10,23 @@
 - 设置选项（还没写）
 
 
+![demo](/resoucre/demo.png)
+
 ## Use
 
 ``` bash
 # install dependencies
 npm install
 
-# serve
-npm start
-
-# or
+# run serve
+# open http://127.0.0.1:8081/debugger-ui
 react-native start
+
+# run in android
+react-native run-android
+
+# run in ios
+react-native run-ios
 ```
 
 ### use vscode

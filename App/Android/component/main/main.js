@@ -124,8 +124,8 @@ export default class Main extends Component {
                 data={this.state.other.data}
                 navigator={this.props.navigator}
                 onRefresh={event => {
-                    this.state.activeMain.id > 0 &&
-                        this.request.theme(id);
+                    const id = this.state.activeMain.id;
+                    id > 0 && this.request.theme(id);
                 } }
                 onMore={event => {
                     // 加载更多

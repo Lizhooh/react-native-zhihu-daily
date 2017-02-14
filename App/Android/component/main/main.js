@@ -60,7 +60,6 @@ export default class Main extends Component {
             },
         };
 
-
         this.request.themes();
         this.request.latest();
     }
@@ -103,11 +102,11 @@ export default class Main extends Component {
                 topStories={this.state.home.topStories}
                 navigator={this.props.navigator}
                 onTitleChange={(event, title) => {
-                    if (title === undefined) return;
+                    // if (title === undefined) return;
 
-                    let home = this.state.home;
-                    home.title = title;
-                    this.setState({ home: home });
+                    // let home = this.state.home;
+                    // home.title = title;
+                    // this.setState({ home: home });
                 } }
                 onRefresh={event => {
                     this.request.latest();
@@ -150,26 +149,27 @@ export default class Main extends Component {
         },
         latest: () => {
             Api.latest.get().then((result) => {
-                let home = {
-                    title: '首页',
-                    data: {},
-                    topStories: result.top_stories || [],
-                };
+                let home = this.state.home;
+                home.topStories = result.top_stories || [];
+                home.data = {};
                 home.data[result.date] = result.stories;
-
                 this.setState({ home: home });
             });
         },
         theme: (id) => {
             Api.theme.get(id).then((result) => {
-                this.setState({ other: { data: result } });
+                let other = this.state.other;
+                other.data = result;
+                this.setState({ other: other });
             });
         },
         themeMore: (themeid, storyid) => {
             Api.themeMore.get(themeid, storyid).then((result) => {
                 // 没有更多了
                 if (result.stories.length === 0) {
-                    this.setState({ other: { nomore: true } });
+                    let other = this.state.other;
+                    other.nomore = true;
+                    this.setState({ other: other });
                     return;
                 }
 
@@ -221,8 +221,8 @@ export default class Main extends Component {
                         {/* 用来覆盖 Toolbar */}
                         <View style={styles.otherToolbar}>
                             <Text style={styles.otherToolbarText}>{
-                                this.state.activeMain.id === -1 ?
-                                    this.state.home.title :
+                                // this.state.activeMain.id === -1 ?
+                                    // this.state.home.title :
                                     this.state.activeMain.name
                             }</Text>
                         </View>

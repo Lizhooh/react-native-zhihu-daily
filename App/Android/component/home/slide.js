@@ -87,7 +87,7 @@ export default class Slide extends Component {
                             />
                         <Touch
                             style={styles.shade}
-                            onPress={null}
+                            onPress={event => this.props.onPress(event, data.id)}
                             >
                             <Text style={styles.title}>
                                 {this.props.data[0].title}

@@ -36,6 +36,7 @@ export default class List extends Component {
         openArticle: () => { },
         onRefresh: () => { },
         onTitleChange: () => { },
+        onMore: () => { },
     };
 
     static propTypes = {
@@ -43,6 +44,7 @@ export default class List extends Component {
         openArticle: PropTypes.func.isRequired,
         onRefresh: PropTypes.func,
         onTitleChange: PropTypes.func.isRequired,
+        onMore: PropTypes.func.isRequired,
     };
 
     getDataSource = () => {
@@ -51,8 +53,10 @@ export default class List extends Component {
 
     // 对时间进行格式化
     getSectionName = (_date) => {
-        // 20170125
+        _date = _date.split('-')[0];
         let D = new Date();
+
+        const fmt = (n) => n < 10 ? '0' + n : n;
 
         let
             _y = _date.slice(0, 4) * 1,
@@ -61,8 +65,8 @@ export default class List extends Component {
             _week = '日一二三四五六'.charAt(new Date(_y, _m, _d).getDay()),
 
             y = D.getFullYear(),
-            m = D.getMonth() + 1 < 10 ? '0' + (D.getMonth() + 1) : D.getMonth() + 1,
-            d = D.getDate() < 10 ? '0' + D.getDate() : D.getDate();
+            m = fmt(D.getMonth() + 1),
+            d = fmt(D.getDate());
 
         let date = `${y}${m}${d}`;
 
@@ -72,7 +76,7 @@ export default class List extends Component {
         else {
             if (_m === -1) return '';
 
-            return `${_m}月${_d}日 星期${_week}`;
+            return `${fmt(_m)}月${fmt(_d)}日 星期${_week}`;
         }
     };
 
@@ -216,7 +220,7 @@ export default class List extends Component {
                 <ListView
                     ref={(listview) => this._listview = listview}
                     showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
+                    showsVerticalScrollIndicator={!false}
                     removeClippedSubviews={true}
                     renderRow={this.renderRow}
                     renderHeader={this.renderHeader}
@@ -229,7 +233,7 @@ export default class List extends Component {
                     refreshControl={this.refreshControl}
                     // 滚动刷新
                     onEndReachedThreshold={1000}
-                    onEndReached={null}
+                    onEndReached={this.props.onMore}
                     // 实现滚动时改变 toolbar 标题
                     // onScroll={this.onScroll}
                     scrollEventThrottle={1}

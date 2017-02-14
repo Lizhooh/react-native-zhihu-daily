@@ -27,6 +27,7 @@ export default class Home extends Component {
         navigator: null,
         onRefresh: null,
         onTitleChange: null,
+        onMore: null,
     };
 
     static propTypes = {
@@ -34,6 +35,7 @@ export default class Home extends Component {
         navigator: PropTypes.object,
         onRefresh: PropTypes.func,
         onTitleChange: PropTypes.func,
+        onMore: PropTypes.func,
     };
 
     componentWillReceiveProps(nextProps) {
@@ -62,6 +64,7 @@ export default class Home extends Component {
                     } }
                     onRefresh={this.props.onRefresh}
                     onTitleChange={this.props.onTitleChange}
+                    onMore={this.props.onMore}
                     />
             </View>
         );

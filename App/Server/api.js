@@ -12,9 +12,7 @@ const themes = {
     get() {
         return fetch(this.url)
             .then(res => res.json())
-            .then(jsondata => {
-                return jsondata;
-            })
+            .then(jsondata => jsondata)
             .catch(err => console.error("themes api Error: " + err))
     },
 };
@@ -24,9 +22,7 @@ const latest = {
     get() {
         return fetch(this.url)
             .then(res => res.json())
-            .then(jsondata => {
-                return jsondata;
-            })
+            .then(jsondata => jsondata)
             .catch(err => console.error("latest api Error: " + err))
     }
 };
@@ -36,9 +32,7 @@ const theme = {
     get(id) {
         return fetch(this.url + id)
             .then(res => res.json())
-            .then(jsondata => {
-                return jsondata;
-            })
+            .then(jsondata => jsondata)
             .catch(err => console.error("theme api Error: " + err))
     }
 };
@@ -117,9 +111,7 @@ const storyExtra = {
     get(id) {
         return fetch(this.url + id)
             .then(res => res.json())
-            .then(jsondata => {
-                return jsondata;
-            })
+            .then(jsondata => jsondata)
             .catch(err => console.error("storyExtra api Error: " + err))
     }
 };
@@ -130,10 +122,18 @@ const themeMore = {
     get(themeid, storyid) {
         return fetch(this.url + `${themeid}/before/${storyid}`)
             .then(res => res.json())
-            .then(jsondata => {
-                return jsondata;
-            })
+            .then(jsondata => jsondata)
             .catch(err => console.error("themeMore api Error: " + err))
+    }
+};
+
+const homeMore = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/stories/before/`,
+    get(lastDate) {
+        return fetch(this.url + lastDate)
+            .then(res => res.json())
+            .then(jsondata => jsondata)
+            .catch(err => console.error("homeMore api Error: " + err))
     }
 };
 
@@ -144,6 +144,7 @@ const Api = {
     story,
     storyExtra,
     themeMore,
+    homeMore,
 };
 
 export default Api;

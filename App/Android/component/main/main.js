@@ -54,6 +54,7 @@ export default class Main extends Component {
                     date: '',
                     stories: [],
                 }*/
+                laststoryid: 0,
                 nomore: false,
             },
         };
@@ -136,8 +137,9 @@ export default class Main extends Component {
                     const lastid = stories[stories.length - 1].id;
                     const themeid = this.state.activeMain.id;
 
-                    if (!other.nomore) {
+                    if (other.laststoryid !== lastid && !other.nomore) {
                         this.request.themeMore(themeid, lastid);
+                        other.laststoryid = lastid;
                     }
                 } }
                 />

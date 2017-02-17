@@ -172,6 +172,7 @@ export default class List extends Component {
         if (offset_y < 0) return;
         if (Math.abs(this.cacheoffset_y - offset_y) < 50) return;
 
+
         this.cacheoffset_y = offset_y;
 
         const s = this.sectionPos;

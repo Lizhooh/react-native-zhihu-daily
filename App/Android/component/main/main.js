@@ -118,7 +118,7 @@ export default class Main extends Component {
 
                     if (lastDate != home.lastdate && !home.nomore) {
                         this.request.homeMore(lastDate.split('-')[0]);
-                        home.lastdate = lastDate;
+                        home.lastdate = lastDate; // 防止重复加载
                     }
                 } }
                 />
@@ -141,7 +141,7 @@ export default class Main extends Component {
 
                     if (other.laststoryid !== lastid && !other.nomore) {
                         this.request.themeMore(themeid, lastid);
-                        other.laststoryid = lastid;
+                        other.laststoryid = lastid; // 防止重复加载
                     }
                 } }
                 />
@@ -196,7 +196,6 @@ export default class Main extends Component {
                     return;
                 }
                 const index = Object.keys(home.data).length;
-                home.lastdate = 0;
                 home.data[result.date + `-${index}`] = result.stories;
                 this.setState({ home: home });
             });

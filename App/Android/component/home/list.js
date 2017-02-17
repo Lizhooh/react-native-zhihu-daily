@@ -21,9 +21,10 @@ export default class List extends Component {
     constructor(props) {
         super(props);
 
-        this.sectionPos = [{ name: '首页', position: 0 }];
-        this.sectionIndex = 0;
+        this.sectionPos = [];
         this.title = '首页';
+
+        this.cacheoffset_y = 0;
 
         this.ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2,
@@ -60,7 +61,7 @@ export default class List extends Component {
 
         let
             _y = _date.slice(0, 4) * 1,
-            _m = _date.slice(4, 6) * 1 - 1,
+            _m = _date.slice(4, 6) * 1,
             _d = _date.slice(6) * 1,
             _week = '日一二三四五六'.charAt(new Date(_y, _m, _d).getDay()),
 
@@ -95,24 +96,7 @@ export default class List extends Component {
     }
 
     renderRow = (data, sectionID, rowID, highlightRow) => (
-        <View
-            // onLayout={event => {
-            //     if (rowID * 1 === 0 &&
-            //         this.sectionPos.length <
-            //         Object.keys(this.props.data).length
-            //     ) {
-            //         // 注意：会重复触发
-            //         const name = this.getSectionName(sectionID);
-            //         const position = event.nativeEvent.layout.y;
-
-            //         const has = this.sectionPos
-            //             .filter(it => it.name === name && it.position === position)
-            //             .length !== 0;
-
-            //         !has && this.sectionPos.push({ name, position });
-            //     }
-            // } }
-            >
+        <View>
             {this.renderSection(sectionID, rowID)}
 
             <View style={styles.box} key={`list-${rowID}`}>
@@ -183,30 +167,53 @@ export default class List extends Component {
     };
 
     onScroll = (event) => {
-        const Y = event.nativeEvent.contentOffset.y;
+        const offset_y = event.nativeEvent.contentOffset.y;
+        // 防止频繁触发
+        if (offset_y < 0) return;
+        if (Math.abs(this.cacheoffset_y - offset_y) < 50) return;
 
-        if (Y < 0) return;
+        this.cacheoffset_y = offset_y;
 
         const s = this.sectionPos;
-        for (const i in s) {
-            if (Y >= s[i].position) {
-
+        for (let i = 0; i < s.length; i++) {
+            if (offset_y >= s[i].position) {
+                this.title = s[i].name;
             }
             else {
-                if (this.title !== s[i - 1].name) {
-                    this.props.onTitleChange(event, s[i - 1].name);
-                    this.title = s[i - 1].name;
-                    return;
-                }
+                this.props.onTitleChange(event, this.title);
+                return;
+            }
+
+            // 最后一个
+            if (i === s.length - 1) {
+                this.props.onTitleChange(event, this.title);
                 return;
             }
         }
+    };
 
-        if (this.title !== s[s.length - 1].name) {
-            this.props.onTitleChange(event, s[s.length - 1].name);
-            this.title = s[s.length - 1].name;
-            return;
+    // 计算 section 的位置
+    setSectionPos = () => {
+        const data = this.props.data;
+
+        if (Object.keys(data).length + 1 === this.sectionPos.length) return;
+
+        let arr = [
+            { name: '首页', position: 0 },
+            { name: '今日热闻', position: 230 },
+        ];
+
+        // 今日热闻：158, 230,
+        // 每个文章盒子： 121, 230 + 158 + (index - 1) * 121
+
+        for (let i = 2, j = 1, keys = Object.keys(data); j < keys.length; i++ , j++) {
+            arr.push({
+                name: this.getSectionName(keys[j]),
+                position: arr[i - 1].position + 158 + (data[keys[j - 1]].length - 1) * 121,
+            });
         }
+
+        this.sectionPos = arr;
     };
 
     // 性能优化
@@ -215,6 +222,8 @@ export default class List extends Component {
     }
 
     render() {
+        this.setSectionPos();
+
         return (
             <View style={styles.contanter}>
                 <ListView
@@ -235,7 +244,7 @@ export default class List extends Component {
                     onEndReachedThreshold={1000}
                     onEndReached={this.props.onMore}
                     // 实现滚动时改变 toolbar 标题
-                    // onScroll={this.onScroll}
+                    onScroll={this.onScroll}
                     scrollEventThrottle={1}
                     >
                 </ListView>

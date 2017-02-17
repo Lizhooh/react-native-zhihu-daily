@@ -88,6 +88,8 @@ export default class Main extends Component {
                         this.request.theme(id);
                 }, 0);
 
+                if(id === -1) this.state.home.title = '首页';
+
                 this.setState({
                     activeMain: { id, name }
                 });
@@ -102,11 +104,11 @@ export default class Main extends Component {
                 topStories={this.state.home.topStories}
                 navigator={this.props.navigator}
                 onTitleChange={(event, title) => {
-                    // if (title === undefined) return;
+                    if (title === undefined) return;
 
-                    // let home = this.state.home;
-                    // home.title = title;
-                    // this.setState({ home: home });
+                    let home = this.state.home;
+                    home.title = title;
+                    this.setState({ home: home });
                 } }
                 onRefresh={event => {
                     this.request.latest();
@@ -237,8 +239,8 @@ export default class Main extends Component {
                         {/* 用来覆盖 Toolbar */}
                         <View style={styles.otherToolbar}>
                             <Text style={styles.otherToolbarText}>{
-                                // this.state.activeMain.id === -1 ?
-                                // this.state.home.title :
+                                this.state.activeMain.id === -1 ?
+                                this.state.home.title :
                                 this.state.activeMain.name
                             }</Text>
                         </View>

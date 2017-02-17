@@ -46,6 +46,7 @@ export default class Main extends Component {
                     date3-2: [],
                 }*/
                 nomore: false,
+                lastdate: 0,
                 title: '首页',
             },
             other: {
@@ -115,8 +116,9 @@ export default class Main extends Component {
                     const home = this.state.home;
                     const lastDate = Object.keys(home.data).sort((a, b) => b - a).pop();
 
-                    if (!home.nomore) {
+                    if (lastDate != home.lastdate && !home.nomore) {
                         this.request.homeMore(lastDate.split('-')[0]);
+                        home.lastdate = lastDate;
                     }
                 } }
                 />
@@ -194,6 +196,7 @@ export default class Main extends Component {
                     return;
                 }
                 const index = Object.keys(home.data).length;
+                home.lastdate = 0;
                 home.data[result.date + `-${index}`] = result.stories;
                 this.setState({ home: home });
             });

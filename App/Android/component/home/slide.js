@@ -8,7 +8,7 @@ import {
     Dimensions,
 } from 'react-native';
 
-import ViewPager from 'react-native-viewpager';
+import ViewPager from './view-pager/ViewPager';
 import shallowCompare from 'react-addons-shallow-compare';
 
 const window = Dimensions.get('window');
@@ -74,7 +74,7 @@ export default class Slide extends Component {
                     <ViewPager
                         dataSource={this.state.dataSource}
                         renderPage={this.renderPage}
-                        isLoop={true}
+                        isLoop={false}
                         autoPlay={true}
                         time={6000}
                         />

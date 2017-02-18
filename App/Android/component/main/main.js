@@ -104,7 +104,7 @@ export default class Main extends Component {
                 topStories={this.state.home.topStories}
                 navigator={this.props.navigator}
                 onTitleChange={(event, title) => {
-                    if (title === undefined) return;
+                    if (title === undefined || this.state.home.title === title) return;
 
                     let home = this.state.home;
                     home.title = title;

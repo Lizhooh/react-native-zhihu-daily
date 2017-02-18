@@ -21,7 +21,7 @@ import { styles } from './style/article-style';
 
 const window = Dimensions.get('window');
 
-// 文章
+// ## 文章
 export default class Article extends Component {
 
     constructor(props) {
@@ -58,7 +58,7 @@ export default class Article extends Component {
 
     static propTypes = {
         data: PropTypes.object,
-        navigator: PropTypes.object,
+        navigator: PropTypes.object.isRequired,
     };
 
     back = () => {
@@ -184,6 +184,18 @@ export default class Article extends Component {
                         opacity={this.state.toolbarOpacity}
                         onBack={this.back}
                         data={extra_data}
+                        openCommnet={event => {
+                            this.props.navigator.push({
+                                id: 3,
+                                title: '评论',
+                                data: {
+                                    id: this.props.data.id,
+                                    comments: extra_data.comments,
+                                    long_comments: extra_data.long_comments,
+                                    short_comments: extra_data.short_comments,
+                                }
+                            });
+                        } }
                         />
                 </View>
 

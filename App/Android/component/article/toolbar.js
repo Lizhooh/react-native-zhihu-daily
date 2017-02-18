@@ -20,12 +20,14 @@ export default class Toolbar extends Component {
         opacity: 1,
         data: {},
         onBack: null,
+        openCommnet: null,
     };
 
     static propTypes = {
         opacity: PropTypes.number,
         data: PropTypes.object,
         onBack: PropTypes.func.isRequired,
+        openCommnet: PropTypes.func.isRequired,
     };
 
     // 大于 1000 时，显示 k
@@ -43,8 +45,15 @@ export default class Toolbar extends Component {
         const rightIcon = [
             { name: 'share', onPress: null, num: null },
             { name: 'star', onPress: null, num: null },
-            { name: 'comment', onPress: null, num: this.setFormat(data.comments) },
-            { name: 'thumb-up', onPress: null, num: this.setFormat(data.popularity) },
+            {
+                name: 'comment',
+                onPress: this.props.openCommnet,
+                num: this.setFormat(data.comments)
+            }, {
+                name: 'thumb-up',
+                onPress: null,
+                num: this.setFormat(data.popularity)
+            },
         ];
 
         return (
@@ -115,7 +124,7 @@ const left = StyleSheet.create({
 
 const right = StyleSheet.create({
     icon: {
-        marginHorizontal: 10,
+        padding: 10,
         flexDirection: 'row',
         alignItems: 'center',
     },

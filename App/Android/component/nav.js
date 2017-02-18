@@ -11,6 +11,7 @@ import Main from './main/main';
 import EditorList from './editor/editor-list';
 import Editor from './editor/editor';
 import Article from './article/article';
+import Comment from './comment/comment';
 
 // ## 路由
 export default class Nav extends Component {
@@ -33,6 +34,10 @@ export default class Nav extends Component {
 
         if (route.id === 2 && route.title === '文章') {
             return <Article navigator={navigator} data={route.data} />
+        }
+
+        if (route.id === 3 && route.title === '评论') {
+            return <Comment navigator={navigator} data={route.data} />;
         }
 
         if (route.id === 5 && route.title === '主编') {

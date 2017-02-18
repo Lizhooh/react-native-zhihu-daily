@@ -137,6 +137,27 @@ const homeMore = {
     }
 };
 
+// 评论
+const longComments = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/story/`,
+    get(id) {
+        return fetch(this.url + `${id}/long-comments`)
+            .then(res => res.json())
+            .then(jsondata => jsondata)
+            .catch(err => console.error("longComments api Error: " + err))
+    }
+};
+
+const shortComments = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/story/`,
+    get(id) {
+        return fetch(this.url + `${id}/short-comments`)
+            .then(res => res.json())
+            .then(jsondata => jsondata)
+            .catch(err => console.error("shortComments api Error: " + err))
+    }
+};
+
 const Api = {
     themes,
     latest,
@@ -145,6 +166,8 @@ const Api = {
     storyExtra,
     themeMore,
     homeMore,
+    longComments,
+    shortComments,
 };
 
 export default Api;

@@ -13,8 +13,14 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Toolbar from './toolbar';
+import Api from '../../../Server/api';
+import LongCommentList from './long-comment-list';
+import {
+    styles,
+    longComment,
+    shortComment,
+} from './style/comment-style';
 
-const window = Dimensions.get('window');
 
 // ## 评论
 export default class Comment extends Component {
@@ -28,7 +34,7 @@ export default class Comment extends Component {
         };
 
         InteractionManager.runAfterInteractions(() => {
-            this.setState({ ok: true });
+            this.request.longComments(this.props.data.id);
         });
     }
 
@@ -42,9 +48,17 @@ export default class Comment extends Component {
         data: PropTypes.object.isRequired,
     };
 
-
-    renderLongCommentList = (comments) => {
-
+    request = {
+        longComments: (id) => {
+            Api.longComments.get(id).then(result => {
+                this.setState({
+                    ok: true,
+                    data: {
+                        long_comments: result.comments,
+                    },
+                });
+            });
+        },
     };
 
     renderLongComment = () => (
@@ -60,9 +74,11 @@ export default class Comment extends Component {
                 </Text>
             </View>
             :
-            <View>{
-                this.renderLongCommentList(this.state.data.comments)
-            }</View>
+            <View>
+                <LongCommentList
+                    data={this.state.data.long_comments}
+                    />
+            </View>
     );
 
     renderShortComment = () => (
@@ -72,15 +88,14 @@ export default class Comment extends Component {
     render() {
         const navData = this.props.data;
 
-        console.log(navData);
-
         return (
             <View style={styles.container}>
                 <Toolbar comments={navData.comments || 0} />
-
                 {
                     this.state.ok &&
                     <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
                         removeClippedSubviews={true}
                         >
 
@@ -110,49 +125,8 @@ export default class Comment extends Component {
                         </View>
 
                     </ScrollView>
-
                 }
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    longComment: {
-        minHeight: window.height - 55 - 25 - 46,
-        borderBottomWidth: 1,
-        borderBottomColor: '#eee',
-    },
-    shortComment: {
-        minHeight: 45,
-    },
-    empty: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-});
-
-const longComment = StyleSheet.create({
-    title: {
-        padding: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#eee',
-        flexDirection: 'row',
-    },
-});
-
-const shortComment = StyleSheet.create({
-    title: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#eee',
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 15,
-        height: 45,
-    }
-});

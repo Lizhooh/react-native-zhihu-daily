@@ -90,7 +90,12 @@ export default class Comment extends Component {
 
         return (
             <View style={styles.container}>
-                <Toolbar comments={navData.comments || 0} />
+                <Toolbar
+                    comments={navData.comments || 0}
+                    onBack={event => {
+                        this.props.navigator.pop();
+                    } }
+                    />
                 {
                     this.state.ok &&
                     <ScrollView

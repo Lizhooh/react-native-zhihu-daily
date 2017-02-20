@@ -22,7 +22,9 @@ export default class Toolbar extends Component {
             <View style={styles.container}>
 
                 <View style={styles.left}>
-                    <Touch>
+                    <Touch
+                        onPress={this.props.onBack}
+                        >
                         <MaterialIcons
                             name='arrow-back'
                             color='#fff'

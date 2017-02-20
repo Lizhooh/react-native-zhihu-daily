@@ -14,13 +14,14 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Toolbar from './toolbar';
 import Api from '../../../Server/api';
-import LongCommentList from './long-comment-list';
+import CommentList from './comment-list';
 import {
     styles,
     longComment,
     shortComment,
 } from './style/comment-style';
 
+const window = Dimensions.get('window');
 
 // ## 评论
 export default class Comment extends Component {
@@ -30,11 +31,12 @@ export default class Comment extends Component {
 
         this.state = {
             ok: false,
+            short: false,
             data: {},
         };
 
         InteractionManager.runAfterInteractions(() => {
-            this.request.longComments(this.props.data.id);
+            this.request.Comments(this.props.data.id);
         });
     }
 
@@ -49,14 +51,18 @@ export default class Comment extends Component {
     };
 
     request = {
-        longComments: (id) => {
-            Api.longComments.get(id).then(result => {
+        Comments: (id) => {
+            Promise.all([
+                Api.longComments.get(id),
+                Api.shortComments.get(id),
+            ]).then(results => {
                 this.setState({
                     ok: true,
                     data: {
-                        long_comments: result.comments,
+                        long_comments: results[0].comments,
+                        short_comments: results[1].comments,
                     },
-                });
+                })
             });
         },
     };
@@ -75,14 +81,19 @@ export default class Comment extends Component {
             </View>
             :
             <View>
-                <LongCommentList
+                <CommentList
                     data={this.state.data.long_comments}
                     />
             </View>
     );
 
     renderShortComment = () => (
-        <View></View>
+        <View>{
+            this.state.short &&
+            <CommentList
+                data={this.state.data.short_comments}
+                />
+        }</View>
     );
 
     render() {
@@ -102,10 +113,11 @@ export default class Comment extends Component {
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                         removeClippedSubviews={true}
+                        ref={s => this._scroll = s}
                         >
 
                         <View style={styles.longComment}>
-                            <Touch style={longComment.title}>
+                            <Touch style={longComment.title} activeOpacity={0.8}>
                                 <Text>
                                     {navData.long_comments || 0} 条长评
                                 </Text>
@@ -115,7 +127,21 @@ export default class Comment extends Component {
 
                         <View style={styles.shortComment}>
                             <Touch
+                                activeOpacity={0.8}
                                 style={shortComment.title}
+                                onPress={event => {
+                                    this.setState({
+                                        short: !this.state.short,
+                                    }, () => {
+                                        setTimeout(() => {
+                                            this._scroll.scrollTo({
+                                                x: 0,
+                                                y: window.height - 55 - 25 - 47,
+                                                animated: !true
+                                            });
+                                        }, 0);
+                                    });
+                                } }
                                 >
                                 <Text style={{ flex: 1 }}>
                                     {navData.short_comments || 0} 条短评

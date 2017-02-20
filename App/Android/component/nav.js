@@ -52,7 +52,7 @@ export default class Nav extends Component {
     };
 
     configureScene = (route, routeStack) => {
-        return Navigator.SceneConfigs.PushFromRight;
+        return Navigator.SceneConfigs.FloatFromBottomAndroid;
     };
 
     componentWillMount() {

@@ -205,7 +205,7 @@ export default class Main extends Component {
     };
 
     componentDidMount() {
-        this._drawer.openDrawer();
+        // this._drawer.openDrawer();
     }
 
     componentWillUnmount() {

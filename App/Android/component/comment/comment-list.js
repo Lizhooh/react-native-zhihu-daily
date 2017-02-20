@@ -10,7 +10,7 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { longComment } from './style/comment-style';
 
-export default class LongCommentList extends Component {
+export default class CommentList extends Component {
     constructor(props) {
         super(props);
     }
@@ -31,6 +31,7 @@ export default class LongCommentList extends Component {
         const L = longComment;
 
         return (
+            this.props.data &&
             <View>{
                 this.props.data.map((it, index) => (
                     <View key={`longComment-${index}`} style={L.item}>

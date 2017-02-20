@@ -42,10 +42,8 @@ export default class Article extends Component {
 
         // 等待动画完成后才 request
         InteractionManager.runAfterInteractions(() => {
-            setTimeout(() => {
-                this.request.story(id);
-                this.request.storyExtra(id);
-            }, 0);
+            this.request.story(id);
+            this.request.storyExtra(id);
         });
 
         this._y = 0;

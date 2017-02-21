@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 5,
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
     bottom: {
         flex: 1,

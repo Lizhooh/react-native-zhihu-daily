@@ -30,13 +30,16 @@ react-native run-ios
 ```
 
 ### use vscode
+
 install react-native-tools
+
+use vscode open file.
+
+run debug (F5).
 
 ![react-native-tools](/resoucre/react native tool.png)
 
 
-use vscode open file.
-run debug (F5).
 
 
 ## License

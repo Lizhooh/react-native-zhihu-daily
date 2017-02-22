@@ -21,12 +21,6 @@ export default class Nav extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            start: true,
-        };
-
-        this.setTimeout = setTimeout.bind(this);
     }
 
     renderScene = (route, navigator) => {
@@ -94,12 +88,6 @@ export default class Nav extends Component {
         BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
-    componentDidMount() {
-        this.setTimeout(_ => {
-            this.setState({ start: false })
-        }, 3000);
-    }
-
     render() {
         return (
             <View style={styles.contanter} collapsable={true}>
@@ -112,12 +100,6 @@ export default class Nav extends Component {
                     configureScene={this.configureScene}
                     renderScene={this.renderScene}
                     />
-                {
-                    // this.state.start &&
-                    // <View style={styles.startImage}>
-
-                    // </View>
-                }
             </View>
         );
     }

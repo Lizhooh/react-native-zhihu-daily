@@ -158,6 +158,16 @@ const shortComments = {
     }
 };
 
+const appStart = {
+    url: `https://news-at.zhihu.com/api/7/prefetch-launch-images/720*1112`,
+    get() {
+        return fetch(this.url)
+            .then(res => res.json())
+            .then(jsondata => jsondata)
+            .catch(err => console.error("appStart api Error: " + err))
+    }
+};
+
 const Api = {
     themes,
     latest,
@@ -168,6 +178,7 @@ const Api = {
     homeMore,
     longComments,
     shortComments,
+    appStart,
 };
 
 export default Api;

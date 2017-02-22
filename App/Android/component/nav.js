@@ -13,6 +13,7 @@ import EditorList from './editor/editor-list';
 import Editor from './editor/editor';
 import Article from './article/article';
 import Comment from './comment/comment';
+import About from './about/about';
 
 const window = Dimensions.get('window');
 
@@ -51,11 +52,15 @@ export default class Nav extends Component {
             return <Editor navigator={navigator} data={route.data} />
         }
 
+        if (route.id === 7 && route.title === '关于') {
+            return <About navigator={navigator} data={route.data} />
+        }
+
         return null;
     };
 
     configureScene = (route, routeStack) => {
-        if(route.id === 5 || route.id === 6) {
+        if ([5, 6, 7].some(i => route.id === i)) {
             return Navigator.SceneConfigs.PushFromRight;
         }
         return Navigator.SceneConfigs.FloatFromBottomAndroid;

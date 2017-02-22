@@ -23,6 +23,8 @@ export default class Toolbar extends Component {
 
                 <View style={styles.left}>
                     <Touch
+                        style={{ padding: 10 }}
+                        activeOpacity={0.8}
                         onPress={this.props.onBack}
                         >
                         <MaterialIcons
@@ -38,7 +40,10 @@ export default class Toolbar extends Component {
                 </View>
 
                 <View style={styles.right}>
-                    <Touch>
+                    <Touch
+                        style={{ padding: 10 }}
+                        activeOpacity={0.8}
+                        >
                         <MaterialIcons
                             name='mode-edit'
                             color='#fff'
@@ -58,7 +63,7 @@ const styles = StyleSheet.create({
         backgroundColor: Global.themeColor,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
     },
     left: {
         flex: 1,

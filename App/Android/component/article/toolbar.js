@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         backgroundColor: Global.themeColor,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
     },
     left: {
         flexDirection: 'row',
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
 const left = StyleSheet.create({
     icon: {
         marginHorizontal: 2,
+        padding: 10,
     },
 });
 

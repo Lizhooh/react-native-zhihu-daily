@@ -30,7 +30,7 @@ export default class Editor extends Component {
         return (
             <View style={styles.toolbar}>
                 <Touch
-                    style={null}
+                    style={{ padding: 10 }}
                     activeOpacity={1}
                     onPress={this.props.onBack}
                     >
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         height: 55,
         backgroundColor: Global.themeColor,
         alignItems: 'center',
-        paddingHorizontal: 15,
+        paddingHorizontal: 5,
         flexDirection: 'row',
     },
     title: {

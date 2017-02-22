@@ -85,7 +85,7 @@ export default class WebviewAutoHeight extends Component {
                     .headline {border-bottom: none !important;}
                     .img-place-holder {height: 0 !important;}
                     .view-more a {color: #aaa !important;}
-                    .content {font-size: 17px !important;color: #444;}
+                    .content {color: #444;}
                     a {color: ${Global.themeColor} !important;}
                     blockquote {border-left: 3px solid #D0E5F2; color: #888;}
                     blockquote em { font-weight: normal !important;}

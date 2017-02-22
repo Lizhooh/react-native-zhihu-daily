@@ -30,7 +30,7 @@ export default class Editor extends Component {
 
     static propTypes = {
         data: PropTypes.object,
-        navigator: PropTypes.object,
+        navigator: PropTypes.object.isRequired,
     };
 
     back = () => {

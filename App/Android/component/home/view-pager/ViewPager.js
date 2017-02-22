@@ -57,7 +57,7 @@ var ViewPager = React.createClass({
                     {
                         toValue: toValue,
                         friction: 10,
-                        tension: 80,
+                        tension: 60,
                     })
             },
         }

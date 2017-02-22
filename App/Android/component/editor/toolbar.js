@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     title: {
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     titleText: {
         color: '#fff',

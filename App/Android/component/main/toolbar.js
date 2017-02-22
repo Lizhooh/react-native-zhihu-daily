@@ -36,6 +36,7 @@ export default class Toolbar extends Component {
                 { "title": "消息", "iconName": "notifications", "show": "always", "iconSize": 25, "iconColor": "#fff" },
                 { "title": "夜间模式", "show": "never" },
                 { "title": "设置选项", "show": "never" },
+                { "title": "关于", "show": "never" },
             ]
             // 其他
             :

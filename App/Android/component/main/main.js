@@ -62,6 +62,7 @@ export default class Main extends Component {
 
         this.request.themes();
         this.request.latest();
+        this.request.theme(13);
     }
 
     static defaultProps = {
@@ -88,7 +89,7 @@ export default class Main extends Component {
                         this.request.theme(id);
                 }, 0);
 
-                if(id === -1) this.state.home.title = '首页';
+                if (id === -1) this.state.home.title = '首页';
 
                 this.setState({
                     activeMain: { id, name }
@@ -232,7 +233,15 @@ export default class Main extends Component {
                     <Toolbar
                         isHome={this.state.activeMain.id === -1}
                         onIconClicked={() => this._drawer.openDrawer()}
-                        onActionSelected={null}
+                        onActionSelected={position => {
+                            if (position === 3) {
+                                this.props.navigator.push({
+                                    id: 7,
+                                    title: '关于',
+                                    data: {},
+                                });
+                            }
+                        } }
                         />
 
                     <View style={{ flex: 1 }}>
@@ -240,8 +249,8 @@ export default class Main extends Component {
                         <View style={styles.otherToolbar}>
                             <Text style={styles.otherToolbarText}>{
                                 this.state.activeMain.id === -1 ?
-                                this.state.home.title :
-                                this.state.activeMain.name
+                                    this.state.home.title :
+                                    this.state.activeMain.name
                             }</Text>
                         </View>
 

@@ -32,7 +32,7 @@ export default class Home extends Component {
 
     static propTypes = {
         data: PropTypes.object,
-        navigator: PropTypes.object,
+        navigator: PropTypes.object.isRequired,
         onRefresh: PropTypes.func,
         onTitleChange: PropTypes.func,
         onMore: PropTypes.func,

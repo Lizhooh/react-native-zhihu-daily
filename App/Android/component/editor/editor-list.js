@@ -25,7 +25,7 @@ export default class EditorList extends Component {
 
     static propTypes = {
         data: PropTypes.array,
-        navigator: PropTypes.object,
+        navigator: PropTypes.object.isRequired,
     };
 
     back = () => {

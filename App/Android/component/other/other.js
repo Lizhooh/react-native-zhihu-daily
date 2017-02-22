@@ -29,7 +29,7 @@ export default class Other extends Component {
 
     static propTypes = {
         data: PropTypes.object,
-        navigator: PropTypes.object,
+        navigator: PropTypes.object.isRequired,
         onRefresh: PropTypes.func,
         onMore: PropTypes.func,
     };

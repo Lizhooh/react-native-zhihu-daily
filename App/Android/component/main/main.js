@@ -85,7 +85,7 @@ export default class Main extends Component {
 
                 this._timer = setTimeout(() => {
                     id === - 1 ?
-                        this.request.themes() :
+                        this.request.latest() :
                         this.request.theme(id);
                 }, 0);
 

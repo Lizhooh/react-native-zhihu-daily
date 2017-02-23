@@ -47,7 +47,7 @@ export default class App extends Component {
                 })
 
                 Animated.timing(this.state.imageScale, {
-                    toValue: 1.3,
+                    toValue: 1.4,
                     duration: 5000,
                     delay: 1000,
                     easing: Easing.linear,
@@ -99,10 +99,13 @@ export default class App extends Component {
                                     style={styles.image}
                                     />
                             </Animated.View>
-                            <Text style={styles.text}>
-                                <Image source={logo} style={styles.logo} />
-                                知乎日报
-                            </Text>
+                            <View style={styles.textView}>
+                                <Text style={styles.text}>
+                                    <Image source={logo} style={styles.logo} />
+                                    知乎日报
+                                </Text>
+                                <Text style={styles.user}>{this.state.creatives.text}</Text>
+                            </View>
                         </View>
                     }</View>
                 }
@@ -130,10 +133,13 @@ const styles = StyleSheet.create({
         width: window.width,
         height: window.height,
     },
-    text: {
+    textView: {
         position: 'absolute',
         left: 0, right: 0,
         bottom: 60,
+        justifyContent: 'center',
+    },
+    text: {
         color: '#fff',
         fontSize: 32,
         textAlign: 'center',
@@ -147,5 +153,17 @@ const styles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
+    },
+    user: {
+        color: 'rgba(255, 255, 255, 0.8)',
+        fontSize: 14,
+        textAlign: 'center',
+        paddingTop: 15,
+        textShadowOffset: {
+            width: 1,
+            height: 2,
+        },
+        textShadowRadius: 3,
+        textShadowColor: 'rgba(1, 1, 1, 0.3)',
     }
 });

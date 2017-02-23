@@ -44,6 +44,10 @@ export default class Nav extends Component {
             return <Comment navigator={navigator} data={route.data} />;
         }
 
+        if (route.id === 4 && route.title === '收藏') {
+            return;
+        }
+
         if (route.id === 5 && route.title === '主编') {
             return <EditorList navigator={navigator} data={route.data} />
         }
@@ -54,6 +58,10 @@ export default class Nav extends Component {
 
         if (route.id === 7 && route.title === '关于') {
             return <About navigator={navigator} data={route.data} />
+        }
+
+        if (route.id === 8 && route.title === '登录') {
+            return;
         }
 
         return null;

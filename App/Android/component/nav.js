@@ -60,9 +60,13 @@ export default class Nav extends Component {
     };
 
     configureScene = (route, routeStack) => {
-        if ([5, 6, 7].some(i => route.id === i)) {
+        if ([5, 6].some(i => route.id === i)) {
             return Navigator.SceneConfigs.PushFromRight;
         }
+        if ([7].some(i => route.id === i)) {
+            return Navigator.SceneConfigs.FloatFromRight;
+        }
+
         return Navigator.SceneConfigs.FloatFromBottomAndroid;
     };
 

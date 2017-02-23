@@ -47,9 +47,9 @@ export default class App extends Component {
                 })
 
                 Animated.timing(this.state.imageScale, {
-                    toValue: 1.2,
-                    duration: 3500,
-                    delay: 300,
+                    toValue: 1.3,
+                    duration: 5000,
+                    delay: 1000,
                     easing: Easing.linear,
                 }).start();
 
@@ -69,13 +69,15 @@ export default class App extends Component {
             this.setState({
                 start: true,
             });
-        }, 3500);
+        }, 5000);
     };
 
     render() {
         const ani = {
-            scaleX: this.state.imageScale,
-            scaleY: this.state.imageScale,
+            transform: [
+                { scaleX: this.state.imageScale },
+                { scaleY: this.state.imageScale },
+            ],
         };
 
         return (

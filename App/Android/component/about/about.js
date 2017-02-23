@@ -31,6 +31,7 @@ export default class About extends Component {
 
     render() {
         return (
+
             <View style={styles.container}>
                 <Toolbar title="关于" onBack={this.onBack} />
                 <ScrollView

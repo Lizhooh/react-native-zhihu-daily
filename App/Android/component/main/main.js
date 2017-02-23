@@ -214,11 +214,6 @@ export default class Main extends Component {
         this._timer && clearTimeout(this._timer);
     }
 
-    // 性能优化
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return shallowCompare(this, nextProps, nextState);
-    // }
-
     render() {
         return (
             <View style={styles.contanter}>

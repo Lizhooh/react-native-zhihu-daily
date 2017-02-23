@@ -2,6 +2,7 @@
 import React from 'react';
 import {
     AsyncStorage,
+    ToastAndroid,
 } from 'react-native';
 
 const version = 4;
@@ -13,7 +14,10 @@ const themes = {
         return fetch(this.url)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("themes api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
+                // console.error("themes api Error: " + err)
+            })
     },
 };
 
@@ -23,7 +27,10 @@ const latest = {
         return fetch(this.url)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("latest api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1002', ToastAndroid.SHORT);
+                // console.error("latest api Error: " + err)
+            })
     }
 };
 
@@ -33,7 +40,10 @@ const theme = {
         return fetch(this.url + id)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("theme api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1003', ToastAndroid.SHORT);
+                // console.error("theme api Error: " + err)
+            })
     }
 };
 
@@ -101,7 +111,10 @@ const story = {
                     return jsondata;
                 }
             })
-            .catch(err => console.error("story api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1004', ToastAndroid.SHORT);
+                // console.error("story api Error: " + err)
+            })
     }
 };
 
@@ -112,7 +125,10 @@ const storyExtra = {
         return fetch(this.url + id)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("storyExtra api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1005', ToastAndroid.SHORT);
+                // console.error("storyExtra api Error: " + err)
+            })
     }
 };
 
@@ -123,7 +139,10 @@ const themeMore = {
         return fetch(this.url + `${themeid}/before/${storyid}`)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("themeMore api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1006', ToastAndroid.SHORT);
+                // console.error("themeMore api Error: " + err)
+            })
     }
 };
 
@@ -133,7 +152,10 @@ const homeMore = {
         return fetch(this.url + lastDate)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("homeMore api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1007', ToastAndroid.SHORT);
+                // console.error("homeMore api Error: " + err)
+            })
     }
 };
 
@@ -144,7 +166,10 @@ const longComments = {
         return fetch(this.url + `${id}/long-comments`)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("longComments api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1008', ToastAndroid.SHORT);
+                // console.error("longComments api Error: " + err)
+            })
     }
 };
 
@@ -154,7 +179,10 @@ const shortComments = {
         return fetch(this.url + `${id}/short-comments`)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("shortComments api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
+                // console.error("shortComments api Error: " + err)
+            })
     }
 };
 
@@ -164,7 +192,10 @@ const appStart = {
         return fetch(this.url)
             .then(res => res.json())
             .then(jsondata => jsondata)
-            .catch(err => console.error("appStart api Error: " + err))
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
+                // console.error("appStart api Error: " + err)
+            })
     }
 };
 

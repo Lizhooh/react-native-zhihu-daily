@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
         color: 'rgba(255, 255, 255, 0.8)',
         fontSize: 14,
         textAlign: 'center',
-        paddingTop: 15,
+        paddingTop: 20,
         textShadowOffset: {
             width: 1,
             height: 2,

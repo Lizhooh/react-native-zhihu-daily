@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0, bottom: 0,
         left: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.2)',
+        backgroundColor: 'rgba(1, 1, 1, 0.4)',
     },
     title: {
         position: 'absolute',

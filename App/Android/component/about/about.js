@@ -49,7 +49,7 @@ export default class About extends Component {
                                 <Text style={styles.contentText}>
                                     基于 React Native 实现的《橙色·知乎日报》App，
                                     除了敏感的功能（登录，分享等）外，
-                                    实现了与官方的知乎日报保持着一致的 UI 体验。
+                                    实现了与官方的《知乎日报》保持着一致的 UI 体验。
                                     数据来自于知乎日报，数据版权知乎日报所有。
                                 </Text>
                             </View>
@@ -77,9 +77,10 @@ export default class About extends Component {
                                         <Text style={{ color: '#555' }}>  Lizhooh</Text>
                                     </View>
                                     <Text style={styles.contentText}>
-                                        前端开发工程师，研究方向：HTML5，CSS3，
-                                        Javascript，Java，Vue，React，React Native，
-                                        Node.js，MongoDB，移动开发，Web开发，数据分析，等前沿技术。
+                                        计算机科学专业，前端开发工程师，研究方向：
+                                        HTML5，CSS3，Javascript，Java，Vue，
+                                        React，React Native，Node.js，MongoDB，
+                                        移动开发，Web开发，数据分析，等前沿技术。
                                     </Text>
                                     <Text style={styles.contentText}>
                                         个人技术博客：

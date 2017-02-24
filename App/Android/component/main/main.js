@@ -163,6 +163,7 @@ export default class Main extends Component {
                 home.topStories = result.top_stories || [];
                 home.data = {};
                 home.data[result.date + '-0'] = result.stories;
+                home.lastid = 0;
                 this.setState({ home: home });
             });
         },
@@ -176,7 +177,6 @@ export default class Main extends Component {
         themeMore: (themeid, storyid) => {
             Api.themeMore.get(themeid, storyid).then((result) => {
                 let other = this.state.other;
-                // 没有更多了
                 if (result.stories.length === 0) {
                     other.nomore = true;
                     this.setState({ other: other });
@@ -185,9 +185,11 @@ export default class Main extends Component {
 
                 const interim = other.data;
                 interim.stories = interim.stories.concat(result.stories);
-
                 other.data = interim;
+
                 this.setState({ other: other });
+                this.other.laststoryid = 0;
+
             });
         },
         homeMore: (lastDate) => {
@@ -201,6 +203,8 @@ export default class Main extends Component {
                 const index = Object.keys(home.data).length;
                 home.data[result.date + `-${index}`] = result.stories;
                 this.setState({ home: home });
+
+                this.home.lastdate = 0;
             });
         },
     };

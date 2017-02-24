@@ -60,7 +60,7 @@ export default class About extends Component {
                                 <Text style={styles.subtitle}>开源：</Text>
                             </View>
                             <View style={styles.content}>
-                                <Text>此项目开源在 Github 上，仅限于个人兴趣与学习。</Text>
+                                <Text style={{ color: '#555' }}>此项目开源在 Github 上，仅限于个人兴趣与学习。</Text>
                                 <Text style={styles.link}>https://github.com/lizhooh/react-native-zhihu-daily</Text>
                             </View>
                         </View>
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
     },
     contentText: {
         lineHeight: 23,
+        color: '#555',
     },
     link: {
         color: Global.themeColor,

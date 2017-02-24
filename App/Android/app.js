@@ -47,7 +47,7 @@ export default class App extends Component {
                 })
 
                 Animated.timing(this.state.imageScale, {
-                    toValue: 1.4,
+                    toValue: 1.3,
                     duration: 5000,
                     delay: 1000,
                     easing: Easing.linear,

@@ -10,7 +10,6 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import shallowCompare from 'react-addons-shallow-compare';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Menu from '../menu/menu';
 import Toolbar from './toolbar';

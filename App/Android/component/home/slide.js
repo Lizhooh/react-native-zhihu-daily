@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 
 import ViewPager from './view-pager/ViewPager';
-import shallowCompare from 'react-addons-shallow-compare';
 
 const window = Dimensions.get('window');
 
@@ -61,11 +60,6 @@ export default class Slide extends Component {
             </Touch>
         </View>
     );
-
-    // 性能优化
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     render() {
         return (

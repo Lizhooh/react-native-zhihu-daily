@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import shallowCompare from 'react-addons-shallow-compare';
 import Global from '../../Global';
 import { styles, pice, editor } from './style/list-style';
 
@@ -156,11 +155,6 @@ export default class List extends Component {
                 progressBackgroundColor="#fff"
                 />
         );
-    }
-
-    // 性能优化
-    shouldComponentUpdate(nextProps, nextState) {
-        return shallowCompare(this, nextProps, nextState);
     }
 
     componentWillReceiveProps(nextProps) {

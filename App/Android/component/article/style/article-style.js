@@ -1,6 +1,7 @@
 import {
     StyleSheet,
     Dimensions,
+    PixelRatio,
 } from 'react-native';
 
 const window = Dimensions.get('window');
@@ -20,7 +21,6 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        paddingTop: 55,
         backgroundColor: '#fff',
     },
     webview: {
@@ -29,7 +29,28 @@ const styles = StyleSheet.create({
     modal: {
         flex: 1,
         backgroundColor: 'rgba(1, 1, 1, 0.5)',
-    }
+    },
+
+    footer: {
+        margin: 20,
+        marginBottom: 30,
+        padding: 1 / PixelRatio.get(),
+        backgroundColor: 'rgba(1, 1, 1, 0.04)',
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 50,
+        borderRadius: 2,
+        paddingRight: 5,
+    },
+    footerImage: {
+        width: 50,
+        height: 50,
+    },
+    footerContent: {
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        flex: 1,
+    },
 });
 
 export {

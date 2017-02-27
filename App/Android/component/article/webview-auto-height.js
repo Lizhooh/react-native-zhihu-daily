@@ -53,7 +53,7 @@ export default class WebviewAutoHeight extends Component {
         css: '',
         htmlStyle: '',
         body: null,
-        onloadHTML: () => { },
+        onLoad: () => { },
         onImagePress: () => { },
     };
 
@@ -64,7 +64,7 @@ export default class WebviewAutoHeight extends Component {
         ]),
         body: PropTypes.string,
         htmlStyle: PropTypes.string,
-        onloadHTML: PropTypes.func,
+        onLoad: PropTypes.func,
         onImagePress: PropTypes.func.isRequired,
     };
 
@@ -119,11 +119,12 @@ export default class WebviewAutoHeight extends Component {
                 onMessage={this.props.onImagePress}
                 onNavigationStateChange={(document) => {
                     if (document.title) {
-                        this.props.onloadHTML(document);
                         if (this.state.height === document.title) return;
 
                         this.setState({
-                            height: parseInt(document.title) + 60,
+                            height: parseInt(document.title) + 5,
+                        }, () => {
+                            this.props.onLoad(document);
                         });
                     }
                 } }

@@ -34,6 +34,8 @@ export default class Article extends Component {
                 imageSrc: '',
             },
 
+            section: false,
+
             article_data: null,
             extra_data: {},
         };
@@ -94,6 +96,11 @@ export default class Article extends Component {
                         }
                     });
                 } }
+                onLoad={event => {
+                    setTimeout(_ => {
+                        this.setState({ section: true });
+                    }, 500);
+                } }
                 />
         );
     };
@@ -103,6 +110,32 @@ export default class Article extends Component {
         const { article_data: data } = this.state;
         return data && <Header data={data} />
     };
+
+    get renderFooter() {
+        const _ = this.state;
+        if (!(_.article_data && _.section && _.article_data.section)) return;
+        const section = _.article_data.section;
+
+        return (
+            <Touch
+                style={styles.footer}
+                activeOpacity={0.7}
+                onPress={null}
+                >
+                <Image source={{ uri: section.thumbnail }} style={styles.footerImage} />
+                <View style={styles.footerContent}>
+                    <Text style={{ color: '#444' }}>
+                        本文来自：{section.name} · 合集
+                    </Text>
+                </View>
+                <MaterialIcons
+                    name='chevron-right'
+                    color='#444'
+                    size={20}
+                    />
+            </Touch>
+        );
+    }
 
     // 根据滚动条的变化，Toolbar 的透明度会产生变化
     scrollViewOnScroll = event => {
@@ -173,6 +206,7 @@ export default class Article extends Component {
                     >
                     {this.renderHeader}
                     {this.renderBody}
+                    {this.renderFooter}
                 </ScrollView>
 
                 {/* 实现浮动效果，必须把要浮动的组件放在后面 */}

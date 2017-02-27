@@ -159,8 +159,7 @@ export default class List extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.data.name !== nextProps.data.name) {
-            this._listview &&
-                this._listview.scrollTo({ x: 0, y: 0, animated: true });
+            this._listview && this._listview.scrollTo({ x: 0, y: 0, animated: true });
         }
     }
 

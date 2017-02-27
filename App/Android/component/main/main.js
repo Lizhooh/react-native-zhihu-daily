@@ -97,7 +97,7 @@ export default class Main extends Component {
             />
     );
 
-    renderMainView = (data) => (
+    renderMainView = () => (
         this.state.activeMain.id === -1 ?
             <Home
                 data={this.state.home.data}
@@ -181,14 +181,11 @@ export default class Main extends Component {
                     this.setState({ other: other });
                     return;
                 }
-
                 const interim = other.data;
                 interim.stories = interim.stories.concat(result.stories);
                 other.data = interim;
-
                 this.setState({ other: other });
                 this.other.laststoryid = 0;
-
             });
         },
         homeMore: (lastDate) => {
@@ -202,7 +199,6 @@ export default class Main extends Component {
                 const index = Object.keys(home.data).length;
                 home.data[result.date + `-${index}`] = result.stories;
                 this.setState({ home: home });
-
                 this.home.lastdate = 0;
             });
         },
@@ -254,7 +250,7 @@ export default class Main extends Component {
 
                         {
                             // 根据 activeMain 来渲染主视图
-                            this.renderMainView(this.state.activeMain)
+                            this.renderMainView()
                         }
 
                     </View>

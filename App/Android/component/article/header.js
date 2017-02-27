@@ -25,51 +25,55 @@ export default class Header extends Component {
         data: PropTypes.object.isRequired,
     };
 
+    renderImage = (data) => (
+        data.image &&
+        <View style={styles.header}>
+            <Image
+                style={styles.image}
+                source={{ uri: data.image }}
+                />
+
+            <View style={styles.shade}>
+                <Text style={styles.title}>
+                    {data.title}
+                </Text>
+
+                <Text style={styles.image_source}>
+                    {data.image_source}
+                </Text>
+            </View>
+        </View>
+    );
+
+    renderRecommenders = (data) => (
+        data.recommenders &&
+        <View style={styles.recommenders}>
+            <Text style={styles.text}>
+                推荐者
+                        </Text>
+            <View style={styles.box}>{
+                data.recommenders.map((it, index) => (
+                    <View
+                        key={`recommenders-${index}`}
+                        style={[styles.avatar, { margin: 5 }]}
+                        >
+                        <Image
+                            source={{ uri: it.avatar }}
+                            style={styles.avatar}
+                            />
+                    </View>
+                ))
+            }</View>
+        </View>
+    );
+
     render() {
         const data = this.props.data;
 
         return (
             <View>
-                {
-                    data.image &&
-                    <View style={styles.header}>
-                        <Image
-                            style={styles.image}
-                            source={{ uri: data.image }}
-                            />
-
-                        <View style={styles.shade}>
-                            <Text style={styles.title}>
-                                {data.title}
-                            </Text>
-
-                            <Text style={styles.image_source}>
-                                {data.image_source}
-                            </Text>
-                        </View>
-                    </View>
-                }
-                {
-                    data.recommenders &&
-                    <View style={styles.recommenders}>
-                        <Text style={styles.text}>
-                            推荐者
-                        </Text>
-                        <View style={styles.box}>{
-                            data.recommenders.map((it, index) => (
-                                <View
-                                    key={`recommenders-${index}`}
-                                    style={[styles.avatar, { margin: 5 }]}
-                                    >
-                                    <Image
-                                        source={{ uri: it.avatar }}
-                                        style={styles.avatar}
-                                        />
-                                </View>
-                            ))
-                        }</View>
-                    </View>
-                }
+                {this.renderImage(data)}
+                {this.renderRecommenders(data)}
             </View>
         );
     }
@@ -77,6 +81,7 @@ export default class Header extends Component {
 
 const styles = StyleSheet.create({
     header: {
+        marginTop: 55,
         height: 210,
         width: window.width,
         backgroundColor: 'rgba(1, 1, 1, 0.05)',

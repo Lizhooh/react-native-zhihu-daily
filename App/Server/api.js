@@ -15,8 +15,7 @@ const themes = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
-                // console.error("themes api Error: " + err)
+                ToastAndroid.show('网络连接错误：1001', ToastAndroid.LONG);
             })
     },
 };
@@ -28,8 +27,7 @@ const latest = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1002', ToastAndroid.SHORT);
-                // console.error("latest api Error: " + err)
+                ToastAndroid.show('网络连接错误：1002', ToastAndroid.LONG);
             })
     }
 };
@@ -41,8 +39,7 @@ const theme = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1003', ToastAndroid.SHORT);
-                // console.error("theme api Error: " + err)
+                ToastAndroid.show('网络连接错误：1003', ToastAndroid.LONG);
             })
     }
 };
@@ -112,8 +109,7 @@ const story = {
                 }
             })
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1004', ToastAndroid.SHORT);
-                // console.error("story api Error: " + err)
+                ToastAndroid.show('网络连接错误：1004', ToastAndroid.LONG);
             })
     }
 };
@@ -126,8 +122,7 @@ const storyExtra = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1005', ToastAndroid.SHORT);
-                // console.error("storyExtra api Error: " + err)
+                ToastAndroid.show('网络连接错误：1005', ToastAndroid.LONG);
             })
     }
 };
@@ -140,8 +135,7 @@ const themeMore = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1006', ToastAndroid.SHORT);
-                // console.error("themeMore api Error: " + err)
+                ToastAndroid.show('网络连接错误：1006', ToastAndroid.LONG);
             })
     }
 };
@@ -153,8 +147,7 @@ const homeMore = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1007', ToastAndroid.SHORT);
-                // console.error("homeMore api Error: " + err)
+                ToastAndroid.show('网络连接错误：1007', ToastAndroid.LONG);
             })
     }
 };
@@ -167,8 +160,7 @@ const longComments = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1008', ToastAndroid.SHORT);
-                // console.error("longComments api Error: " + err)
+                ToastAndroid.show('网络连接错误：1008', ToastAndroid.LONG);
             })
     }
 };
@@ -180,8 +172,7 @@ const shortComments = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
-                // console.error("shortComments api Error: " + err)
+                ToastAndroid.show('网络连接错误：1009', ToastAndroid.LONG);
             })
     }
 };
@@ -193,8 +184,32 @@ const appStart = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
-                // console.error("appStart api Error: " + err)
+                ToastAndroid.show('网络连接错误：1010', ToastAndroid.LONG);
+            })
+    }
+};
+
+const section = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/section/`,
+    get(id) {
+        return fetch(this.url + id)
+            .then(res => res.json())
+            .then(jsondata => jsondata)
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1011', ToastAndroid.LONG);
+            })
+    }
+};
+
+// http://news-at.zhihu.com/api/4/section/35/before/1486476000
+const sectionMore = {
+    url: `${protocol}://news-at.zhihu.com/api/${version}/section/`,
+    get(id, lastTime) {
+        return fetch(this.url + `${id}/before/${lastTime}`)
+            .then(res => res.json())
+            .then(jsondata => jsondata)
+            .catch(err => {
+                ToastAndroid.show('网络连接错误：1012', ToastAndroid.LONG);
             })
     }
 };
@@ -210,6 +225,8 @@ const Api = {
     longComments,
     shortComments,
     appStart,
+    section,
+    sectionMore,
 };
 
 export default Api;

@@ -24,13 +24,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     webview: {
-    },
 
+    },
     modal: {
         flex: 1,
         backgroundColor: 'rgba(1, 1, 1, 0.5)',
     },
-
     footer: {
         margin: 20,
         marginBottom: 30,

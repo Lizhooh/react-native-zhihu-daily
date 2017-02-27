@@ -120,7 +120,16 @@ export default class Article extends Component {
             <Touch
                 style={styles.footer}
                 activeOpacity={0.7}
-                onPress={null}
+                onPress={event => {
+                    this.props.navigator.push({
+                        id: 9,
+                        title: '合集',
+                        data: {
+                            title: section.name,
+                            id: section.id,
+                        },
+                    });
+                } }
                 >
                 <Image source={{ uri: section.thumbnail }} style={styles.footerImage} />
                 <View style={styles.footerContent}>

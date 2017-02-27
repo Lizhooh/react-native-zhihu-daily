@@ -14,6 +14,7 @@ import Editor from './editor/editor';
 import Article from './article/article';
 import Comment from './comment/comment';
 import About from './about/about';
+import Section from './section/section';
 
 const window = Dimensions.get('window');
 
@@ -62,6 +63,10 @@ export default class Nav extends Component {
 
         if (route.id === 8 && route.title === '登录') {
             return;
+        }
+
+        if (route.id === 9 && route.title === '合集') {
+            return <Section navigator={navigator} data={route.data} />
         }
 
         return null;

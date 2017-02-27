@@ -184,8 +184,8 @@ export default class Main extends Component {
                 const interim = other.data;
                 interim.stories = interim.stories.concat(result.stories);
                 other.data = interim;
+                other.laststoryid = 0;
                 this.setState({ other: other });
-                this.other.laststoryid = 0;
             });
         },
         homeMore: (lastDate) => {
@@ -198,8 +198,8 @@ export default class Main extends Component {
                 }
                 const index = Object.keys(home.data).length;
                 home.data[result.date + `-${index}`] = result.stories;
+                home.lastdate = 0;
                 this.setState({ home: home });
-                this.home.lastdate = 0;
             });
         },
     };

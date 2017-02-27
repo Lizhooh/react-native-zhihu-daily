@@ -44,7 +44,9 @@ export default class App extends Component {
                 this.setState({
                     loadImage: true,
                     creatives: result.creatives[0],
-                })
+                }, () => {
+                    this.stateTimes();
+                });
 
                 Animated.timing(this.state.imageScale, {
                     toValue: 1.3,
@@ -53,7 +55,6 @@ export default class App extends Component {
                     easing: Easing.linear,
                 }).start();
 
-                this.stateTimes();
             });
         },
     };

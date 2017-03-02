@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -15,43 +15,22 @@ import { styles } from './style/list-style';
 
 const window = Dimensions.get('window');
 
-export default class List extends Component {
+export default ({data, openArticle, onMore}) => {
 
-    constructor(props) {
-        super(props);
+    const ds = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
+    });
 
-        this.state = {
-            isRefreshing: false,
-        };
-
-        this.ds = new ListView.DataSource({
-            rowHasChanged: (r1, r2) => r1 !== r2
-        });
-
-    }
-
-    static defaultProps = {
-        data: null,
-        openArticle: () => { },
-        onMore: () => { },
+    const getDataSource = () => {
+        return ds.cloneWithRows(data.stories);
     };
 
-    static propTypes = {
-        data: PropTypes.object.isRequired,
-        openArticle: PropTypes.func,
-        onMore: PropTypes.func,
-    };
-
-    getDataSource = () => {
-        return this.ds.cloneWithRows(this.props.data.stories);
-    };
-
-    renderRow = (data, sectionID, rowID, highlightRow) => (
+    const renderRow = (data, sectionID, rowID, highlightRow) => (
         <View style={styles.box} key={`list-${rowID}`}>
             <Touch
                 activeOpacity={0.7}
                 style={styles.touch}
-                onPress={event => this.props.openArticle(event, data.id)}
+                onPress={event => openArticle(event, data.id)}
                 >
                 <View style={styles.left}>
                     <Text style={styles.title}>{data.title}</Text>
@@ -84,41 +63,38 @@ export default class List extends Component {
         </View>
     );
 
-    renderHeader = () => (
+    const renderHeader = () => (
         <View style={{ marginBottom: 10 }}>
 
         </View>
     );
 
     // 列表尾
-    renderFooter = () => (
+    const renderFooter = () => (
         <View style={{ margin: 10 }}>
 
         </View>
     );
 
-    render() {
-        return (
-            <View style={styles.contanter}>
-                <ListView
-                    ref={(listview) => this._listview = listview}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={!false}
-                    removeClippedSubviews={true}
-                    renderRow={this.renderRow}
-                    renderHeader={this.renderHeader}
-                    renderFooter={this.renderFooter}
-                    dataSource={this.getDataSource()}
-                    initialListSize={15}
-                    pageSize={10}
-                    scrollRenderAheadDistance={500}
-                    // 滚动刷新
-                    onEndReachedThreshold={1000}
-                    onEndReached={this.props.onMore}
-                    >
-                </ListView>
-            </View>
-        );
-    }
+    return (
+        <View style={styles.contanter}>
+            <ListView
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={!false}
+                removeClippedSubviews={true}
+                renderRow={renderRow}
+                renderHeader={renderHeader}
+                renderFooter={renderFooter}
+                dataSource={getDataSource()}
+                initialListSize={15}
+                pageSize={10}
+                scrollRenderAheadDistance={500}
+                // 滚动刷新
+                onEndReachedThreshold={1000}
+                onEndReached={onMore}
+                >
+            </ListView>
+        </View>
+    );
 }
 

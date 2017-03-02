@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -11,51 +11,40 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Global from '../../Global';
 
 // ## 评论工具栏
-export default class Toolbar extends Component {
+export default ({comments, onBack}) => (
+    <View style={styles.container}>
+        <View style={styles.left}>
+            <Touch
+                style={{ padding: 10 }}
+                activeOpacity={0.8}
+                onPress={onBack}
+                >
+                <MaterialIcons
+                    name='arrow-back'
+                    color='#fff'
+                    size={26}
+                    />
+            </Touch>
 
-    constructor(props) {
-        super(props);
-    }
+            <Text style={styles.text}>
+                {comments} 条评论
+            </Text>
+        </View>
 
-    render() {
-        return (
-            <View style={styles.container}>
-
-                <View style={styles.left}>
-                    <Touch
-                        style={{ padding: 10 }}
-                        activeOpacity={0.8}
-                        onPress={this.props.onBack}
-                        >
-                        <MaterialIcons
-                            name='arrow-back'
-                            color='#fff'
-                            size={26}
-                            />
-                    </Touch>
-
-                    <Text style={styles.text}>{
-                        this.props.comments} 条评论
-                    </Text>
-                </View>
-
-                <View style={styles.right}>
-                    <Touch
-                        style={{ padding: 10 }}
-                        activeOpacity={0.8}
-                        >
-                        <MaterialIcons
-                            name='mode-edit'
-                            color='#fff'
-                            size={24}
-                            />
-                    </Touch>
-                </View>
-
-            </View>
-        );
-    }
-}
+        <View style={styles.right}>
+            <Touch
+                style={{ padding: 10 }}
+                activeOpacity={0.8}
+                >
+                <MaterialIcons
+                    name='mode-edit'
+                    color='#fff'
+                    size={24}
+                    />
+            </Touch>
+        </View>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -7,57 +7,25 @@ import {
     TouchableOpacity as Touch,
     WebView,
     Platform,
-    InteractionManager,
 } from 'react-native';
 
 import Toolbar from './toolbar';
 
 // ## 主编资料
-export default class Editor extends Component {
+export default ({data, navigator}) => {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            url: '',
-        };
-    }
-
-    static defaultProps = {
-        data: null,
-        navigator: null,
-    };
-
-    static propTypes = {
-        data: PropTypes.object,
-        navigator: PropTypes.object.isRequired,
-    };
-
-    back = () => {
-        this.props.navigator.pop();
-    };
-
-    getUrl = () => {
-        const id = this.props.data.id;
+    const getUrl = () => {
         const p = Platform.OS === 'ios' ? 'ios' : 'android';
-        InteractionManager.runAfterInteractions(() => {
-            this.setState({ url: `http://news-at.zhihu.com/api/4/editor/${id}/profile-page/${p}` });
-        });
+        return `http://news-at.zhihu.com/api/4/editor/${data.id}/profile-page/${p}`;
     };
 
-    componentDidMount() {
-        this.getUrl();
-    }
-
-    render() {
-        return (
-            <View style={styles.contanier}>
-                <Toolbar title="主编资料" onBack={this.back} />
-                <WebView source={{ uri: this.state.url }} />
-            </View>
-        );
-    }
-}
+    return (
+        <View style={styles.contanier}>
+            <Toolbar title="主编资料" onBack={() => navigator.pop()} />
+            <WebView source={{ uri: getUrl() }} />
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     contanier: {

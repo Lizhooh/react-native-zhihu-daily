@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -11,21 +11,9 @@ import {
 const window = Dimensions.get('window');
 
 // ## 文章的头部
-export default class Header extends Component {
+export default ({data}) => {
 
-    constructor(props) {
-        super(props);
-    }
-
-    static defaultProps = {
-        data: null,
-    };
-
-    static propTypes = {
-        data: PropTypes.object.isRequired,
-    };
-
-    renderImage = (data) => (
+    const renderImage = (data) => (
         data.image &&
         <View style={styles.header}>
             <Image
@@ -45,7 +33,7 @@ export default class Header extends Component {
         </View>
     );
 
-    renderRecommenders = (data) => (
+    const renderRecommenders = (data) => (
         data.recommenders &&
         <View style={styles.recommenders}>
             <Text style={styles.text}>
@@ -67,16 +55,12 @@ export default class Header extends Component {
         </View>
     );
 
-    render() {
-        const data = this.props.data;
-
-        return (
-            <View>
-                {this.renderImage(data)}
-                {this.renderRecommenders(data)}
-            </View>
-        );
-    }
+    return (
+        <View>
+            {renderImage(data)}
+            {renderRecommenders(data)}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({

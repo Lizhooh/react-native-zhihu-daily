@@ -22,9 +22,9 @@ export default class List extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isRefreshing: false,
-        };
+        // this.state = {
+        //     isRefreshing: false,
+        // };
 
         this.ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
@@ -146,7 +146,7 @@ export default class List extends Component {
         return (
             <RefreshControl
                 enabled={true}
-                refreshing={this.state.isRefreshing}
+                refreshing={false}
                 onRefresh={this.props.onRefresh}
                 tintColor={Global.themeColor}
                 title="Loading..."

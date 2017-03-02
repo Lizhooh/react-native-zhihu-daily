@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -10,28 +10,10 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Global from '../../Global';
 
 // ## 文章工具栏
-export default class Toolbar extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    static defaultProps = {
-        opacity: 1,
-        data: {},
-        onBack: null,
-        openCommnet: null,
-    };
-
-    static propTypes = {
-        opacity: PropTypes.number,
-        data: PropTypes.object,
-        onBack: PropTypes.func.isRequired,
-        openCommnet: PropTypes.func.isRequired,
-    };
+export default ({opacity = 1, data = {}, onBack, openCommnet, style}) => {
 
     // 大于 1000 时，显示 k
-    setFormat = (value) => {
+    const setFormat = (value) => {
         if (value > 1000 && (value += '')) {
             value = value.substr(0, value.length - 2);
             return (value / 10).toFixed(1) + 'k';
@@ -39,63 +21,59 @@ export default class Toolbar extends Component {
         return value;
     };
 
-    render() {
+    const rightIcon = [
+        { name: 'share', onPress: null, num: null },
+        { name: 'star', onPress: null, num: null },
+        {
+            name: 'comment',
+            onPress: openCommnet,
+            num: setFormat(data.comments)
+        }, {
+            name: 'thumb-up',
+            onPress: null,
+            num: setFormat(data.popularity)
+        },
+    ];
 
-        const data = this.props.data;
-        const rightIcon = [
-            { name: 'share', onPress: null, num: null },
-            { name: 'star', onPress: null, num: null },
-            {
-                name: 'comment',
-                onPress: this.props.openCommnet,
-                num: this.setFormat(data.comments)
-            }, {
-                name: 'thumb-up',
-                onPress: null,
-                num: this.setFormat(data.popularity)
-            },
-        ];
+    return (
+        <View style={[styles.contanier, style]}>
+            <View style={styles.left}>
+                <Touch
+                    style={left.icon}
+                    activeOpacity={0.8}
+                    onPress={onBack}
+                    >
+                    <MaterialIcons
+                        name="arrow-back"
+                        size={26}
+                        color="#fff"
+                        />
+                </Touch>
+            </View>
 
-        return (
-            <View style={[styles.contanier, this.props.style]}>
-                <View style={styles.left}>
+            <View style={styles.right}>{
+                rightIcon.map((it, index) => (
                     <Touch
-                        style={left.icon}
+                        key={`right-icon-${index}`}
+                        style={right.icon}
                         activeOpacity={0.8}
-                        onPress={this.props.onBack}
+                        onPress={it.onPress}
                         >
                         <MaterialIcons
-                            name="arrow-back"
+                            name={it.name}
                             size={26}
                             color="#fff"
                             />
+                        {
+                            it.num !== null &&
+                            <Text style={right.num}>{it.num}</Text>
+                        }
                     </Touch>
-                </View>
+                ))
+            }</View>
 
-                <View style={styles.right}>{
-                    rightIcon.map((it, index) => (
-                        <Touch
-                            key={`right-icon-${index}`}
-                            style={right.icon}
-                            activeOpacity={0.8}
-                            onPress={it.onPress}
-                            >
-                            <MaterialIcons
-                                name={it.name}
-                                size={26}
-                                color="#fff"
-                                />
-                            {
-                                it.num !== null &&
-                                <Text style={right.num}>{it.num}</Text>
-                            }
-                        </Touch>
-                    ))
-                }</View>
-
-            </View>
-        );
-    }
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({

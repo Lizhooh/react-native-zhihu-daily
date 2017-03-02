@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -10,46 +10,29 @@ import {
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Global from '../../Global';
 
-export default class Editor extends Component {
+export default ({title, onBack}) => (
+    <View style={styles.toolbar}>
+        <Touch
+            style={{ padding: 10 }}
+            activeOpacity={1}
+            onPress={onBack}
+            >
+            <MaterialIcons
+                name="arrow-back"
+                color="#fff"
+                size={26}
+                />
+        </Touch>
 
-    constructor(props) {
-        super(props);
-    }
+        <View style={styles.title}>
+            <Text style={styles.titleText}>
+                {title}
+            </Text>
+        </View>
+    </View>
+);
 
-    static defaultProps = {
-        title: null,
-        onBack: null,
-    };
 
-    static propTypes = {
-        title: PropTypes.string,
-        onBack: PropTypes.func,
-    };
-
-    render() {
-        return (
-            <View style={styles.toolbar}>
-                <Touch
-                    style={{ padding: 10 }}
-                    activeOpacity={1}
-                    onPress={this.props.onBack}
-                    >
-                    <MaterialIcons
-                        name="arrow-back"
-                        color="#fff"
-                        size={26}
-                        />
-                </Touch>
-
-                <View style={styles.title}>
-                    <Text style={styles.titleText}>{
-                        this.props.title
-                    }</Text>
-                </View>
-            </View>
-        );
-    }
-}
 
 const styles = StyleSheet.create({
     toolbar: {

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -10,63 +10,30 @@ import List from './list';
 const window = Dimensions.get('window');
 
 // ## 除首页外的主题
-export default class Other extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            data: this.props.data,
-        };
-    }
-
-    static defaultProps = {
-        data: null,
-        navigator: null,
-        onRefresh: null,
-        onMore: null,
-    };
-
-    static propTypes = {
-        data: PropTypes.object,
-        navigator: PropTypes.object.isRequired,
-        onRefresh: PropTypes.func,
-        onMore: PropTypes.func,
-    };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.data) {
-            this.setState({ data: nextProps.data });
-        }
-    }
-
-    render() {
-        return (
-            this.state.data &&
-            <View style={styles.contanter}>
-                <List
-                    data={this.state.data}
-                    openEditors={(event, list) => {
-                        this.props.navigator.push({
-                            id: 5,
-                            title: '主编',
-                            data: list,
-                        });
-                    } }
-                    openArticle={(event, id) => {
-                        this.props.navigator.push({
-                            id: 2,
-                            title: '文章',
-                            data: { id },
-                        })
-                    } }
-                    onRefresh={this.props.onRefresh}
-                    onMore={this.props.onMore}
-                    />
-            </View>
-        );
-    }
-}
+export default ({data, navigator, onRefresh, onMore}) => (
+    data &&
+    <View style={styles.contanter}>
+        <List
+            data={data}
+            openEditors={(event, list) => {
+                navigator.push({
+                    id: 5,
+                    title: '主编',
+                    data: list,
+                });
+            } }
+            openArticle={(event, id) => {
+                navigator.push({
+                    id: 2,
+                    title: '文章',
+                    data: { id },
+                })
+            } }
+            onRefresh={onRefresh}
+            onMore={onMore}
+            />
+    </View>
+);
 
 const styles = StyleSheet.create({
     contanter: {

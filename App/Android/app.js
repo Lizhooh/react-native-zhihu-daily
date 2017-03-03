@@ -12,8 +12,8 @@ import {
 
 import Nav from './component/nav';
 import Api from '../Server/api';
-
 import logo from './img/c.png';
+import Orientation from 'react-native-orientation';
 
 const window = Dimensions.get('window');
 
@@ -72,6 +72,12 @@ export default class App extends Component {
             });
         }, 5000);
     };
+
+
+    componentWillMount() {
+        Orientation.lockToPortrait();
+    }
+
 
     render() {
         const ani = {

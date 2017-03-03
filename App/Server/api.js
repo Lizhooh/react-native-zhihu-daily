@@ -15,7 +15,7 @@ const themes = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1001', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1001', ToastAndroid.SHORT);
             })
     },
 };
@@ -27,7 +27,7 @@ const latest = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1002', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1002', ToastAndroid.SHORT);
             })
     }
 };
@@ -39,7 +39,7 @@ const theme = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1003', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1003', ToastAndroid.SHORT);
             })
     }
 };
@@ -109,7 +109,7 @@ const story = {
                 }
             })
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1004', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1004', ToastAndroid.SHORT);
             })
     }
 };
@@ -122,7 +122,7 @@ const storyExtra = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1005', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1005', ToastAndroid.SHORT);
             })
     }
 };
@@ -135,7 +135,7 @@ const themeMore = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1006', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1006', ToastAndroid.SHORT);
             })
     }
 };
@@ -147,7 +147,7 @@ const homeMore = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1007', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1007', ToastAndroid.SHORT);
             })
     }
 };
@@ -160,7 +160,7 @@ const longComments = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1008', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1008', ToastAndroid.SHORT);
             })
     }
 };
@@ -172,7 +172,7 @@ const shortComments = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1009', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1009', ToastAndroid.SHORT);
             })
     }
 };
@@ -184,7 +184,7 @@ const appStart = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1010', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1010', ToastAndroid.SHORT);
             })
     }
 };
@@ -196,7 +196,7 @@ const section = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1011', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1011', ToastAndroid.SHORT);
             })
     }
 };
@@ -209,7 +209,7 @@ const sectionMore = {
             .then(res => res.json())
             .then(jsondata => jsondata)
             .catch(err => {
-                ToastAndroid.show('网络连接错误：1012', ToastAndroid.LONG);
+                ToastAndroid.show('网络连接错误：1012', ToastAndroid.SHORT);
             })
     }
 };

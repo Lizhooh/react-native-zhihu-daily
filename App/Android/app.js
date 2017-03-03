@@ -8,6 +8,8 @@ import {
     Animated,
     Easing,
     InteractionManager,
+    NetInfo,
+    ToastAndroid,
 } from 'react-native';
 
 import Nav from './component/nav';
@@ -33,7 +35,6 @@ export default class App extends Component {
         };
 
         this.setTimeout = setTimeout.bind(this);
-
         this.request.appStart();
     }
 
@@ -73,11 +74,29 @@ export default class App extends Component {
         }, 5000);
     };
 
+    netInfoChange = (reach) => {
+        if(reach === 'NONE') {
+            ToastAndroid.show("网络连接不可用，请稍后再尝试！", ToastAndroid.LONG);
+        }
+        else {
+            // bug?
+            if(!this.state.loadImage) {
+                this.request.appStart();
+            }
+            else {
+                this.render();
+            }
+        }
+    };
 
     componentWillMount() {
         Orientation.lockToPortrait();
+        NetInfo.addEventListener('change', this.netInfoChange);
     }
 
+    componentWillUnmount() {
+        NetInfo.removeEventListener('change', this.netInfoChange);
+    }
 
     render() {
         const ani = {

@@ -56,7 +56,7 @@ export default ({data}) => {
     );
 
     return (
-        <View>
+        <View style={styles.container}>
             {renderImage(data)}
             {renderRecommenders(data)}
         </View>
@@ -64,8 +64,10 @@ export default ({data}) => {
 }
 
 const styles = StyleSheet.create({
-    header: {
+    container: {
         marginTop: 55,
+    },
+    header: {
         height: 210,
         width: window.width,
         backgroundColor: 'rgba(1, 1, 1, 0.05)',
@@ -125,4 +127,4 @@ const styles = StyleSheet.create({
         textShadowRadius: 5,
         textShadowColor: 'rgba(1, 1, 1, 0.6)',
     },
-})
+});

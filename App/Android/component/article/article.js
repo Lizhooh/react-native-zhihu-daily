@@ -42,13 +42,15 @@ export default class Article extends Component {
 
         const id = this.props.data.id;
 
+        // 缓存值
+        this._start = 0;
+        this._y = 0;
+
         // 等待动画完成后才 request
         InteractionManager.runAfterInteractions(() => {
             this.request.story(id);
             this.request.storyExtra(id);
         });
-
-        this._y = 0;
     }
 
     static defaultProps = {
@@ -153,24 +155,18 @@ export default class Article extends Component {
 
         // 方向向下
         if (offset.y - this._y > 0) {
-            if (offset.y <= len) {
-                this.setState({
-                    toolbarOpacity: 1 - offset.y / len,
-                });
-                this._y = offset.y;
-            }
-            else if (offset.y - this._y > 0) {
-                if (this.state.toolbarOpacity > 0) {
-                    this.setState({ toolbarOpacity: 0 });
-                }
-                this._y = offset.y;
-            }
+            this.setState({
+                toolbarOpacity: 1 - (offset.y - this._start) / len,
+            });
+            this._y = offset.y;
         }
         // 方向向上
         else if (offset.y - this._y < -80) {
             if (this.state.toolbarOpacity < 1) {
                 this.setState({ toolbarOpacity: 1 });
             }
+            // 设置开始值
+            this._start = offset.y;
             // 缓存上次的值，用于计算方向
             this._y = offset.y;
         }

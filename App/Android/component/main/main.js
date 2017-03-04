@@ -59,9 +59,16 @@ export default class Main extends Component {
             },
         };
 
-        this.request.themes();
-        this.request.latest();
-        this.request.theme(13);
+        this._last = {
+            lastdate: 0,
+            laststoryid: 0,
+        };
+
+        Promise.all([
+            this.request.themes(),
+            this.request.latest(),
+            this.request.theme(13),
+        ]);
     }
 
     static defaultProps = {
@@ -116,11 +123,11 @@ export default class Main extends Component {
                 onMore={event => {
                     // 加载更多
                     const home = this.state.home;
-                    const lastDate = Object.keys(home.data).sort((a, b) => b - a).pop();
+                    const lastdate = Object.keys(home.data).sort((a, b) => b - a).pop();
 
-                    if (lastDate != home.lastdate && !home.nomore) {
-                        this.request.homeMore(lastDate.split('-')[0]);
-                        home.lastdate = lastDate; // 防止重复加载
+                    if (lastdate != this._last.lastdate && !home.nomore) {
+                        this.request.homeMore(lastdate.split('-')[0]);
+                        this._last.lastdate = lastdate; // 防止重复加载
                     }
                 } }
                 />
@@ -141,9 +148,9 @@ export default class Main extends Component {
                     const lastid = stories[stories.length - 1].id;
                     const themeid = this.state.activeMain.id;
 
-                    if (other.laststoryid !== lastid && !other.nomore) {
+                    if (this._last.laststoryid !== lastid && !other.nomore) {
                         this.request.themeMore(themeid, lastid);
-                        other.laststoryid = lastid; // 防止重复加载
+                        this._last.laststoryid = lastid; // 防止重复加载
                     }
                 } }
                 />
@@ -162,7 +169,7 @@ export default class Main extends Component {
                 home.topStories = result.top_stories || [];
                 home.data = {};
                 home.data[result.date + '-0'] = result.stories;
-                home.lastid = 0;
+                this._last.lastdate = 0;
                 this.setState({ home: home });
             });
         },
@@ -170,6 +177,7 @@ export default class Main extends Component {
             Api.theme.get(id).then((result) => {
                 let other = this.state.other;
                 other.data = result;
+                this._last.laststoryid = 0;
                 this.setState({ other: other });
             });
         },
@@ -184,7 +192,7 @@ export default class Main extends Component {
                 const interim = other.data;
                 interim.stories = interim.stories.concat(result.stories);
                 other.data = interim;
-                other.laststoryid = 0;
+                this._last.laststoryid = 0;
                 this.setState({ other: other });
             });
         },
@@ -198,7 +206,7 @@ export default class Main extends Component {
                 }
                 const index = Object.keys(home.data).length;
                 home.data[result.date + `-${index}`] = result.stories;
-                home.lastdate = 0;
+                this._last.lastdate = 0;
                 this.setState({ home: home });
             });
         },

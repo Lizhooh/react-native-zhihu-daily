@@ -101,7 +101,7 @@ export default class Article extends Component {
                 onLoad={event => {
                     setTimeout(_ => {
                         this.setState({ section: true });
-                    }, 500);
+                    }, 1000);
                 } }
                 />
         );

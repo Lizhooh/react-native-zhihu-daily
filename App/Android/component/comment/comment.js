@@ -35,6 +35,8 @@ export default class Comment extends Component {
             data: {},
         };
 
+        this._long_comments_height = 0;
+
         InteractionManager.runAfterInteractions(() => {
             this.request.Comments(this.props.data.id);
         });
@@ -67,25 +69,41 @@ export default class Comment extends Component {
         },
     };
 
-    renderLongComment = () => (
-        this.props.data.long_comments * 1 === 0 ?
-            <View style={styles.empty}>
-                <MaterialIcons
-                    name='blur-on'
-                    color='#cfcfcf'
-                    size={108}
-                    />
-                <Text style={{ color: '#ccc' }}>
-                    深度长评虚位以待
-                </Text>
-            </View>
-            :
-            <View>
+    renderLongComment = () => {
+        if (this.props.data.long_comments * 1 === 0) {
+            this._long_comments_height = window.height - 55 - 25 - 47;
+
+            return (
+                <View style={styles.empty}>
+                    <MaterialIcons
+                        name='blur-on'
+                        color='#cfcfcf'
+                        size={108}
+                        />
+                    <Text style={{ color: '#ccc' }}>
+                        深度长评虚位以待
+                    </Text>
+                </View>
+            );
+        }
+
+        return (
+            <View
+                onLayout={event => {
+                    const data = event.nativeEvent;
+                    this._long_comments_height = data.layout.y + data.layout.height;
+
+                    if (this._long_comments_height < window.height - 55 - 25 - 47) {
+                        this._long_comments_height = window.height - 55 - 25 - 47;
+                    }
+                } }
+                >
                 <CommentList
                     data={this.state.data.long_comments}
                     />
             </View>
-    );
+        );
+    };
 
     renderShortComment = () => (
         <View>{
@@ -134,10 +152,12 @@ export default class Comment extends Component {
                                         short: !this.state.short,
                                     }, () => {
                                         setTimeout(() => {
+                                            const height = this._long_comments_height;
+
                                             this._scroll.scrollTo({
                                                 x: 0,
-                                                y: window.height - 55 - 25 - 47,
-                                                animated: !true
+                                                y: height,
+                                                animated: true
                                             });
                                         }, 0);
                                     });

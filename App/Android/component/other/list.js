@@ -11,8 +11,7 @@ import {
     RefreshControl,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 import { styles, pice, editor } from './style/list-style';
 
 const window = Dimensions.get('window');

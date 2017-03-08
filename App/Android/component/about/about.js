@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import Toolbar from './toolbar';
-import Global from '../../Global';
+import { Global } from '../common';
 import avatar from './img/avatar.png';
 
 export default ({navigator}) => (

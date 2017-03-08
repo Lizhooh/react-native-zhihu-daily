@@ -7,8 +7,7 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 
 // ## 自适应高度的 webview
 export default class WebviewAutoHeight extends Component {

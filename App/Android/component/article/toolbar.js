@@ -6,8 +6,7 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 
 // ## 文章工具栏
 export default ({opacity = 1, data = {}, onBack, openCommnet, style}) => {

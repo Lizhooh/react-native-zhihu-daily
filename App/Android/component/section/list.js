@@ -9,8 +9,7 @@ import {
     ToastAndroid,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 import { styles } from './style/list-style';
 
 const window = Dimensions.get('window');

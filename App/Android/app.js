@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 
 import Nav from './component/nav';
-import Api from '../Server/api';
+// import Api from '../Server/api';
+import { Api } from './component/common';
 import logo from './img/c.png';
 import Orientation from 'react-native-orientation';
 

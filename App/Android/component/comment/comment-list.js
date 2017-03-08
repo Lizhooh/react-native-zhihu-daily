@@ -7,7 +7,7 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { MaterialIcons } from '../common';
 import { longComment } from './style/comment-style';
 
 export default ({data}) => {

@@ -7,8 +7,7 @@ import {
     TouchableOpacity as Touch
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 
 export default ({title, onBack}) => (
     <View style={styles.toolbar}>

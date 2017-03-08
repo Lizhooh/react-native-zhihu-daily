@@ -8,8 +8,7 @@ import {
     ScrollView,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 import Toolbar from './box';
 
 // ## 菜单视图

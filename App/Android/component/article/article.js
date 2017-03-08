@@ -12,9 +12,8 @@ import {
 } from 'react-native';
 
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Global from '../../Global';
 import Toolbar from './toolbar';
-import Api from '../../../Server/api';
+import { Api, Global } from '../common';
 import WebViewAuto from './webview-auto-height';
 import Header from './header';
 import { styles } from './style/article-style';

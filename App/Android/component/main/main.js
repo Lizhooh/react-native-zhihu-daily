@@ -10,12 +10,11 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Menu from '../menu/menu';
 import Toolbar from './toolbar';
 import Home from '../home/home';
 import Other from './../other/other';
-import Api from '../../../Server/api';
+import { Api, Ionicons } from '../common';
 import { styles } from './style/main-style';
 
 const window = Dimensions.get('window');

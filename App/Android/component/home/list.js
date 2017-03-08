@@ -10,9 +10,8 @@ import {
     RefreshControl,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Slide from './slide';
-import Global from '../../Global';
+import { Global, MaterialIcons } from '../common';
 import { styles } from './style/list-style';
 
 export default class List extends Component {

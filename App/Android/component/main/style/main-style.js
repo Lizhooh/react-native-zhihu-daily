@@ -1,6 +1,6 @@
 
 import { StyleSheet } from 'react-native';
-import Global from '../../../Global';
+import { Global } from '../../common';
 
 const styles = StyleSheet.create({
     contanter: {

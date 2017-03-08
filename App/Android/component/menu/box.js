@@ -7,8 +7,7 @@ import {
     TouchableOpacity as Touch,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
+import { MaterialIcons } from '../common';
 
 export default class Box extends Component {
 

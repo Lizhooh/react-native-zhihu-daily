@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 import List from './list';
-import Api from '../../../Server/api';
+import { Api } from '../common';
 import Toolbar from './toolbar';
 const window = Dimensions.get('window');
 

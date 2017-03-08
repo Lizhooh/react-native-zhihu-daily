@@ -10,10 +10,8 @@ import {
     Image,
 } from 'react-native';
 
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Toolbar from './toolbar';
-import Api from '../../../Server/api';
+import { Api, MaterialIcons, FontAwesome } from '../common';
 import CommentList from './comment-list';
 import {
     styles,

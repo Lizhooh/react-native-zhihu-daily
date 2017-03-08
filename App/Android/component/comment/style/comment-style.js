@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import Global from '../../../Global';
+import { Global } from '../../common';
 
 const window = Dimensions.get('window');
 

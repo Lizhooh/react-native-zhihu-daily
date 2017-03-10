@@ -7,6 +7,8 @@ import {
     Image,
     Text,
     ToolbarAndroid,
+    BackAndroid,
+    ToastAndroid,
     TouchableOpacity as Touch,
 } from 'react-native';
 
@@ -211,13 +213,36 @@ export default class Main extends Component {
         },
     };
 
-    componentDidMount() {
-        // this._drawer.openDrawer();
+    onBackAndroid = (event) => {
+
+        if(this._drawer.state.open) {
+            this._drawer.closeDrawer();
+            return true;
+        }
+
+        if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
+            this.props.navigator.pop();
+            return true;
+        }
+
+        if (this._lastBackPressed && this._lastBackPressed + 1000 >= Date.now()) {
+            return false;
+        }
+
+        this._lastBackPressed = Date.now();
+        ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
+
+        return true;
+    };
+
+    componentWillMount() {
+        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
     componentWillUnmount() {
         this._drawer.closeDrawer();
         this._timer && clearTimeout(this._timer);
+        BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
     render() {
@@ -229,6 +254,8 @@ export default class Main extends Component {
                     renderNavigationView={this.renderMenu}
                     drawerPosition={DrawerLayoutAndroid.positions.Left}
                     ref={(drawer) => this._drawer = drawer}
+                    onDrawerOpen={_ => this._drawer.state.open = true}
+                    onDrawerClose={_ => this._drawer.state.open = false}
                     >
 
                     <Toolbar

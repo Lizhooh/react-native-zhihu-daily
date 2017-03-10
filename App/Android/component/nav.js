@@ -80,33 +80,6 @@ export default class Nav extends Component {
         return Navigator.SceneConfigs.FloatFromBottomAndroid;
     };
 
-    onBackAndroid = (event) => {
-
-        if (this._navigator && this._navigator.getCurrentRoutes().length > 1) {
-            this._navigator.pop();
-            // 导航回退
-            return true;
-        }
-
-        if (this._lastBackPressed && this._lastBackPressed + 1000 >= Date.now()) {
-            // 一秒内按两次，退出程序
-            return false;
-        }
-
-        this._lastBackPressed = Date.now();
-        ToastAndroid.show('再按一次退出应用', ToastAndroid.SHORT);
-
-        return true;
-    };
-
-    componentWillMount() {
-        BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-
-    componentWillUnmount() {
-        BackAndroid.removeEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-
     render() {
         return (
             <View style={styles.contanter} collapsable={true}>

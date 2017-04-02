@@ -10,26 +10,10 @@ import {
 import { Global, MaterialIcons } from '../common';
 
 
-export default class Toolbar extends Component {
+export default ({ isHome, onActionSelected, onIconClicked }) => {
 
-    constructor(props) {
-        super(props);
-    }
-
-    static defaultProps = {
-        isHome: true,
-        onActionSelected: null,
-        onIconClicked: null,
-    };
-
-    static propTypes = {
-        isHome: PropTypes.bool,
-        onActionSelected: PropTypes.func,
-        onIconClicked: PropTypes.func,
-    };
-
-    actions = () => {
-        return this.props.isHome === true ?
+    const actions = () => {
+        return isHome === true ?
             // 首页
             [
                 { "title": "消息", "iconName": "notifications", "show": "always", "iconSize": 25, "iconColor": "#fff" },
@@ -44,35 +28,32 @@ export default class Toolbar extends Component {
             ];
     };
 
-    render() {
-        return (
-            <MaterialIcons.ToolbarAndroid
-                style={styles.toolbar}
-                title={''}
-                titleColor='#fff'
-                /**
-                 * 导航图标
-                 */
-                navIconName='menu'
-                iconSize={26}
-                iconColor='#fff'
+    return (
+        <MaterialIcons.ToolbarAndroid
+            style={styles.toolbar}
+            title={''}
+            titleColor='#fff'
+            /**
+             * 导航图标
+             */
+            navIconName='menu'
+            iconSize={26}
+            iconColor='#fff'
 
-                // overflowIconName='md-more'
-                overflowIconName='more-vert'
+            overflowIconName='more-vert'
 
-                /**
-                 * 功能组
-                 */
-                actions={this.actions()}
-                /**
-                 * 功能组菜单图标
-                 */
-                onActionSelected={this.props.onActionSelected}
-                onIconClicked={this.props.onIconClicked}
-                />
-        );
-    }
-}
+            /**
+             * 功能组
+             */
+            actions={actions()}
+            /**
+             * 功能组菜单图标
+             */
+            onActionSelected={onActionSelected}
+            onIconClicked={onIconClicked}
+            />
+    );
+};
 
 const styles = StyleSheet.create({
     toolbar: {

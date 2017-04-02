@@ -15,7 +15,7 @@ import {
 import Menu from '../menu/menu';
 import Toolbar from './toolbar';
 import Home from '../home/home';
-import Other from './../other/other';
+import Other from '../other/other';
 import { Api, Ionicons } from '../common';
 import { styles } from './style/main-style';
 

@@ -1,15 +1,10 @@
 
-import _Global from '../Global';
-export const Global = _Global;
+export { default as Global } from '../globals';
 
-import _MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-export const MaterialIcons = _MaterialIcons;
+export { default as MaterialIcons } from 'react-native-vector-icons/MaterialIcons';
 
-import _Ionicons from 'react-native-vector-icons/Ionicons';
-export const Ionicons = _Ionicons;
+export { default as Ionicons } from 'react-native-vector-icons/Ionicons';;
 
-import _FontAwesome from 'react-native-vector-icons/FontAwesome';
-export const FontAwesome = _FontAwesome;
+export { default as FontAwesome } from 'react-native-vector-icons/FontAwesome';
 
-import _Api from '../../Server/api';
-export const Api = _Api;
+export { default as Api } from '../../Server/api';

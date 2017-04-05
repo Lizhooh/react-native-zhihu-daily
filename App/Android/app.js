@@ -17,6 +17,8 @@ import { Api } from './component/common';
 import logo from './img/c.png';
 import Orientation from 'react-native-orientation';
 
+import bg from './img/bg.jpg';
+
 const window = Dimensions.get('window');
 
 // ## 启动图
@@ -29,7 +31,7 @@ export default class App extends Component {
             start: false,
             loadImage: false,
             loadNav: false,
-            creatives: null,
+            creatives: {},
 
             imageScale: new Animated.Value(1),
         };
@@ -44,7 +46,7 @@ export default class App extends Component {
 
                 this.setState({
                     loadImage: true,
-                    creatives: result.creatives[0],
+                    creatives: result.creatives[0] || { url: '', text: '' },
                 }, () => {
                     this.stateTimes();
                 });
@@ -75,12 +77,12 @@ export default class App extends Component {
     };
 
     netInfoChange = (reach) => {
-        if(reach === 'NONE') {
+        if (reach === 'NONE') {
             ToastAndroid.show("网络连接不可用，请稍后再尝试！", ToastAndroid.LONG);
         }
         else {
             // bug?
-            if(!this.state.loadImage) {
+            if (!this.state.loadImage) {
                 this.request.appStart();
             }
             else {
@@ -121,7 +123,10 @@ export default class App extends Component {
                         <View style={styles.start}>
                             <Animated.View style={ani}>
                                 <Image
-                                    source={{ uri: this.state.creatives.url }}
+                                    source={
+                                        this.state.creatives.url ?
+                                            { uri: this.state.creatives.url } : bg
+                                    }
                                     style={styles.image}
                                     />
                             </Animated.View>
@@ -130,7 +135,9 @@ export default class App extends Component {
                                     <Image source={logo} style={styles.logo} />
                                     知乎日报
                                 </Text>
-                                <Text style={styles.user}>{this.state.creatives.text}</Text>
+                                <Text style={styles.user}>
+                                    {this.state.creatives.text}
+                                </Text>
                             </View>
                         </View>
                     }</View>

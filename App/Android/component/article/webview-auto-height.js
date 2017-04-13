@@ -19,32 +19,24 @@ export default class WebviewAutoHeight extends Component {
             height: 0,
         };
 
-        // 使用 window.onload 会被重写的可能
         this.script =
             `
-                (function __isComplete() {
-                    if (document.readyState == "complete" &&
-                        document.documentElement.offsetWidth > 0) {
+                window.addEventListener('load', function(event) {
+                    window.location.hash = 1;
+                    document.title = document.body.clientHeight;
 
-                        window.location.hash = 1;
-                        document.title = document.body.clientHeight;
+                    var imglist = [].slice.call(document.querySelectorAll('img'));
 
-                        var imglist = [].slice.call(document.querySelectorAll('img'));
-
-                        function imgOnClick(event) {
-                            window.postMessage &&
-                            window.postMessage(event.target.src);
-                        }
-
-                        for(var i in imglist) {
-                            imglist[i].removeEventListener('click', imgOnClick);
-                            imglist[i].addEventListener('click', imgOnClick);
-                        }
+                    function imgOnClick(event) {
+                        window.postMessage &&
+                        window.postMessage(event.target.src);
                     }
-                    else {
-                        setTimeout(__isComplete, 25);
+
+                    for(var i in imglist) {
+                        imglist[i].removeEventListener('click', imgOnClick);
+                        imglist[i].addEventListener('click', imgOnClick);
                     }
-                })();
+                });
             `;
     }
 

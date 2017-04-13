@@ -67,7 +67,7 @@ export default class App extends Component {
             this.setState({
                 loadNav: true,
             });
-        }, 0);
+        }, 100);
 
         this.setTimeout(_ => {
             this.setState({

@@ -33,8 +33,10 @@ export default class WebviewAutoHeight extends Component {
                     }
 
                     for(var i in imglist) {
-                        imglist[i].removeEventListener('click', imgOnClick);
-                        imglist[i].addEventListener('click', imgOnClick);
+                        (function(i) {
+                            imglist[i].removeEventListener('click', imgOnClick);
+                            imglist[i].addEventListener('click', imgOnClick);
+                        })(i);
                     }
                 });
             `;

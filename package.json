@@ -4,7 +4,7 @@
   "private": true,
   "author": "Lizhooh <960316408@qq.com>",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "node node_modules/react-native/local-cli/cli.js start --port 8889",
     "build": " cd android & .\\gradlew assembleRelease",
     "test": "jest"
   },

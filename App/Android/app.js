@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 
 import Nav from './component/nav';
-import { Api } from './component/common';
+import { Api, Global } from './component/common';
 import logo from './img/c.png';
 import Orientation from 'react-native-orientation';
 
@@ -62,6 +62,7 @@ export default class App extends Component {
         },
     };
 
+    // 启动图
     stateTimes = () => {
         this.setTimeout(_ => {
             this.setState({
@@ -76,6 +77,7 @@ export default class App extends Component {
         }, 5000);
     };
 
+    // 网络变化
     netInfoChange = (reach) => {
         if (reach === 'NONE') {
             ToastAndroid.show("网络连接不可用，请稍后再尝试！", ToastAndroid.LONG);
@@ -109,39 +111,45 @@ export default class App extends Component {
         };
 
         return (
-            <View style={styles.contanter}>
+            <View style={{
+                flex: 1,
+                paddingTop: 25,
+                backgroundColor: Global.themeColor,
+            }}>
+                <View style={styles.contanter}>
 
-                <View style={{ flex: 1 }}>{
-                    this.state.loadNav &&
-                    <Nav style={styles.nav} />
-                }</View>
-
-                {
-                    !this.state.start &&
-                    <View style={{ flex: 0.000001 }}>{
-                        this.state.loadImage &&
-                        <View style={styles.start}>
-                            <Animated.View style={ani}>
-                                <Image
-                                    source={
-                                        this.state.creatives.url ?
-                                            { uri: this.state.creatives.url } : bg
-                                    }
-                                    style={styles.image}
-                                    />
-                            </Animated.View>
-                            <View style={styles.textView}>
-                                <Text style={styles.text}>
-                                    <Image source={logo} style={styles.logo} />
-                                    知乎日报
-                                </Text>
-                                <Text style={styles.user}>
-                                    {this.state.creatives.text}
-                                </Text>
-                            </View>
-                        </View>
+                    <View style={{ flex: 1 }}>{
+                        this.state.loadNav &&
+                        <Nav style={styles.nav} />
                     }</View>
-                }
+
+                    {
+                        !this.state.start &&
+                        <View style={{ flex: 0.000001 }}>{
+                            this.state.loadImage &&
+                            <View style={styles.start}>
+                                <Animated.View style={ani}>
+                                    <Image
+                                        source={
+                                            this.state.creatives.url ?
+                                                { uri: this.state.creatives.url } : bg
+                                        }
+                                        style={styles.image}
+                                        />
+                                </Animated.View>
+                                <View style={styles.textView}>
+                                    <Text style={styles.text}>
+                                        <Image source={logo} style={styles.logo} />
+                                        知乎日报
+                                </Text>
+                                    <Text style={styles.user}>
+                                        {this.state.creatives.text}
+                                    </Text>
+                                </View>
+                            </View>
+                        }</View>
+                    }
+                </View>
             </View>
         );
     }
@@ -160,7 +168,7 @@ const styles = StyleSheet.create({
         height: window.height,
         position: 'absolute',
         left: 0, right: 0,
-        top: -window.height + 25,
+        top: -window.height,
     },
     image: {
         width: window.width,

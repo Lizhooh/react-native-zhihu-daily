@@ -16,6 +16,8 @@ import Comment from './comment/comment';
 import About from './about/about';
 import Section from './section/section';
 
+import { Global } from './common';
+
 const window = Dimensions.get('window');
 
 // ## 路由
@@ -100,6 +102,8 @@ export default class Nav extends Component {
 const styles = StyleSheet.create({
     contanter: {
         flex: 1,
+        paddingTop: 25,
+        backgroundColor: Global.themeColor,
     },
     startImage: {
         position: 'absolute',

@@ -5,7 +5,7 @@ import { Global } from '../../common';
 const styles = StyleSheet.create({
     contanter: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: Global.themeColor,
     },
     toolbar: {
         height: 55,

@@ -111,45 +111,39 @@ export default class App extends Component {
         };
 
         return (
-            <View style={{
-                flex: 1,
-                paddingTop: 25,
-                backgroundColor: Global.themeColor,
-            }}>
-                <View style={styles.contanter}>
+            <View style={styles.contanter}>
 
-                    <View style={{ flex: 1 }}>{
-                        this.state.loadNav &&
-                        <Nav style={styles.nav} />
-                    }</View>
+                <View style={{ flex: 1 }}>{
+                    this.state.loadNav &&
+                    <Nav style={styles.nav} />
+                }</View>
 
-                    {
-                        !this.state.start &&
-                        <View style={{ flex: 0.000001 }}>{
-                            this.state.loadImage &&
-                            <View style={styles.start}>
-                                <Animated.View style={ani}>
-                                    <Image
-                                        source={
-                                            this.state.creatives.url ?
-                                                { uri: this.state.creatives.url } : bg
-                                        }
-                                        style={styles.image}
-                                        />
-                                </Animated.View>
-                                <View style={styles.textView}>
-                                    <Text style={styles.text}>
-                                        <Image source={logo} style={styles.logo} />
-                                        知乎日报
+                {
+                    !this.state.start &&
+                    <View style={{ flex: 0.000001 }}>{
+                        this.state.loadImage &&
+                        <View style={styles.start}>
+                            <Animated.View style={ani}>
+                                <Image
+                                    source={
+                                        this.state.creatives.url ?
+                                            { uri: this.state.creatives.url } : bg
+                                    }
+                                    style={styles.image}
+                                    />
+                            </Animated.View>
+                            <View style={styles.textView}>
+                                <Text style={styles.text}>
+                                    <Image source={logo} style={styles.logo} />
+                                    知乎日报
                                 </Text>
-                                    <Text style={styles.user}>
-                                        {this.state.creatives.text}
-                                    </Text>
-                                </View>
+                                <Text style={styles.user}>
+                                    {this.state.creatives.text}
+                                </Text>
                             </View>
-                        }</View>
-                    }
-                </View>
+                        </View>
+                    }</View>
+                }
             </View>
         );
     }

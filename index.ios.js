@@ -4,7 +4,28 @@
  * © 2017 Lizhooh
  */
 
-import { AppRegistry } from 'react-native';
-import App from './App/IOS/app';
+import React, { Component } from 'react';
+import {
+    AppRegistry,
+    Text,
+    View,
+} from 'react-native';
+
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <Text style={{ fontSize: 32 }}>不支持 IOS</Text>
+            </View>
+        );
+    }
+}
 
 AppRegistry.registerComponent('zhihuDaily', () => App);

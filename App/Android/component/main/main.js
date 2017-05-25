@@ -215,7 +215,7 @@ export default class Main extends Component {
 
     onBackAndroid = (event) => {
 
-        if(this._drawer.state.open) {
+        if (this._drawer.state.open) {
             this._drawer.closeDrawer();
             return true;
         }

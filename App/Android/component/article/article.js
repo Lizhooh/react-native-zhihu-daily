@@ -177,6 +177,7 @@ export default class Article extends Component {
         return (
             <View style={styles.contanier}>
 
+                {/* 浏览大图片 */}
                 <Modal
                     animationType={"fade"}
                     transparent={true}

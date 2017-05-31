@@ -17,6 +17,9 @@ import { Api, Global } from './component/common';
 import logo from './img/c.png';
 import Orientation from 'react-native-orientation';
 
+// 缓存图片
+import { CachedImage } from "react-native-img-cache";
+
 import bg from './img/bg.jpg';
 
 const window = Dimensions.get('window');
@@ -64,16 +67,14 @@ export default class App extends Component {
 
     // 启动图
     stateTimes = () => {
+        // 在 1 秒时加载导航器
         this.setTimeout(_ => {
-            this.setState({
-                loadNav: true,
-            });
-        }, 100);
+            this.setState({ loadNav: true });
+        }, 1000);
 
+        // 5 秒时关闭启动图
         this.setTimeout(_ => {
-            this.setState({
-                start: true,
-            });
+            this.setState({ start: true });
         }, 5000);
     };
 
@@ -124,17 +125,14 @@ export default class App extends Component {
                         this.state.loadImage &&
                         <View style={styles.start}>
                             <Animated.View style={ani}>
-                                <Image
-                                    source={
-                                        this.state.creatives.url ?
-                                            { uri: this.state.creatives.url } : bg
-                                    }
+                                <CachedImage
+                                    source={this.state.creatives.url ? { uri: this.state.creatives.url } : bg}
                                     style={styles.image}
                                     />
                             </Animated.View>
                             <View style={styles.textView}>
                                 <Text style={styles.text}>
-                                    <Image source={logo} style={styles.logo} />
+                                    <CachedImage source={logo} style={styles.logo} />
                                     知乎日报
                                 </Text>
                                 <Text style={styles.user}>

@@ -44,33 +44,28 @@ export default class App extends Component {
     }
 
     request = {
-        appStart: () => {
-            Api.appStart.get().then(result => {
+        appStart: () => Api.appStart.get().then(result => {
 
-                this.setState({
-                    loadImage: true,
-                    creatives: result.creatives[0] || { url: '', text: '' },
-                }, () => {
-                    this.stateTimes();
-                });
-
-                Animated.timing(this.state.imageScale, {
-                    toValue: 1.3,
-                    duration: 5000,
-                    delay: 1000,
-                    easing: Easing.linear,
-                }).start();
-
+            this.setState({
+                loadImage: true,
+                creatives: result.creatives[0] || { url: '', text: '' },
             });
-        },
+
+            Animated.timing(this.state.imageScale, {
+                toValue: 1.3,
+                duration: 5000,
+                delay: 1000,
+                easing: Easing.linear,
+            }).start();
+        })
     };
 
     // 启动图
     stateTimes = () => {
-        // 在 1 秒时加载导航器
+        // 在 300ms 秒时加载导航器
         this.setTimeout(_ => {
             this.setState({ loadNav: true });
-        }, 1000);
+        }, 300);
 
         // 5 秒时关闭启动图
         this.setTimeout(_ => {
@@ -103,14 +98,36 @@ export default class App extends Component {
         NetInfo.removeEventListener('change', this.netInfoChange);
     }
 
-    render() {
-        const ani = {
-            transform: [
-                { scaleX: this.state.imageScale },
-                { scaleY: this.state.imageScale },
-            ],
-        };
+    renderStartImage = () => (
+        <View style={{ flex: 0.000001 }}>{
+            this.state.loadImage &&
+            <View style={styles.start}>
+                <Animated.View style={{
+                    transform: [
+                        { scaleX: this.state.imageScale },
+                        { scaleY: this.state.imageScale },
+                    ]
+                }}>
+                    <CachedImage
+                        source={this.state.creatives.url ? { uri: this.state.creatives.url } : bg}
+                        style={styles.image}
+                        onLoad={_ => this.stateTimes()}
+                        />
+                </Animated.View>
+                <View style={styles.textView}>
+                    <Text style={styles.text}>
+                        <CachedImage source={logo} style={styles.logo} />
+                        知乎日报
+                                </Text>
+                    <Text style={styles.user}>
+                        {this.state.creatives.text}
+                    </Text>
+                </View>
+            </View>
+        }</View>
+    );
 
+    render() {
         return (
             <View style={styles.contanter}>
 
@@ -119,29 +136,7 @@ export default class App extends Component {
                     <Nav style={styles.nav} />
                 }</View>
 
-                {
-                    !this.state.start &&
-                    <View style={{ flex: 0.000001 }}>{
-                        this.state.loadImage &&
-                        <View style={styles.start}>
-                            <Animated.View style={ani}>
-                                <CachedImage
-                                    source={this.state.creatives.url ? { uri: this.state.creatives.url } : bg}
-                                    style={styles.image}
-                                    />
-                            </Animated.View>
-                            <View style={styles.textView}>
-                                <Text style={styles.text}>
-                                    <CachedImage source={logo} style={styles.logo} />
-                                    知乎日报
-                                </Text>
-                                <Text style={styles.user}>
-                                    {this.state.creatives.text}
-                                </Text>
-                            </View>
-                        </View>
-                    }</View>
-                }
+                {!this.state.start && this.renderStartImage()}
             </View>
         );
     }

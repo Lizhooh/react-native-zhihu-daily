@@ -57,14 +57,12 @@ export default ({navigator}) => (
                                 <Text style={{ color: '#555' }}>  Lizhooh</Text>
                             </View>
                             <Text style={styles.contentText}>
-                                计算机科学专业，前端开发工程师，研究方向：
-                                HTML5，CSS3，Javascript，Java，Vue，
-                                React，React Native，Node.js，MongoDB，
-                                移动开发，Web开发，数据分析，等前沿技术。
+                                计算机科学专业，前端开发工程师，专注于研究：{'\n'}
+                                Web 前端，Nodejs 后端开发，混合式移动应用开发，Javascript 全栈式开发，数据挖掘与可视化，深度学习 等前沿技术。
                             </Text>
                             <Text style={styles.contentText}>
                                 个人技术博客：
-                                <Text style={styles.link}>http://blog.lizhooh.top</Text>
+                                <Text style={styles.link}>http://me.lizhooh.com</Text>
                             </Text>
                         </View>
                     </View>
@@ -98,11 +96,12 @@ const styles = StyleSheet.create({
         marginLeft: 6,
         paddingLeft: 5,
         marginVertical: 5,
-
+        justifyContent: 'center',
     },
     contentText: {
         lineHeight: 23,
         color: '#555',
+        textAlignVertical: 'center',
     },
     link: {
         color: Global.themeColor,

@@ -1,8 +1,6 @@
 package com.zhihudaily;
 
 import com.facebook.react.ReactActivity;
-import com.github.yamill.orientation.OrientationPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainActivity extends ReactActivity {
 

@@ -4,8 +4,9 @@
  * © 2017 Lizhooh
  */
 
+import React, { Component } from 'react';
+import { AppRegistry, View, Text } from 'react-native';
+import App from './App';
 
-import { AppRegistry } from 'react-native';
-import App from './App/Android/app';
 
 AppRegistry.registerComponent('zhihuDaily', () => App);

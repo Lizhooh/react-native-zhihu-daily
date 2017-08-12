@@ -1,20 +1,15 @@
 import React from 'react';
 import {
     StyleSheet,
-    View,
-    Text,
+    View, Text, Image,
     TouchableOpacity as Touch,
-    Dimensions,
-    Image,
 } from 'react-native';
 
-const window = Dimensions.get('window');
-
 // ## 文章的头部
-export default ({data}) => {
+export default ({ data }) => {
+    if(data === null) data = {};
 
     const renderImage = (data) => (
-        data.image &&
         <View style={styles.header}>
             <Image
                 style={styles.image}
@@ -69,12 +64,12 @@ const styles = StyleSheet.create({
     },
     header: {
         height: 210,
-        width: window.width,
+        width: '100%',
         backgroundColor: 'rgba(1, 1, 1, 0.05)',
     },
     image: {
         height: 210,
-        width: window.width,
+        width: '100%',
     },
     recommenders: {
         height: 65,
@@ -101,7 +96,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0, bottom: 0,
         left: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.32)',
+        backgroundColor: 'rgba(1, 1, 1, 0.12)',
         justifyContent: 'flex-end',
         padding: 10,
     },

@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
+import { color } from './config';
 import Main from './main';
+
+// views
+import About from './views/about';
+import Article from './views/article';
 
 // 导航相关
 export default class MyNavigatior extends Component {
 
     views = {
         'Main': Main,
+        'About': About,
+        'Article': Article,
     };
 
     // 导航动画
@@ -36,6 +43,7 @@ export default class MyNavigatior extends Component {
     render() {
         return (
             <View style={$.container}>
+                <View style={$.full}></View>
                 <Navigator
                     initialRoute={{ name: 'Main', data: null }}
                     renderScene={this.renderScene}
@@ -50,5 +58,9 @@ const $ = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    full: {
+        height: 25,
+        backgroundColor: color
     }
 })

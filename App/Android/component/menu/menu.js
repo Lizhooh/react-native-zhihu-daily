@@ -1,15 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import {
     StyleSheet,
-    View,
-    Text,
-    Image,
+    View, Text, Image,
     TouchableOpacity as Touch,
     ScrollView,
 } from 'react-native';
 
-import { Global, MaterialIcons } from '../common';
-import Toolbar from './box';
+import { Global } from '../common';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // ## 菜单视图
 export default class Menu extends Component {
@@ -55,12 +53,35 @@ export default class Menu extends Component {
                 keyboardDismissMode='on-drag'
                 >
 
-                <Toolbar
-                    style={styles.toolbar}
-                    onUser={null}
-                    onStar={null}
-                    onDownload={null}
-                    />
+                <View style={styles.toolbar}>
+                    <View style={box.top}>
+                        <View style={box.img}>
+                            <Image
+                                style={box.img}
+                                source={require('./img/user.jpg')}
+                                />
+                        </View>
+                        <Text style={box.login}>请登录</Text>
+                    </View>
+                    <View style={box.bottom}>
+                        <View style={box.pick}>
+                            <Icon
+                                name="star"
+                                color="#fff"
+                                size={20}
+                                />
+                            <Text style={box.pickText}>我的收藏</Text>
+                        </View>
+                        <View style={box.pick}>
+                            <Icon
+                                name="file-download"
+                                color="#fff"
+                                size={18}
+                                />
+                            <Text style={box.pickText}>离线下载</Text>
+                        </View>
+                    </View>
+                </View>
 
                 <Touch
                     activeOpacity={1}
@@ -70,7 +91,7 @@ export default class Menu extends Component {
                         this.props.onSelectChanng(event, -1, '首页');
                     } }
                     >
-                    <MaterialIcons
+                    <Icon
                         name="home"
                         size={20}
                         color={Global.themeColor}
@@ -90,7 +111,7 @@ export default class Menu extends Component {
                             } }
                             >
                             <Text style={theme.text}>{it.name}</Text>
-                            <MaterialIcons
+                            <Icon
                                 style={theme.icon}
                                 name="add"
                                 color="#ccc"
@@ -105,6 +126,43 @@ export default class Menu extends Component {
         );
     }
 }
+
+
+const box = StyleSheet.create({
+    top: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 5,
+        // justifyContent: 'center',
+    },
+    bottom: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    img: {
+        width: 30,
+        height: 30,
+        borderRadius: 30,
+    },
+    login: {
+        color: '#fff',
+        paddingHorizontal: 10,
+    },
+    pick: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    pickText: {
+        color: '#fff',
+        marginLeft: 15,
+        fontWeight: '500',
+    },
+});
 
 const styles = StyleSheet.create({
     contanter: {
@@ -137,7 +195,6 @@ const styles = StyleSheet.create({
     }
 });
 
-
 const theme = StyleSheet.create({
     item: {
         flexDirection: 'row',
@@ -155,4 +212,3 @@ const theme = StyleSheet.create({
         paddingRight: 20,
     }
 });
-

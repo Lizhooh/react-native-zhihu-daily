@@ -7,3 +7,4 @@ export default {
     // themeColor: 'rgba(204, 130, 255, 1)',
     // themeColor: 'rgba(51, 210, 0, 1)',
 };
+

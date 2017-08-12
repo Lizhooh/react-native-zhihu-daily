@@ -7,21 +7,26 @@ import {
     Dimensions,
     ToastAndroid as Toast,
     BackHandler,
+    ToolbarAndroid,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { mainActions } from './redux/actions';
 import Menu from './views/menu';
+import Home from './views/home';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import { color } from './config';
+import { Toolbar } from './components';
 const window = Dimensions.get('window');
 
-export default class Main extends Component {
+import * as api from './api';
 
-    constructor(props) {
-        super(props);
-    }
+class Main extends Component {
 
     onBackAndroid = (event) => {
 
-        if (this.navigator && this.navigator.getCurrentRoutes().length > 1) {
-            this.navigator.pop();
+        if (this.props.navigator && this.props.navigator.getCurrentRoutes().length > 1) {
+            this.props.navigator.pop();
             return true;
         }
 
@@ -40,15 +45,19 @@ export default class Main extends Component {
         return true;
     };
 
-    componentWillMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-    }
-
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
     }
 
+    async componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
+        this.props.init();
+    }
+
     render() {
+        const { navigator, updateTitle } = this.props;
+        const { latest, title, refresh, render } = this.props.state;
+
         return (
             <DrawerLayoutAndroid
                 ref={r => this.drawer = r}
@@ -56,12 +65,63 @@ export default class Main extends Component {
                 onDrawerOpen={e => this.drawer.state.open = true}
                 drawerWidth={window.width * 0.7}
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
-                renderNavigationView={() => <Menu navigator={this.navigator} />}
+                renderNavigationView={() => <Menu navigator={navigator} />}
                 >
-                <View>
-                    <Text>hhhh</Text>
+                <Toolbar
+                    title={title}
+                    isHome={true}
+                    onIconClicked={() => this.drawer.openDrawer()}
+                    onActionSelected={position => {
+                        position === 3 && navigator.push({ name: 'About' });
+                    } }
+                    />
+                <View style={{ flex: 1 }}>
+                    {/* 用来覆盖 Toolbar */}
+                    <View style={$.otherToolbar}>
+                        <Text style={$.otherToolbarText}>{title}</Text>
+                    </View>
+                    <Home
+                        data={latest.data}
+                        hot={latest.hot}
+                        onTitleChange={updateTitle}
+                        refresh={refresh}
+                        render={render}
+                        onPress={id => navigator.push({ name: 'Article', data: id, animated: 'top' })}
+                        />
                 </View>
             </DrawerLayoutAndroid>
         );
     }
 }
+
+export default connect(
+    state => ({ state: state.main }),
+    mainActions
+)(Main);
+
+const $ = StyleSheet.create({
+    contanter: {
+        flex: 1,
+        backgroundColor: color,
+    },
+    full: {
+        flex: 1,
+    },
+    otherToolbar: {
+        height: 55,
+        backgroundColor: color,
+        position: 'absolute',
+        top: -55,
+        left: 0, right: 0,
+        zIndex: -1,
+        justifyContent: 'center',
+    },
+    otherToolbarText: {
+        color: '#fff',
+        fontSize: 22,
+        marginLeft: 60,
+        fontWeight: '100',
+        includeFontPadding: false,
+        textAlignVertical: 'center',
+    }
+});

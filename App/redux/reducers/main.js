@@ -1,15 +1,15 @@
 import { LATEST, THEMELIST, MAIN } from '../types';
 
 const init_state = {
-    id: -1,
+    id: -1,             // theme id, -1 为首页
     title: '首页',
     latest: {
         data: [],
         hot: [],
     },
-    other: {
+    theme: {
         data: [],
-        soucre: null,
+        source: null,
     },
 
     // 加载
@@ -39,6 +39,22 @@ export default (state = init_state, action) => {
             },
             refresh: false,
             render: true,
+            id: action.id,
+        }
+
+        case THEMELIST.init_in: return {
+            ...state,
+            refresh: true,
+        }
+
+        case THEMELIST.init_success: return {
+            ...state,
+            refresh: false,
+            theme: {
+                data: action.data,
+                source: action.source,
+            },
+            id: action.id,
         }
 
         default: return state;

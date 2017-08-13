@@ -7,9 +7,8 @@ import {
     ActivityIndicator,
 } from 'react-native';
 
-import { Refresh } from '../components';
+import { Refresh, Box } from '../components';
 import { color } from '../config';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getSectionName } from '../functions';
 
 import Swiper from 'react-native-swiper';
@@ -86,36 +85,12 @@ export default class Home extends Component {
     };
 
     renderItem = ({ item, index }) => (
-        <View style={styles.box}>
-            <Touch
-                activeOpacity={0.7}
-                style={styles.touch}
-                onPress={e => this.props.onPress(item.id)}
-                >
-                <View style={styles.left}>
-                    <Text style={styles.leftTitle}>{item.title}</Text>
-                </View>
-                {!!item.images &&
-                    <View style={styles.right}>
-                        <Image
-                            source={{ uri: item.images[0] }}
-                            style={styles.rightImg}
-                            />
-                        {item.multipic &&
-                            <View style={styles.multipic}>
-                                <Icon name="filter-none" size={11} color="#fff" />
-                                <Text style={styles.multipicText}>多图</Text>
-                            </View>
-                        }
-                    </View>
-                }
-            </Touch>
-        </View>
+        <Box item={item} index={index} onPress={this.props.onPress} />
     );
 
     renderSectionHeader = ({ section }) => (
-        <View style={styles.section}>
-            <Text style={styles.sectionText}>
+        <View style={$.section}>
+            <Text style={$.sectionText}>
                 {getSectionName(section.title)}
             </Text>
         </View>
@@ -133,8 +108,8 @@ export default class Home extends Component {
                 paginationStyle={{
                     transform: [{ translateY: 9 }]
                 }}
-                dot={<View style={styles.dot} />}
-                activeDot={<View style={[styles.dot, { backgroundColor: '#fff' }]} />}
+                dot={<View style={$.dot} />}
+                activeDot={<View style={[$.dot, { backgroundColor: '#fff' }]} />}
                 >
                 {hot.map((item, index) => (
                     <View key={`hot-${index}-${item.id}`} >
@@ -142,11 +117,11 @@ export default class Home extends Component {
                             style={{ width: '100%', height: '100%' }}
                             source={{ uri: item.image }}
                             />
-                        <Touch style={styles.shade}
+                        <Touch style={$.shade}
                             activeOpacity={0.7}
-                            // onPress={event => onPress(event, data.id)}
+                            onPress={event => this.props.onPress(item.id)}
                             >
-                            <Text style={styles.title}>{item.title}</Text>
+                            <Text style={$.title}>{item.title}</Text>
                         </Touch>
                     </View>
                 ))}
@@ -159,7 +134,7 @@ export default class Home extends Component {
         const { data, refresh, hot } = this.props;
 
         return (
-            <View style={styles.contanter}>
+            <View style={$.contanter}>
                 <SectionList
                     // legacyImplementation={true}
                     overScrollMode='never'
@@ -184,62 +159,10 @@ export default class Home extends Component {
     }
 }
 
-const styles = StyleSheet.create({
+const $ = StyleSheet.create({
     contanter: {
         flex: 1,
-        backgroundColor: '#f6f6f6',
-    },
-    box: {
-        backgroundColor: '#ddd',
-        margin: 10,
-        marginHorizontal: 15,
-        borderRadius: 3,
-        paddingBottom: 1,
-    },
-    touch: {
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        padding: 10,
-        paddingHorizontal: 15,
-        paddingRight: 10,
-        borderRadius: 3,
-        minHeight: 80,
-    },
-    left: {
-        flex: 1,
-        paddingRight: 5,
-    },
-    leftTitle: {
-        fontSize: 18,
-        color: '#333',
-    },
-    right: {
-        width: 100,
-        height: 80,
-    },
-    rightImg: {
-        width: 100,
-        height: 80,
-        borderRadius: 2,
-    },
-    multipic: {
-        position: 'absolute',
-        bottom: 0, right: 0,
-        backgroundColor: 'rgba(1, 1, 1, 0.6)',
-        flexDirection: 'row',
-        padding: 3,
-        alignItems: 'center',
-    },
-    multipicText: {
-        fontSize: 11,
-        color: '#fff',
-        marginLeft: 3,
-        textShadowOffset: {
-            width: 1,
-            height: 1,
-        },
-        textShadowRadius: 1,
-        textShadowColor: 'rgba(1, 1, 1, 0.6)',
+        backgroundColor: '#f4f4f4',
     },
     section: {
         paddingHorizontal: 20,

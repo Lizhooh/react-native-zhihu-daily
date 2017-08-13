@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { mainActions } from './redux/actions';
 import Menu from './views/menu';
 import Home from './views/home';
+import Theme from './views/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { color } from './config';
@@ -51,12 +52,20 @@ class Main extends Component {
 
     async componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
-        this.props.init();
+        const { state, latestInit, themeInit } = this.props;
+        this.props.init(state.id, state.title);
     }
+
+    renderMenu = () => (
+        <Menu navigator={navigator} onSelectChanng={(id, title) => {
+            this.props.init(id, title);
+            this.drawer.closeDrawer();
+        } } />
+    )
 
     render() {
         const { navigator, updateTitle } = this.props;
-        const { latest, title, refresh, render } = this.props.state;
+        const { latest, title, refresh, render, id, theme } = this.props.state;
 
         return (
             <DrawerLayoutAndroid
@@ -65,11 +74,11 @@ class Main extends Component {
                 onDrawerOpen={e => this.drawer.state.open = true}
                 drawerWidth={window.width * 0.7}
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
-                renderNavigationView={() => <Menu navigator={navigator} />}
+                renderNavigationView={this.renderMenu}
                 >
                 <Toolbar
                     title={title}
-                    isHome={true}
+                    isHome={id === -1}
                     onIconClicked={() => this.drawer.openDrawer()}
                     onActionSelected={position => {
                         position === 3 && navigator.push({ name: 'About' });
@@ -80,14 +89,23 @@ class Main extends Component {
                     <View style={$.otherToolbar}>
                         <Text style={$.otherToolbarText}>{title}</Text>
                     </View>
-                    <Home
-                        data={latest.data}
-                        hot={latest.hot}
-                        onTitleChange={updateTitle}
-                        refresh={refresh}
-                        render={render}
-                        onPress={id => navigator.push({ name: 'Article', data: id, animated: 'top' })}
-                        />
+                    {id === -1 ?
+                        <Home
+                            data={latest.data}
+                            hot={latest.hot}
+                            onTitleChange={updateTitle}
+                            refresh={refresh}
+                            render={render}
+                            onPress={id => navigator.push({ name: 'Article', data: id, animated: 'top' })}
+                            />
+                        :
+                        <Theme
+                            data={theme.data}
+                            source={theme.source}
+                            refresh={refresh}
+                            onPress={id => navigator.push({ name: 'Article', data: id, animated: 'top' })}
+                            />
+                    }
                 </View>
             </DrawerLayoutAndroid>
         );

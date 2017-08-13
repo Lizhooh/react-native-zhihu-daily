@@ -57,7 +57,7 @@ export default class Menu extends Component {
                     style={[$.home, active === -1 && $.active]}
                     onPress={event => {
                         this.setState({ active: -1 });
-                        onSelectChanng(event, -1, '首页');
+                        onSelectChanng(-1, '首页');
                     } }
                     >
                     <Icon name="home" size={20} color={color} />
@@ -71,7 +71,7 @@ export default class Menu extends Component {
                             key={`theme-${index}`}
                             onPress={event => {
                                 this.setState({ active: it.id });
-                                onSelectChanng(event, it.id, it.name);
+                                onSelectChanng(it.id, it.name);
                             } }
                             >
                             <Text style={theme.text}>{it.name}</Text>

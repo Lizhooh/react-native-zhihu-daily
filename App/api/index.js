@@ -48,5 +48,5 @@ export const storyExtra = (id) => get(replace(zhd.storyExtra, ':id', id));
 export const longcomments = (id) => get(replace(zhd.longcomments, ':id', id));
 export const shortcomments = (id) => get(replace(zhd.shortcomments, ':id', id));
 export const section = (id) => get(replace(zhd.section, ':id', id));
-export const sectionmore = (id, lasttime) => get(replace(zhd.sectionmore, [':id', ':lasttime'], id, lasttime));
+export const sectionmore = (id, lasttime) => get(replace(zhd.sectionmore, [':id', ':lasttime'], [id, lasttime]));
 

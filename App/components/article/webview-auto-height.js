@@ -4,6 +4,7 @@ import {
     View, Text,
     WebView,
     TouchableOpacity as Touch,
+    ActivityIndicator,
 } from 'react-native';
 
 import { color } from '../../config';
@@ -16,7 +17,8 @@ export default class WebviewAutoHeight extends Component {
         super(props);
 
         this.state = {
-            height: 0,
+            height: 60,
+            opacity: 0,
         };
 
         this.script =
@@ -79,26 +81,33 @@ export default class WebviewAutoHeight extends Component {
         `;
 
         return (
-            <WebView
-                domStorageEnabled={true}
-                javaScriptEnabled={true}
-                scalesPageToFit={false}
-                style={[{ height: this.state.height }, style]}
-                source={body ? { html: html } : { url: url }}
-                injectedJavaScript={this.script}
-                onMessage={onImagePress}
-                onNavigationStateChange={(document) => {
-                    if (document.title) {
-                        if (this.state.height === document.title) return;
-
-                        this.setState({
-                            height: Number.parseInt(document.title) + 5,
-                        }, () => {
-                            onLoad(document);
-                        });
-                    }
-                } }
-                />
+            <View collapsable={true}>
+                <WebView
+                    domStorageEnabled={true}
+                    javaScriptEnabled={true}
+                    scalesPageToFit={false}
+                    style={[{ height: this.state.height, opacity: this.state.opacity }, style]}
+                    source={body ? { html: html } : { url: url }}
+                    injectedJavaScript={this.script}
+                    onMessage={onImagePress}
+                    onNavigationStateChange={(document) => {
+                        if (document.title) {
+                            if (this.state.height === document.title) return;
+                            this.setState({
+                                height: (Number.parseInt(document.title) + 5),
+                                opacity: 1,
+                            }, () => {
+                                onLoad(document);
+                            });
+                        }
+                    } }
+                    />
+                {this.state.opacity === 0 &&
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <ActivityIndicator color={color} size='small' />
+                    </View>
+                }
+            </View>
         );
     }
 }

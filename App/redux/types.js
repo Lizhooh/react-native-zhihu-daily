@@ -30,12 +30,21 @@ export const THEMELIST = extendState({
     refresh: 'THEMELIST_refresh',
 });
 
+// main
 export const MAIN = {
     title: 'MAIN_title',
 };
 
+// 文章
 export const ARTICLE = extendState({
     init: 'ARTICLE_init',
     leave: 'ARTICLE_leave',
+});
+
+// 集合
+export const SECTION = extendState({
+    init: 'SECTION_init',
+    more: 'SECTION_more',
+    leave: 'SECTION_leave',
 });
 

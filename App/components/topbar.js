@@ -40,15 +40,15 @@ const $ = StyleSheet.create({
         height: 55,
         backgroundColor: color,
         alignItems: 'center',
-        paddingHorizontal: 5,
+        paddingHorizontal: 4,
         flexDirection: 'row',
     },
     title: {
-        paddingHorizontal: 10,
+        paddingHorizontal: 8,
     },
     titleText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 21,
     },
     right: {
         flexDirection: 'row',

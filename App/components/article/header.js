@@ -10,6 +10,7 @@ export default ({ data }) => {
     if(data === null) data = {};
 
     const renderImage = (data) => (
+        data.image &&
         <View style={styles.header}>
             <Image
                 style={styles.image}

@@ -70,6 +70,7 @@ class Article extends Component {
         return <Header data={data} />
     };
 
+    // 文章尾部
     renderFooter = data => {
         if (!(data && data.section && this.state.section)) return;
         const section = data.section;
@@ -78,14 +79,11 @@ class Article extends Component {
                 style={styles.footer}
                 activeOpacity={0.7}
                 onPress={event => {
-                    // this.props.navigator.push({
-                    //     id: 9,
-                    //     title: '合集',
-                    //     data: {
-                    //         title: section.name,
-                    //         id: section.id,
-                    //     },
-                    // });
+                    this.props.navigator.push({
+                        name: 'Section',
+                        data: { id: section.id, name: section.name },
+                        animated: 'top',
+                    });
                 } }
                 >
                 <Image source={{ uri: section.thumbnail }} style={styles.footerImage} />

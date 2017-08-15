@@ -4,8 +4,9 @@ import { color } from '../config';
 
 export { default as Toolbar } from './toolbar';
 export { default as Topbar } from './topbar';
-export { default as Swiper } from './swiper';
 export { default as Box } from './box';
+export { default as Make } from './make';
+export { default as SelectBox } from './select-box';
 
 
 /**

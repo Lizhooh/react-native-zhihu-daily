@@ -2,7 +2,7 @@ import { LATEST, THEMELIST, MAIN } from '../types';
 import * as api from '../../api';
 
 export const init = (id, title) => async (dispatch, getState) => {
-    dispatch({ type: LATEST.init_in });
+    // dispatch({ type: LATEST.init_in });
     if (id === -1) {
         const res = await api.latest();
         dispatch({ type: LATEST.init_success, data: res, id: -1, title });
@@ -19,5 +19,20 @@ export const init = (id, title) => async (dispatch, getState) => {
     }
 }
 
+
 export const updateTitle = title => ({ type: MAIN.title, title });
 
+export const more = last => async (dispatch, getState) => {
+    console.log(last);
+    const { id } = getState().main;
+    if (id === -1) {
+        const res = await api.latestmore(last);
+        dispatch({ type: LATEST.more_success, data: res });
+        return res;
+    }
+    else {
+        const res = await api.themelistmore(id, last);
+        dispatch({ type: THEMELIST.more_success, data: res });
+        return res;
+    }
+}

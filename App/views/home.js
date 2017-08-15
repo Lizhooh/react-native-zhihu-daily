@@ -97,7 +97,7 @@ export default class Home extends Component {
     );
 
     renderHeader = hot => (
-        hot.length > 0 &&
+        !hot.empty() &&
         <View style={{ backgroundColor: '#fff', marginBottom: 10 }}>
             <Swiper
                 height={220}
@@ -131,7 +131,7 @@ export default class Home extends Component {
 
     render() {
         this.setSectionPos();
-        const { data, refresh, hot } = this.props;
+        const { data, refresh, hot, onMore } = this.props;
 
         return (
             <View style={$.contanter}>
@@ -144,16 +144,18 @@ export default class Home extends Component {
                     renderItem={this.renderItem}
                     initialNumToRender={15}
                     refreshControl={
-                        <Refresh onRefresh={null} refreshing={refresh || false} />
+                        <Refresh onRefresh={null} refreshing={false} />
                     }
                     // removeClippedSubviews={false}
                     // renderHeader={() => this.renderHeader(hot)}
                     ListHeaderComponent={this.renderHeader(hot)}
+                    ListFooterComponent={<View style={{ height: 10 }}></View>}
                     renderSectionHeader={this.renderSectionHeader}
-                    keyExtractor={item => item.id}
+                    keyExtractor={(item, index) => `${item.id} - ${index}`}
                     sections={data}
+                    onEndReachedThreshold={0.5}
+                    onEndReached={onMore}
                     />
-                <View style={{ height: 10 }}></View>
             </View>
         );
     }

@@ -59,12 +59,18 @@ class Main extends Component {
     renderMenu = () => (
         <Menu navigator={navigator} onSelectChanng={(id, title) => {
             this.props.init(id, title);
-            this.drawer.closeDrawer();
+            setTimeout(() => {
+                this.drawer.closeDrawer();
+            }, 100);
         } } />
     )
 
+    openArticle = (id) => {
+        this.props.navigator.push({ name: 'Article', data: id, animated: 'top' });
+    }
+
     render() {
-        const { navigator, updateTitle } = this.props;
+        const { navigator, updateTitle, more } = this.props;
         const { latest, title, refresh, render, id, theme } = this.props.state;
 
         return (
@@ -81,6 +87,7 @@ class Main extends Component {
                     isHome={id === -1}
                     onIconClicked={() => this.drawer.openDrawer()}
                     onActionSelected={position => {
+                        position === 2 && navigator.push({ name: 'Setting' });
                         position === 3 && navigator.push({ name: 'About' });
                     } }
                     />
@@ -96,14 +103,19 @@ class Main extends Component {
                             onTitleChange={updateTitle}
                             refresh={refresh}
                             render={render}
-                            onPress={id => navigator.push({ name: 'Article', data: id, animated: 'top' })}
+                            onPress={this.openArticle}
+                            onMore={e => !latest.data.empty() && more(latest.data.last().title)
+                                .then(res => res.stories.empty() && Toast.show('没有更多了', Toast.LONG))}
                             />
                         :
                         <Theme
                             data={theme.data}
                             source={theme.source}
                             refresh={refresh}
-                            onPress={id => navigator.push({ name: 'Article', data: id, animated: 'top' })}
+                            onPress={this.openArticle}
+                            onMore={e => !theme.data.empty() && more(theme.data.last().id)
+                                .then(res => res.stories.empty() && Toast.show('没有更多了', Toast.LONG))}
+                            openEditor={list => navigator.push({ data: list, name: 'EditorList' })}
                             />
                     }
                 </View>
@@ -136,9 +148,9 @@ const $ = StyleSheet.create({
     },
     otherToolbarText: {
         color: '#fff',
-        fontSize: 22,
+        fontSize: 21,
         marginLeft: 60,
-        fontWeight: '100',
+        fontWeight: '400',
         includeFontPadding: false,
         textAlignVertical: 'center',
     }

@@ -7,6 +7,10 @@ import Main from './main';
 // views
 import About from './views/about';
 import Article from './views/article';
+import Editor from './views/editor';
+import EditorList from './views/editor-list';
+import Section from './views/section';
+import Setting from './views/setting';
 
 // 导航相关
 export default class MyNavigatior extends Component {
@@ -15,6 +19,10 @@ export default class MyNavigatior extends Component {
         'Main': Main,
         'About': About,
         'Article': Article,
+        'Editor': Editor,
+        'EditorList': EditorList,
+        'Section': Section,
+        'Setting': Setting,
     };
 
     // 导航动画

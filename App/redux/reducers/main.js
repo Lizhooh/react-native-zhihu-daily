@@ -26,11 +26,6 @@ export default (state = init_state, action) => {
             render: false,
         }
 
-        case LATEST.init_in: return {
-            ...state,
-            refresh: true,
-        }
-
         case LATEST.init_success: return {
             ...state,
             latest: {
@@ -40,11 +35,19 @@ export default (state = init_state, action) => {
             refresh: false,
             render: true,
             id: action.id,
+            title: action.title,
         }
 
-        case THEMELIST.init_in: return {
+        case LATEST.more_success: return {
             ...state,
-            refresh: true,
+            latest: {
+                ...state.latest,
+                data: [
+                    ...state.latest.data,
+                    { data: action.data.stories, title: action.data.date }
+                ]
+            },
+            render: true,
         }
 
         case THEMELIST.init_success: return {
@@ -55,6 +58,15 @@ export default (state = init_state, action) => {
                 source: action.source,
             },
             id: action.id,
+            title: action.title,
+        }
+
+        case THEMELIST.more_success: return {
+            ...state,
+            theme: {
+                ...state.theme,
+                data: [...state.theme.data, ...action.data.stories],
+            }
         }
 
         default: return state;

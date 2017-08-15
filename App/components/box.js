@@ -6,8 +6,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default ({ item, index, onPress }) => (
-    <View style={$.box}>
+export default ({ item, onPress }) => (
+    <View style={$.box} key={item.id}>
         <Touch
             activeOpacity={0.7}
             style={$.touch}

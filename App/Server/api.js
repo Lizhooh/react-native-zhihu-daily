@@ -52,7 +52,7 @@ const story = {
             .then(jsondata => {
                 jsondata.style = '';
 
-                if (Array.isArray(jsondata.css) && jsondata.css.length > 0) {
+                if (Array.isArray(jsondata.css) && !jsondata.css.empty()) {
                     // 本地存储
                     // 1. 使用 AsyncStorage 存储 css
                     // 2. 判断 css 的 Url 变化，决定是否重新缓存

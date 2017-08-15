@@ -4,6 +4,7 @@ import {
     View, Text, Image,
     TouchableOpacity as Touch,
     FlatList,
+    ListView,
 } from 'react-native';
 import { Box } from '../components';
 import { color } from '../config';
@@ -15,8 +16,8 @@ export default class Theme extends Component {
         super(props);
     }
 
-    renderItem = ({ item, index }) => (
-        <Box item={item} index={index} onPress={this.props.onPress} />
+    renderItem = (item) => (
+        <Box item={item} onPress={this.props.onPress} />
     );
 
     renderHeader = (source = {}) => (
@@ -48,9 +49,7 @@ export default class Theme extends Component {
                             key={`editors-${index}`}
                             style={editor.user}
                             activeOpacity={0.8}
-                            onPress={event => {
-                                this.props.openEditors(event, source.editors)
-                            } }
+                            onPress={e => this.props.openEditor(source.editors)}
                             >
                             <Image
                                 style={editor.avatar}
@@ -63,27 +62,43 @@ export default class Theme extends Component {
         </View>
     );
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.source.name !== nextProps.source.name) {
+            this.listview.scrollTo({ x: 0, y: 0, animated: true });
+        }
+    }
+
+    ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+
     render() {
-        const { data, refresh, source } = this.props;
+        const { data, refresh, source, onMore } = this.props;
 
         return (
             <View style={$.container}>
-                <FlatList
-                    data={data}
+                <ListView
+                    ref={r => this.listview = r}
+                    dataSource={this.ds.cloneWithRows(data)}
+                    renderRow={this.renderItem}
+                    refreshControl={
+                        <Refresh onRefresh={null} refreshing={false} />
+                    }
+                    renderHeader={() => this.renderHeader(source)}
                     overScrollMode='never'
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
-                    renderItem={this.renderItem}
-                    initialNumToRender={15}
-                    refreshControl={
-                        <Refresh onRefresh={null} refreshing={refresh || false} />
-                    }
-                    // removeClippedSubviews={false}
-                    // renderHeader={() => this.renderHeader(hot)}
-                    ListHeaderComponent={this.renderHeader(source)}
-                    // renderSectionHeader={this.renderSectionHeader}
-                    keyExtractor={item => item.id}
+                    initialListSize={15}
+                    scrollRenderAheadDistance={500}
+                    // 滚动刷新
+                    onEndReachedThreshold={1000}
+                    onEndReached={e => {
+                        if (this.loadmore !== true) {
+                            this.loadmore = true;
+                            onMore().then(res => this.loadmore = false);
+                        }
+                    } }
                     />
+
+                <View style={{ height: 10 }}></View>
             </View>
         );
     }

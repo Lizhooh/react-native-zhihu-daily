@@ -1,13 +1,14 @@
 import { AsyncStorage } from 'react-native';
 
-
+/**
+ * 本地存储
+ * 1. 使用 AsyncStorage 存储 css
+ * 2. 判断 css 的 Url 变化，决定是否重新缓存
+ */
 export const saveCSS = async jsondata => {
     jsondata.style = '';
 
-    if (Array.isArray(jsondata.css) && jsondata.css.length > 0) {
-        // 本地存储
-        // 1. 使用 AsyncStorage 存储 css
-        // 2. 判断 css 的 Url 变化，决定是否重新缓存
+    if (Array.isArray(jsondata.css) && !jsondata.css.empty()) {
         const link = jsondata.css[0];
         const keyName = 'css';
         const value = await AsyncStorage.getItem(keyName);

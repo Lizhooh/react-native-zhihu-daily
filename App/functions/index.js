@@ -23,3 +23,17 @@ export const displayK = (value) => {
     }
     return value;
 };
+
+
+// 数组扩展
+Array.prototype.first = Array.prototype.first || function () {
+    return this[0];
+}
+
+Array.prototype.last = Array.prototype.last || function () {
+    return this[this.length - 1];
+}
+
+Array.prototype.empty = Array.prototype.empty || function () {
+    return !!(this.length === 0);
+}

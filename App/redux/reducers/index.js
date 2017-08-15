@@ -12,3 +12,4 @@ export default (state = ROOT_INIT_STATE, action) => {
 // state 树分支
 export { default as main } from './main';
 export { default as article } from './article';
+export { default as section } from './section';

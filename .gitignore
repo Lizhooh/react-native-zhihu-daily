@@ -63,3 +63,7 @@ android/*.log
 
 ## android build
 android/app/build
+
+## keystore
+android/app/keys/*
+keys/*

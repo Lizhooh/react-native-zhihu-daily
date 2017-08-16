@@ -149,6 +149,7 @@ export default class Home extends Component {
                     }
                     // removeClippedSubviews={false}
                     // renderHeader={() => this.renderHeader(hot)}
+                    // renderFooter={() => <View style={{ height: 10 }}></View>}
                     ListHeaderComponent={this.renderHeader(hot)}
                     ListFooterComponent={<View style={{ height: 10 }}></View>}
                     renderSectionHeader={this.renderSectionHeader}

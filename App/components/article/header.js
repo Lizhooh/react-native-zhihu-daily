@@ -7,16 +7,15 @@ import {
 
 // ## 文章的头部
 export default ({ data }) => {
-    if(data === null) data = {};
+    if (data === null) data = {};
 
     const renderImage = (data) => (
-        data.image &&
+        (data.image || Object.keys(data).length === 0) &&
         <View style={styles.header}>
             <Image
                 style={styles.image}
                 source={{ uri: data.image }}
                 />
-
             <View style={styles.shade}>
                 <Text style={styles.title}>
                     {data.title}

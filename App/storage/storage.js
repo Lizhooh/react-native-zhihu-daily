@@ -14,7 +14,7 @@ export default storage = {
         return await AsyncStorage.removeItem(key);
     },
     async has(key) {
-        return !!((await AsyncStorage.getItem(key)) === null);
+        return !(await this.get(key) === null);
     }
 }
 

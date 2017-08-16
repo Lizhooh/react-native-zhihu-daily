@@ -73,7 +73,7 @@ class Section extends Component {
                     renderHeader={() => <View style={{ height: 10 }}></View>}
                     renderFooter={() => <View style={{ height: 10 }}></View>}
                     refreshControl={
-                        <Refresh onRefresh={refresh} refreshing={refresh} />
+                        <Refresh onRefresh={refresh} refreshing={refreshing} />
                     }
                     enableEmptySections={true}
                     scrollRenderAheadDistance={500}

@@ -64,8 +64,11 @@ export default class Theme extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.source.name !== nextProps.source.name) {
-            this.listview.scrollTo({ x: 0, y: 0, animated: true });
+            setTimeout(() => {
+                this.listview.scrollTo({ x: 0, y: 0, animated: true });
+            }, 30);
         }
+        return true;
     }
 
     ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });

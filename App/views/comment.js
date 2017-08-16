@@ -24,9 +24,7 @@ class Comment extends Component {
     constructor(props) {
         super(props);
         layoutAnimate.open();
-        this.state = {
-            showsc: false,  // 显示短评论？
-        }
+        this.showsc = false; // 显示短评论？
     }
 
     renderLongComment = data => {
@@ -68,7 +66,6 @@ class Comment extends Component {
     render() {
         const { extra } = this.props.data;
         const { ldata, sdata, id } = this.props.state;
-        const { showsc } = this.state;
 
         return (
             <View style={$.container}>
@@ -78,7 +75,7 @@ class Comment extends Component {
                     icons={[{ name: 'mode-edit' }]}
                     />
 
-                <View style={[$.longComment, showsc && { height: 0 }]}>
+                <View style={$.longComment} ref={r => this.longview = r}>
                     <View style={$.title}>
                         <Text>{extra.long_comments || 0} 条长评</Text>
                     </View>
@@ -88,7 +85,11 @@ class Comment extends Component {
                 <View style={$.shortComment}>
                     <Touch style={$.title}
                         onPress={e => {
-                            this.setState({ showsc: !showsc });
+                            // [优化] 直接操作 native view，减少无必要的 diff
+                            this.showsc = !this.showsc;
+                            this.longview && this.longview.setNativeProps(
+                                { style: { height: this.showsc ? 0 : 'auto' } }
+                            );
                             layoutAnimate.start();
                         } }
                         >

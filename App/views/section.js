@@ -5,6 +5,7 @@ import {
     ListView,
     InteractionManager,
     TouchableOpacity as Touch,
+    ToastAndroid as Toast,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { sectionActions } from '../redux/actions';
@@ -73,7 +74,7 @@ class Section extends Component {
                     renderHeader={() => <View style={{ height: 10 }}></View>}
                     renderFooter={() => <View style={{ height: 10 }}></View>}
                     refreshControl={
-                        <Refresh onRefresh={refresh} refreshing={refresh} />
+                        <Refresh onRefresh={refresh} refreshing={refreshing} />
                     }
                     enableEmptySections={true}
                     scrollRenderAheadDistance={500}
@@ -82,7 +83,10 @@ class Section extends Component {
                     onEndReached={e => {
                         if (this.loadmore !== true && !data.empty()) {
                             this.loadmore = true;
-                            more().then(res => this.loadmore = false);
+                            more().then(res => {
+                                res.empty() && Toast.show('没有更多了', Toast.LONG);
+                                this.loadmore = false;
+                            });
                         }
                     } }
                     />

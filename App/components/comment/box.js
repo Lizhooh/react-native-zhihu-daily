@@ -110,7 +110,7 @@ const L = StyleSheet.create({
         fontWeight: '600',
     },
     replyText: {
-        color: '#888',
+        color: '#838383',
         lineHeight: 23,
         textAlignVertical: 'center',
         includeFontPadding: false,

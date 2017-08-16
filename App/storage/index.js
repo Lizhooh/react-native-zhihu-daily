@@ -23,6 +23,7 @@ export const saveCSS = async jsondata => {
 
         // 解析取到的值
         const cssCache = await storage.get(keyName);
+
         // url 相等直接取缓存
         if (cssCache.url === link) {
             jsondata.style = cssCache.style;

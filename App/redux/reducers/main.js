@@ -13,7 +13,7 @@ const init_state = {
     },
 
     // 加载
-    refresh: false,
+    refreshing: false,
     render: true,
 };
 
@@ -32,7 +32,7 @@ export default (state = init_state, action) => {
                 data: [{ data: action.data.stories, title: action.data.date }],
                 hot: action.data.top_stories,
             },
-            refresh: false,
+            refreshing: false,
             render: true,
             id: action.id,
             title: action.title,
@@ -52,7 +52,7 @@ export default (state = init_state, action) => {
 
         case THEMELIST.init_success: return {
             ...state,
-            refresh: false,
+            refreshing: false,
             theme: {
                 data: action.data,
                 source: action.source,

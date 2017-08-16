@@ -25,6 +25,7 @@ export default class Home extends Component {
 
     }
 
+    // 根据滚动条位置更换 title
     onScroll = event => {
         const offset_y = event.nativeEvent.contentOffset.y;
         // 防止频繁触发
@@ -131,7 +132,7 @@ export default class Home extends Component {
 
     render() {
         this.setSectionPos();
-        const { data, refresh, hot, onMore } = this.props;
+        const { data, refresh, hot, onMore, onRefresh } = this.props;
 
         return (
             <View style={$.contanter}>
@@ -139,12 +140,12 @@ export default class Home extends Component {
                     // legacyImplementation={true}
                     overScrollMode='never'
                     onScroll={this.onScroll}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
+                    // showsHorizontalScrollIndicator={false}
+                    // showsVerticalScrollIndicator={false}
                     renderItem={this.renderItem}
                     initialNumToRender={15}
                     refreshControl={
-                        <Refresh onRefresh={null} refreshing={false} />
+                        <Refresh onRefresh={onRefresh} refreshing={false} />
                     }
                     // removeClippedSubviews={false}
                     // renderHeader={() => this.renderHeader(hot)}
@@ -153,7 +154,7 @@ export default class Home extends Component {
                     renderSectionHeader={this.renderSectionHeader}
                     keyExtractor={(item, index) => `${item.id} - ${index}`}
                     sections={data}
-                    onEndReachedThreshold={0.5}
+                    onEndReachedThreshold={0.6}
                     onEndReached={onMore}
                     />
             </View>

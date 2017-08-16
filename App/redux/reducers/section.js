@@ -5,7 +5,7 @@ const init_state = {
     title: '合集',
     lasttime: 0,
     id: 0,
-    refresh: false,
+    refreshing: false,
 };
 
 export default (state = init_state, action) => {
@@ -13,13 +13,13 @@ export default (state = init_state, action) => {
 
         case SECTION.init_in: return {
             ...state,
-            refresh: true,
+            refreshing: true,
         }
 
         case SECTION.init_success: return {
             ...state,
             data: action.data.stories,
-            refresh: false,
+            refreshing: false,
             lasttime: action.data.timestamp,
             title: action.data.name,
             id: action.id,

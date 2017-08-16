@@ -18,9 +18,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { color } from './config';
 import { Toolbar } from './components';
-const window = Dimensions.get('window');
-
 import * as api from './api';
+const window = Dimensions.get('window');
 
 class Main extends Component {
 
@@ -70,8 +69,8 @@ class Main extends Component {
     }
 
     render() {
-        const { navigator, updateTitle, more } = this.props;
-        const { latest, title, refresh, render, id, theme } = this.props.state;
+        const { navigator, updateTitle, more, refresh } = this.props;
+        const { latest, title, refreshing, render, id, theme } = this.props.state;
 
         return (
             <DrawerLayoutAndroid
@@ -101,7 +100,8 @@ class Main extends Component {
                             data={latest.data}
                             hot={latest.hot}
                             onTitleChange={updateTitle}
-                            refresh={refresh}
+                            refresh={refreshing}
+                            onRefresh={refresh}
                             render={render}
                             onPress={this.openArticle}
                             onMore={e => !latest.data.empty() && more(latest.data.last().title)
@@ -111,7 +111,8 @@ class Main extends Component {
                         <Theme
                             data={theme.data}
                             source={theme.source}
-                            refresh={refresh}
+                            refresh={refreshing}
+                            onRefresh={refresh}
                             onPress={this.openArticle}
                             onMore={e => !theme.data.empty() && more(theme.data.last().id)
                                 .then(res => res.stories.empty() && Toast.show('没有更多了', Toast.LONG))}

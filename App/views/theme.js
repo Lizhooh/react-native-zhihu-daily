@@ -71,7 +71,7 @@ export default class Theme extends Component {
     ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
     render() {
-        const { data, refresh, source, onMore } = this.props;
+        const { data, refresh, source, onMore, onRefresh } = this.props;
 
         return (
             <View style={$.container}>
@@ -80,14 +80,15 @@ export default class Theme extends Component {
                     dataSource={this.ds.cloneWithRows(data)}
                     renderRow={this.renderItem}
                     refreshControl={
-                        <Refresh onRefresh={null} refreshing={false} />
+                        <Refresh onRefresh={onRefresh} refreshing={false} />
                     }
                     renderHeader={() => this.renderHeader(source)}
                     overScrollMode='never'
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
+                    // showsHorizontalScrollIndicator={false}
+                    // showsVerticalScrollIndicator={false}
                     initialListSize={15}
                     scrollRenderAheadDistance={500}
+                    enableEmptySections={true}
                     // 滚动刷新
                     onEndReachedThreshold={1000}
                     onEndReached={e => {

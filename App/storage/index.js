@@ -1,4 +1,4 @@
-import { AsyncStorage } from 'react-native';
+import storage from './storage';
 
 /**
  * 本地存储
@@ -11,21 +11,18 @@ export const saveCSS = async jsondata => {
     if (Array.isArray(jsondata.css) && !jsondata.css.empty()) {
         const link = jsondata.css[0];
         const keyName = 'css';
-        const value = await AsyncStorage.getItem(keyName);
+        const value = await storage.has(keyName);
 
         // 没有这个值
-        if (value === null) {
+        if (value === false) {
             let css = await fetch(link).then(res => res.text());
             jsondata.style = css;
-            await AsyncStorage.setItem(keyName, JSON.stringify({
-                url: link,
-                style: css,
-            }));
+            await storage.set(keyName, { url: link, style: css });
             return jsondata;
         }
 
         // 解析取到的值
-        const cssCache = JSON.parse(value);
+        const cssCache = await storage.get(keyName);
         // url 相等直接取缓存
         if (cssCache.url === link) {
             jsondata.style = cssCache.style;
@@ -33,13 +30,24 @@ export const saveCSS = async jsondata => {
         }
         // 不相等，重新缓存
         let css = await fetch(link).then(res => res.text());
-        await AsyncStorage.setItem(keyName, JSON.stringify({
-            url: link,
-            style: css,
-        }));
+        await storage.set(keyName, { url: link, style: css });
         return jsondata;
     }
     else {
         return jsondata;
     }
 }
+
+/**
+ * 缓存最新的首页数据
+ */
+export const cacheLatest = {
+    key: 'cacheLatest',
+    get() {
+        return storage.get(this.key);
+    },
+    set(data) {
+        return storage.set(this.key, data);
+    }
+}
+

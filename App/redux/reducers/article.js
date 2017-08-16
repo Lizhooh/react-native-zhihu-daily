@@ -3,6 +3,7 @@ import { ARTICLE } from '../types';
 const init_state = {
     id: 0,
     data: null,
+    extra: {},
 };
 
 export default (state = init_state, action) => {
@@ -11,10 +12,9 @@ export default (state = init_state, action) => {
         case ARTICLE.init_success: return {
             ...state,
             data: action.data,
+            extra: action.extra,
             id: action.id,
         }
-
-        case ARTICLE.leave_success: return init_state;
 
         default: return state;
     }

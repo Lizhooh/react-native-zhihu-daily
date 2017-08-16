@@ -46,7 +46,7 @@ export default ({ navigator }) => (
                         </View>
                         <Text style={$.contentText}>
                             计算机科学专业，前端开发工程师，专注于研究：{'\n'}
-                            Web 前端，Nodejs 后端开发，混合式移动应用开发，Javascript 全栈式开发，数据挖掘与可视化，深度学习 等前沿技术。
+                            Web 前端，Nodejs 后端开发，混合式移动应用开发，Javascript 全栈式开发，数据挖掘与可视化等。
                             </Text>
                         <Text style={$.contentText}>
                             个人技术博客：

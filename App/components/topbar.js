@@ -27,7 +27,7 @@ export default ({ title, onBack, icons = [], style, myref }) => (
                     activeOpacity={0.7}
                     onPress={it.onPress}
                     >
-                    <Icon name={it.name} size={28} color="#fff" style={$.textshadow} />
+                    <Icon name={it.name} size={22} color="#fff" style={$.textshadow} />
                     {it.text !== null && <Text style={[$.text, $.textshadow]}>{it.text}</Text>}
                 </Touch>
             ))
@@ -51,8 +51,10 @@ const $ = StyleSheet.create({
         fontSize: 21,
     },
     right: {
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'flex-end',
     },
     icon: {
         padding: 10,
@@ -69,5 +71,7 @@ const $ = StyleSheet.create({
         marginLeft: 3,
         includeFontPadding: false,
         textAlignVertical: 'center',
+        fontSize: 14,
+        fontWeight: '500',
     }
 });

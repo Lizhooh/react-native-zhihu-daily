@@ -7,15 +7,14 @@ import {
     ScrollView,
     Dimensions,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { articleActions } from '../redux/actions';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Topbar, Refresh } from '../components';
 import { color } from '../config';
 import WebViewAuto from '../components/article/webview-auto-height';
 import Header from '../components/article/header';
-import * as api from '../api';
-import ParallaxScroll from '@monterosa/react-native-parallax-scroll/src';
+import { displayK } from '../functions';
 
 // ## 文章
 class Article extends Component {
@@ -25,6 +24,8 @@ class Article extends Component {
 
         this.state = {
             section: false,
+            data: null,
+            extra: {},
         };
 
         // 缓存值
@@ -49,18 +50,10 @@ class Article extends Component {
             css={data.style}
             body={data.body}
             url={data.share_url}
-            onImagePress={event =>
-                this.setState({
-                    modal: {
-                        visible: true,
-                        imageSrc: event.nativeEvent.data,
-                    }
-                })
-            }
             onLoad={event =>
                 setTimeout(_ => {
                     this.setState({ section: true });
-                }, 1200)
+                }, 1000)
             }
             />
     );
@@ -95,15 +88,6 @@ class Article extends Component {
                 <Icon name='chevron-right' color='#444' size={20} />
             </Touch>
         );
-    }
-
-    async componentDidMount() {
-        await InteractionManager.runAfterInteractions();
-        this.props.init(this.props.data);
-    }
-
-    componentWillUnmount() {
-        this.props.leave();
     }
 
     // 根据滚动条的变化，Toolbar 的透明度会产生变化
@@ -142,8 +126,25 @@ class Article extends Component {
         }
     }
 
+    openComment = event => {
+        this.props.navigator.push({
+            name: 'Comment',
+            data: {
+                id: this.props.data,
+                extra: this.state.extra
+            },
+            animated: 'top',
+        });
+    }
+
+    async componentDidMount() {
+        await InteractionManager.runAfterInteractions();
+        const { data, extra } = await this.props.init(this.props.data);
+        this.setState({ data, extra });
+    }
+
     render() {
-        let { data, id } = this.props.state;
+        const { data, extra } = this.state;
 
         return (
             <View style={styles.contanier}>
@@ -165,6 +166,16 @@ class Article extends Component {
                         myref={r => this.mytopbar = r}
                         style={[styles.toolbar]}
                         onBack={this.props.navigator.pop}
+                        icons={[
+                            { name: 'share' },
+                            { name: 'star' },
+                            {
+                                name: 'comment',
+                                text: displayK(extra.comments),
+                                onPress: this.openComment
+                            },
+                            { name: 'thumb-up', text: displayK(extra.popularity) },
+                        ]}
                         />
                 </View>
             </View>

@@ -5,15 +5,19 @@ moment.defineLocale('zh-cn', {
 });
 
 // 对时间进行格式化
-export const getSectionName = (_date) => {
-    if (moment(Date.now()).format('MM月DD日') === moment(_date, 'YYYYMMDD').format('MM月DD日')) {
+export const getSectionName = (date) => {
+    if (moment(Date.now()).format('MM月DD日') === moment(date, 'YYYYMMDD').format('MM月DD日')) {
         return '今日热闻';
     }
     else {
-        return moment(_date, 'YYYYMMDD').locale('zh-cn').format('MM月DD日 dddd');
+        return moment(date, 'YYYYMMDD').locale('zh-cn').format('MM月DD日 dddd');
     }
 };
 
+// 对时间进行格式化
+export const getFotmatTime = (date) => {
+    return moment(date * 1000).format('MM月DD日 HH:mm');
+}
 
 // 大于 1000 时，显示 k
 export const displayK = (value) => {

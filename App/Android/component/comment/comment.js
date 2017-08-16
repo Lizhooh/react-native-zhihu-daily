@@ -146,19 +146,19 @@ export default class Comment extends Component {
                                 activeOpacity={0.8}
                                 style={shortComment.title}
                                 onPress={event => {
-                                    this.setState({
-                                        short: !this.state.short,
-                                    }, () => {
-                                        setTimeout(() => {
-                                            const height = this._long_comments_height;
+                                    // this.setState({
+                                    //     short: !this.state.short,
+                                    // }, () => {
+                                    //     setTimeout(() => {
+                                    //         const height = this._long_comments_height;
 
-                                            this._scroll.scrollTo({
-                                                x: 0,
-                                                y: height,
-                                                animated: true
-                                            });
-                                        }, 0);
-                                    });
+                                    //         this._scroll.scrollTo({
+                                    //             x: 0,
+                                    //             y: height,
+                                    //             animated: true
+                                    //         });
+                                    //     }, 0);
+                                    // });
                                 } }
                                 >
                                 <Text style={{ flex: 1 }}>

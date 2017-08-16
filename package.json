@@ -10,7 +10,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "@monterosa/react-native-parallax-scroll": "^1.3.2",
     "color": "^2.0.0",
     "moment": "^2.18.1",
     "qs": "^6.5.0",

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+    StyleSheet, View,
+    NetInfo,
+    ToastAndroid as Toast,
+} from 'react-native';
 import { Navigator } from 'react-native-deprecated-custom-components';
+import orientation from 'react-native-orientation';
 import { color } from './config';
 import Main from './main';
 
@@ -11,19 +16,32 @@ import Editor from './views/editor';
 import EditorList from './views/editor-list';
 import Section from './views/section';
 import Setting from './views/setting';
+import Appstart from './views/app-start';
+import Comment from './views/comment';
+
 
 // 导航相关
 export default class MyNavigatior extends Component {
 
-    views = {
-        'Main': Main,
-        'About': About,
-        'Article': Article,
-        'Editor': Editor,
-        'EditorList': EditorList,
-        'Section': Section,
-        'Setting': Setting,
-    };
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            start: true,
+            nav: false,
+        }
+
+        this.views = {
+            'Main': Main,
+            'About': About,
+            'Article': Article,
+            'Editor': Editor,
+            'EditorList': EditorList,
+            'Section': Section,
+            'Setting': Setting,
+            'Comment': Comment,
+        };
+    }
 
     // 导航动画
     configureScene = (route, navigator) => {
@@ -48,15 +66,34 @@ export default class MyNavigatior extends Component {
         return <Views data={route.data} navigator={navigator} />
     };
 
+    netInfoChange = () => {
+        if (reach === 'NONE') {
+            Toast.show('当前网络不可用，请检查你的网络设置', Toast.LONG);
+        }
+    }
+
+    async componentDidMount() {
+        orientation.lockToPortrait();
+        NetInfo.addEventListener('change', this.netInfoChange);
+        await new Promise(rs => setTimeout(rs, 300));
+        this.setState({ nav: true });
+        await new Promise(rs => setTimeout(rs, 1200));
+        this.setState({ start: false });
+    }
+
     render() {
+        const { start, startImageOpacity, nav } = this.state;
+
         return (
             <View style={$.container}>
-                <View style={$.full}></View>
-                <Navigator
+                {nav && <Navigator
+                    sceneStyle={{ paddingTop: 25, backgroundColor: color }}
                     initialRoute={{ name: 'Main', data: null }}
                     renderScene={this.renderScene}
                     configureScene={this.configureScene}
                     />
+                }
+                {start && <Appstart />}
             </View>
         );
     }
@@ -65,7 +102,6 @@ export default class MyNavigatior extends Component {
 const $ = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     full: {
         height: 25,

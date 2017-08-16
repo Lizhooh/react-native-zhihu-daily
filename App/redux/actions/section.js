@@ -10,9 +10,12 @@ export const init = id => async (dispatch, getState) => {
 export const more = () => async (dispatch, getState) => {
     const { id, lasttime } = getState().section;
     const data = await api.sectionmore(id, lasttime);
-    console.log(data);
     dispatch({ type: SECTION.more_success, data });
     return data;
 }
 
-
+export const refresh = () => async (dispatch, getState) => {
+    const { id } = getState().section;
+    const data = await api.section(id);
+    dispatch({ type: SECTION.init_success, data, id });
+}

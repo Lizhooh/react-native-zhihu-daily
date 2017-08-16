@@ -54,8 +54,8 @@ class Section extends Component {
     }
 
     render() {
-        const { navigator, more, data: { name } } = this.props;
-        let { id, data, title, refresh } = this.props.state;
+        const { navigator, more, data: { name }, refresh } = this.props;
+        let { id, data, title, refreshing } = this.props.state;
 
         if (id !== this.props.data.id) data = [];
 
@@ -73,7 +73,7 @@ class Section extends Component {
                     renderHeader={() => <View style={{ height: 10 }}></View>}
                     renderFooter={() => <View style={{ height: 10 }}></View>}
                     refreshControl={
-                        <Refresh onRefresh={null} refreshing={refresh} />
+                        <Refresh onRefresh={refresh} refreshing={refresh} />
                     }
                     enableEmptySections={true}
                     scrollRenderAheadDistance={500}

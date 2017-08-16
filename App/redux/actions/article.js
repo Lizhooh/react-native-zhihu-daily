@@ -2,8 +2,7 @@ import { ARTICLE } from '../types';
 import * as api from '../../api';
 
 export const init = id => async (dispatch, getState) => {
-    let data = await api.story(id);
-    dispatch({ type: ARTICLE.init_success, data, id });
+    const [data, extra] = await Promise.all([api.story(id), api.storyExtra(id)]);
+    dispatch({ type: ARTICLE.init_success, data, extra, id });
+    return { data, extra };
 }
-
-export const leave = () => ({ type: ARTICLE.leave_success });

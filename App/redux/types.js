@@ -48,3 +48,10 @@ export const SECTION = extendState({
     leave: 'SECTION_leave',
 });
 
+// 评论
+export const COMMENT = extendState({
+    init: 'COMMENT_init',
+    smore: 'COMMENT_smore',
+    lmore: 'COMMENT_lmore',
+    leave: 'COMMENT_leave',
+});

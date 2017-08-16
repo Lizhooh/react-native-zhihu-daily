@@ -103,6 +103,16 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+
+    signingConfigs {
+        release {
+            storeFile file("../../keys/my-zhihu-daily-key.keystore") // 这里是签名文件路径
+            storePassword "zxc123qaz"                      // 签名的密码
+            keyAlias "my-zhihu-daily"                      // 签名的别名
+            keyPassword "zxc123qaz"                        // 别名的密码
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -115,6 +125,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release   // 记得加上这句“配置项”
         }
     }
     // applicationVariants are e.g. debug, release

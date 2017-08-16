@@ -10,6 +10,7 @@ import { color } from '../../config';
 
 export default ({ data: item }) => (
     <View key={`comment-${item.id}`} style={L.item}>
+
         <View style={L.itemLeft}>
             <Image style={L.avatar} source={{ uri: item.avatar }} />
         </View>

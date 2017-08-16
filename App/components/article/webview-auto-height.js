@@ -97,7 +97,9 @@ export default class WebviewAutoHeight extends Component {
                                 height: (Number.parseInt(document.title) + 5),
                                 opacity: 1,
                             }, () => {
-                                onLoad(document);
+                                setTimeout(() => {
+                                    onLoad(document)
+                                }, 100);
                             });
                         }
                     } }

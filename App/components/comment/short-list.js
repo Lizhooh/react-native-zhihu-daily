@@ -29,7 +29,7 @@ export default ({ data, onMore }) => (
                 loadmore = true;
                 onMore().then(res => {
                     loadmore = false;
-                    res.empty() && Toast.show('没有更多了', Toast.LONG);
+                    res.empty() && data.length > 10 && Toast.show('没有更多了', Toast.LONG);
                 });
             }
         } }
@@ -39,5 +39,6 @@ export default ({ data, onMore }) => (
 const $ = StyleSheet.create({
     container: {
         height: window.height - (25 + 55 + 45),
+        backgroundColor: '#fff',
     }
 })

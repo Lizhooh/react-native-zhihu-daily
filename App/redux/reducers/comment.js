@@ -33,6 +33,11 @@ export default (state = init_state, action) => {
             sdata: [...state.sdata, ...action.sdata],
         }
 
+        case COMMENT.lmore_success: return {
+            ...state,
+            ldata: [...state.ldata, ...action.ldata],
+        }
+
         default: return state;
     }
 }

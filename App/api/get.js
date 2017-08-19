@@ -16,7 +16,7 @@ export default async (url, query = null) => {
     }
     catch (err) {
         Toast.show('当前网络不可用，请检查你的网络设置', Toast.LONG);
-        console.error('get:', url, '. Error:', err);
+        // console.error('get:', url, '. Error:', err);
 
         // 读取缓存
         if (url.indexOf('latest') > 0 && url.indexOf('before') === -1) {
@@ -25,8 +25,8 @@ export default async (url, query = null) => {
         return res;
     }
 
-    console.log(url);
-    console.log(res);
+    // console.log(url);
+    // console.log(res);
 
     return res;
 }

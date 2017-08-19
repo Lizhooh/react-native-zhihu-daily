@@ -18,7 +18,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { color } from './config';
 import { Toolbar } from './components';
-import * as api from './api';
 const window = Dimensions.get('window');
 
 class Main extends Component {

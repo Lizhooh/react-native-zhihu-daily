@@ -22,7 +22,6 @@ export const init = (id, title) => async (dispatch, getState) => {
 export const updateTitle = title => ({ type: MAIN.title, title });
 
 export const more = last => async (dispatch, getState) => {
-    console.log(last);
     const { id } = getState().main;
     if (id === -1) {
         const res = await api.latestmore(last);

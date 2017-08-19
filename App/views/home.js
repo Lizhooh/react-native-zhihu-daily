@@ -40,15 +40,12 @@ export default class Home extends Component {
                 this.title = s[i].name;
             }
             else if (this.titlecache !== this.title) {
-                console.log(this.title);
                 this.props.onTitleChange(this.title);
                 this.titlecache = this.title;
                 return;
             }
-
             // 最后一个
             if (i === s.length - 1 && this.titlecache !== this.title) {
-                console.log(this.title);
                 this.props.onTitleChange(this.title);
                 this.titlecache = this.title;
                 return;

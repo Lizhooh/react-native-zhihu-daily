@@ -92,21 +92,18 @@ export default class WebviewAutoHeight extends Component {
                     injectedJavaScript={this.script}
                     onMessage={onImagePress}
                     onNavigationStateChange={(document) => {
-                        if (document.title) {
-                            if (height === document.title) return;
+                        if (document.title && !isNaN(document.title * 1) &&
+                            typeof (document.title * 1) === 'number') {
                             this.setState({
-                                height: (Number.parseInt(document.title) + 5),
+                                height: Number.parseInt(document.title) + 10,
                                 opacity: 1,
                             }, () => {
-                                setTimeout(() => {
-                                    onLoad(document)
-                                }, 100);
-
+                                onLoad(document)
                             });
                         }
                     } }
                     />
-                {this.state.opacity === 0 &&
+                {opacity === 0 &&
                     <View style={$.indicatorview}>
                         <ActivityIndicator color={color} size='small' />
                     </View>

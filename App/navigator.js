@@ -58,7 +58,7 @@ export default class MyNavigatior extends Component {
                 // 平滑速度
                 Navigator.SceneConfigs.PushFromRight.defaultTransitionVelocity = 12;
                 Navigator.SceneConfigs.PushFromRight.springFriction = 25;
-                Navigator.SceneConfigs.PushFromRight.springTension = 160;
+                // Navigator.SceneConfigs.PushFromRight.springTension = 180;
                 return Navigator.SceneConfigs.PushFromRight;
         }
     };

@@ -7,7 +7,7 @@ export { default as Topbar } from './topbar';
 export { default as Box } from './box';
 export { default as Make } from './make';
 export { default as SelectBox } from './select-box';
-
+export { default as CheckBox } from './checkbox';
 
 /**
  * 统一风格的刷新器

@@ -5,7 +5,8 @@ import {
     TouchableOpacity as Touch
 } from 'react-native';
 import { color } from '../config';
-import Checkbox from 'react-native-check-box';
+import Checkbox from './checkbox';
+
 
 export default ({ text, subText, showCheck = true, isChecked = false  }) => (
     <View style={{ backgroundColor: '#ddd' }}>
@@ -15,13 +16,7 @@ export default ({ text, subText, showCheck = true, isChecked = false  }) => (
                 {subText && <Text style={$.samlltext}>{subText}</Text>}
             </View>
 
-            {showCheck &&
-                <Checkbox
-                    checkBoxColor={color}
-                    onClick={() => { } }
-                    isChecked={isChecked}
-                    />
-            }
+            {showCheck && <Checkbox initCheck={isChecked} color={color} />}
         </Touch>
     </View>
 );

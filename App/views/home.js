@@ -34,6 +34,7 @@ export default class Home extends Component {
 
         this.cacheoffset_y = offset_y;
 
+        // 比较最大的
         const s = this.sectionPos;
         for (let i = 0; i < s.length; i++) {
             if (offset_y >= s[i].position) {

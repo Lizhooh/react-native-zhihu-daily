@@ -46,6 +46,7 @@ export default class WebviewAutoHeight extends Component {
     }
 
     render() {
+        const { height, opacity } = this.state;
 
         const {
             body, css, url, style,
@@ -86,13 +87,13 @@ export default class WebviewAutoHeight extends Component {
                     domStorageEnabled={true}
                     javaScriptEnabled={true}
                     scalesPageToFit={false}
-                    style={[{ height: this.state.height, opacity: this.state.opacity }, style]}
+                    style={[{ height: height, opacity: opacity }, style]}
                     source={body ? { html: html } : { url: url }}
                     injectedJavaScript={this.script}
                     onMessage={onImagePress}
                     onNavigationStateChange={(document) => {
                         if (document.title) {
-                            if (this.state.height === document.title) return;
+                            if (height === document.title) return;
                             this.setState({
                                 height: (Number.parseInt(document.title) + 5),
                                 opacity: 1,
@@ -100,12 +101,13 @@ export default class WebviewAutoHeight extends Component {
                                 setTimeout(() => {
                                     onLoad(document)
                                 }, 100);
+
                             });
                         }
                     } }
                     />
                 {this.state.opacity === 0 &&
-                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={$.indicatorview}>
                         <ActivityIndicator color={color} size='small' />
                     </View>
                 }
@@ -113,3 +115,12 @@ export default class WebviewAutoHeight extends Component {
         );
     }
 }
+
+const $ = StyleSheet.create({
+    indicatorview: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+    }
+});

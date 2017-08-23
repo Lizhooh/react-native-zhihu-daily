@@ -55,6 +55,10 @@ export default class MyNavigatior extends Component {
             case 'right':
                 return Navigator.SceneConfigs.FloatFromRight;
             default:
+                // 平滑速度
+                Navigator.SceneConfigs.PushFromRight.defaultTransitionVelocity = 12;
+                Navigator.SceneConfigs.PushFromRight.springFriction = 25;
+                Navigator.SceneConfigs.PushFromRight.springTension = 160;
                 return Navigator.SceneConfigs.PushFromRight;
         }
     };

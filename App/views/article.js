@@ -24,7 +24,7 @@ class Article extends Component {
 
         this.state = {
             section: false,
-            data: null,
+            data: {},
             extra: {},
         };
 

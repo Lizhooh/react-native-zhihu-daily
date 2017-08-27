@@ -4,13 +4,14 @@
   "private": true,
   "author": "Lizhooh <960316408@qq.com>",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start --port 8889",
+    "start": "node node_modules/react-native/local-cli/cli.js start --port 8081",
     "build": " cd android & .\\gradlew assembleRelease",
     "clean": "cd android && gradlew clean",
     "test": "jest"
   },
   "dependencies": {
     "color": "^2.0.0",
+    "immutable": "^3.8.1",
     "moment": "^2.18.1",
     "qs": "^6.5.0",
     "react": "16.0.0-alpha.12",
@@ -23,6 +24,7 @@
     "react-native-vector-icons": "^4.3.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {

@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import FIcon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import { commentActions } from '../redux/actions';
-import { Topbar, Refresh } from '../components';
+import { Topbar, Refresh, StaticView } from '../components';
 import LongList from '../components/comment/long-list';
 import ShortList from '../components/comment/short-list';
 import { layoutAnimate } from '../common';
@@ -69,11 +69,13 @@ class Comment extends Component {
 
         return (
             <View style={$.container}>
-                <Topbar
-                    title={`${extra.comments || 0} 条评论`}
-                    onBack={this.props.navigator.pop}
-                    icons={[{ name: 'mode-edit' }]}
-                    />
+                <StaticView>
+                    <Topbar
+                        title={`${extra.comments || 0} 条评论`}
+                        onBack={this.props.navigator.pop}
+                        icons={[{ name: 'mode-edit' }]}
+                        />
+                </StaticView>
 
                 <View style={$.longComment} ref={r => this.longview = r}>
                     <View style={$.title}>
@@ -83,19 +85,21 @@ class Comment extends Component {
                 </View>
 
                 <View style={$.shortComment}>
-                    <Touch style={$.title}
-                        onPress={e => {
-                            // [优化] 直接操作 native view，减少无必要的 diff
-                            this.showsc = !this.showsc;
-                            this.longview && this.longview.setNativeProps(
-                                { style: { height: this.showsc ? 0 : 'auto' } }
-                            );
-                            layoutAnimate.start();
-                        } }
-                        >
-                        <Text style={{ flex: 1 }}>{extra.short_comments || 0} 条短评</Text>
-                        <FIcon name="angle-double-down" size={22} color='rgba(1, 1, 1, 0.3)' />
-                    </Touch>
+                    <StaticView>
+                        <Touch style={$.title}
+                            onPress={e => {
+                                // [优化] 直接操作 native view，减少无必要的 diff
+                                this.showsc = !this.showsc;
+                                this.longview && this.longview.setNativeProps(
+                                    { style: { height: this.showsc ? 0 : 'auto' } }
+                                );
+                                layoutAnimate.start();
+                            } }
+                            >
+                            <Text style={{ flex: 1 }}>{extra.short_comments || 0} 条短评</Text>
+                            <FIcon name="angle-double-down" size={22} color='rgba(1, 1, 1, 0.3)' />
+                        </Touch>
+                    </StaticView>
                     {this.renderShortComment(sdata)}
                 </View>
             </View>

@@ -20,6 +20,8 @@ import { color } from './config';
 import { Toolbar } from './components';
 const window = Dimensions.get('window');
 
+import { StaticView } from './components';
+
 class Main extends Component {
 
     onBackAndroid = (event) => {
@@ -55,12 +57,14 @@ class Main extends Component {
     }
 
     renderMenu = () => (
-        <Menu navigator={navigator} onSelectChanng={(id, title) => {
-            this.props.init(id, title);
-            setTimeout(() => {
-                this.drawer.closeDrawer();
-            }, 100);
-        } } />
+        <StaticView style={{ flex: 1 }}>
+            <Menu navigator={navigator} onSelectChanng={(id, title) => {
+                this.props.init(id, title);
+                setTimeout(() => {
+                    this.drawer.closeDrawer();
+                }, 100);
+            } } />
+        </StaticView>
     )
 
     openArticle = (id) => {
@@ -80,15 +84,17 @@ class Main extends Component {
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
                 renderNavigationView={this.renderMenu}
                 >
-                <Toolbar
-                    title={title}
-                    isHome={id === -1}
-                    onIconClicked={() => this.drawer.openDrawer()}
-                    onActionSelected={position => {
-                        position === 2 && navigator.push({ name: 'Setting' });
-                        position === 3 && navigator.push({ name: 'About' });
-                    } }
-                    />
+                <StaticView>
+                    <Toolbar
+                        title={title}
+                        isHome={id === -1}
+                        onIconClicked={() => this.drawer.openDrawer()}
+                        onActionSelected={position => {
+                            position === 2 && navigator.push({ name: 'Setting' });
+                            position === 3 && navigator.push({ name: 'About' });
+                        } }
+                        />
+                </StaticView>
                 <View style={{ flex: 1 }}>
                     {/* 用来覆盖 Toolbar */}
                     <View style={$.otherToolbar}>
@@ -101,7 +107,7 @@ class Main extends Component {
                             onTitleChange={updateTitle}
                             refresh={refreshing}
                             onRefresh={refresh}
-                            render={render}
+                            // render={render}
                             onPress={this.openArticle}
                             onMore={e => !latest.data.empty() && more(latest.data.last().title)
                                 .then(res => res.stories.empty() && Toast.show('没有更多了', Toast.LONG))}

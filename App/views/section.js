@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { sectionActions } from '../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Topbar, Refresh } from '../components';
+import { Topbar, Refresh, StaticView } from '../components';
 
 class Section extends Component {
 
@@ -62,7 +62,9 @@ class Section extends Component {
 
         return (
             <View style={$.container}>
-                <Topbar title={name} onBack={() => navigator.pop()} />
+                <StaticView>
+                    <Topbar title={name} onBack={() => navigator.pop()} />
+                </StaticView>
 
                 <ListView
                     ref={r => this.listview = r}

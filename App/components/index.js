@@ -8,6 +8,8 @@ export { default as Box } from './box';
 export { default as Make } from './make';
 export { default as SelectBox } from './select-box';
 export { default as CheckBox } from './checkbox';
+export { default as StaticView } from './static-view';
+
 
 /**
  * 统一风格的刷新器

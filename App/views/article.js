@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { articleActions } from '../redux/actions';
-import { Topbar, Refresh } from '../components';
+import { Topbar, Refresh, StaticView } from '../components';
 import { color } from '../config';
 import WebViewAuto from '../components/article/webview-auto-height';
 import Header from '../components/article/header';
@@ -45,54 +45,64 @@ class Article extends Component {
 
     // 渲染文章主体
     renderBody = data => (
-        data && <WebViewAuto
-            style={styles.webview}
-            css={data.style}
-            body={data.body}
-            url={data.share_url}
-            onLoad={event =>
-                setTimeout(_ => {
-                    this.setState({ section: true });
-                }, 1000)
-            }
-            />
+        <StaticView count={2}>
+            <WebViewAuto
+                style={styles.webview}
+                css={data.style}
+                body={data.body}
+                url={data.share_url}
+                onLoad={event =>
+                    setTimeout(_ => {
+                        this.setState({ section: true });
+                    }, 1000)
+                }
+                />
+        </StaticView>
     );
+
 
     // 文章头部
     renderHeader = data => {
-        return <Header data={data} />
+        return (
+            <StaticView count={2}>
+                <Header data={data} />
+            </StaticView>
+        )
     };
 
     // 文章尾部
     renderFooter = data => {
         if (!(data && data.section && this.state.section)) return;
         const section = data.section;
+
         return (
-            <Touch
-                style={styles.footer}
-                activeOpacity={0.7}
-                onPress={event => {
-                    this.props.navigator.push({
-                        name: 'Section',
-                        data: { id: section.id, name: section.name },
-                        animated: 'top',
-                    });
-                } }
-                >
-                <Image source={{ uri: section.thumbnail }} style={styles.footerImage} />
-                <View style={styles.footerContent}>
-                    <Text style={{ color: '#444' }}>
-                        本文来自：{section.name} · 合集
-                    </Text>
-                </View>
-                <Icon name='chevron-right' color='#444' size={20} />
-            </Touch>
+            <StaticView>
+                <Touch
+                    style={styles.footer}
+                    activeOpacity={0.7}
+                    onPress={event => {
+                        this.props.navigator.push({
+                            name: 'Section',
+                            data: { id: section.id, name: section.name },
+                            animated: 'top',
+                        });
+                    } }
+                    >
+                    <Image source={{ uri: section.thumbnail }} style={styles.footerImage} />
+                    <View style={styles.footerContent}>
+                        <Text style={{ color: '#444' }}>
+                            本文来自：{section.name} · 合集
+                        </Text>
+                    </View>
+                    <Icon name='chevron-right' color='#444' size={20} />
+                </Touch>
+            </StaticView>
         );
     }
 
     // 根据滚动条的变化，Toolbar 的透明度会产生变化
     onScroll = event => {
-        const { contentOffset: { y } } = event.nativeEvent;
+        const {contentOffset: {y} } = event.nativeEvent;
         const topbar = this.topbar;
         const opacity = this.state.opacity;
 
@@ -139,12 +149,12 @@ class Article extends Component {
 
     async componentDidMount() {
         await InteractionManager.runAfterInteractions();
-        const { data, extra } = await this.props.init(this.props.data);
+        const {data, extra } = await this.props.init(this.props.data);
         this.setState({ data, extra });
     }
 
     render() {
-        const { data, extra } = this.state;
+        const {data, extra } = this.state;
 
         return (
             <View style={styles.contanier}>
@@ -156,7 +166,7 @@ class Article extends Component {
                     onScroll={this.onScroll}
                     >
                     {this.renderHeader(data)}
-                    {this.renderBody(data)}
+                    {data && this.renderBody(data)}
                     {this.renderFooter(data)}
                 </ScrollView>
 

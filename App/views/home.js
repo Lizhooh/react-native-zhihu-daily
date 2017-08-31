@@ -6,11 +6,9 @@ import {
     TouchableOpacity as Touch,
     ActivityIndicator,
 } from 'react-native';
-
-import { Refresh, Box } from '../components';
+import { Refresh, Box, StaticView } from '../components';
 import { color } from '../config';
 import { getSectionName } from '../functions';
-
 import Swiper from 'react-native-swiper';
 
 export default class Home extends Component {
@@ -22,7 +20,6 @@ export default class Home extends Component {
         this.title = this.titlecache = '首页';
 
         this.cacheoffset_y = 0;
-
     }
 
     // 根据滚动条位置更换 title
@@ -54,11 +51,6 @@ export default class Home extends Component {
         }
     };
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if (nextProps.render === false) return false;
-        return true;
-    }
-
     // 计算 section 的位置
     setSectionPos = () => {
         const data = this.props.data;
@@ -83,6 +75,11 @@ export default class Home extends Component {
         this.sectionPos = arr;
     };
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.render === false) return false;
+        return true;
+    }
+
     renderItem = ({ item, index }) => (
         <Box item={item} index={index} onPress={this.props.onPress} />
     );
@@ -97,7 +94,7 @@ export default class Home extends Component {
 
     renderHeader = hot => (
         !hot.empty() &&
-        <View style={{ backgroundColor: '#fff', marginBottom: 10 }}>
+        <StaticView style={{ backgroundColor: '#fff', marginBottom: 10 }}>
             <Swiper
                 height={220}
                 horizontal={true}
@@ -125,7 +122,7 @@ export default class Home extends Component {
                     </View>
                 ))}
             </Swiper>
-        </View>
+        </StaticView>
     )
 
     render() {

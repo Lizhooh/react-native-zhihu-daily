@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Box } from '../components';
 import { color } from '../config';
-import { Topbar, Refresh } from '../components';
+import { Topbar, Refresh, StaticView } from '../components';
 
 export default class Theme extends Component {
 
@@ -22,7 +22,7 @@ export default class Theme extends Component {
 
     renderHeader = (source = {}) => (
         source &&
-        <View style={{ marginBottom: 10 }}>
+        <StaticView style={{ marginBottom: 10 }}>
             {/* 背景图 */}
             <Touch
                 style={pice.contanter}
@@ -59,7 +59,7 @@ export default class Theme extends Component {
                     ))
                 }</View>
             </View>
-        </View>
+        </StaticView>
     );
 
     componentWillReceiveProps(nextProps) {

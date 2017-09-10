@@ -70,7 +70,7 @@ export default class MyNavigatior extends Component {
         return <Views data={route.data} navigator={navigator} />
     };
 
-    netInfoChange = () => {
+    netInfoChange = (reach) => {
         if (reach === 'NONE') {
             Toast.show('当前网络不可用，请检查你的网络设置', Toast.LONG);
         }

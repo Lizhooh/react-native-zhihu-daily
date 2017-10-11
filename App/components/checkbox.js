@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     StyleSheet,
     View, Text,
@@ -6,7 +6,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default class CheckBox extends Component {
+export default class CheckBox extends PureComponent {
+
     constructor(props) {
         super(props);
 

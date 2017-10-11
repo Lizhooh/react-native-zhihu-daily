@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import { Box } from '../components';
 import { color } from '../config';
-import { Topbar, Refresh, StaticView } from '../components';
+import { Topbar, Refresh } from '../components';
+import StaticView from 'react-static-view/react-native';
 
 export default class Theme extends Component {
 

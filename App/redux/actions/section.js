@@ -11,7 +11,7 @@ export const more = () => async (dispatch, getState) => {
     const { id, lasttime } = getState().section;
     const data = await api.sectionmore(id, lasttime);
     dispatch({ type: SECTION.more_success, data });
-    return data;
+    return data.stories;
 }
 
 export const refresh = () => async (dispatch, getState) => {

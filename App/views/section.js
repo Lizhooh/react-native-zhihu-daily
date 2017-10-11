@@ -10,7 +10,8 @@ import {
 import { connect } from 'react-redux';
 import { sectionActions } from '../redux/actions';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Topbar, Refresh, StaticView } from '../components';
+import { Topbar, Refresh } from '../components';
+import StaticView from 'react-static-view/react-native';
 
 class Section extends Component {
 
@@ -129,7 +130,7 @@ const $ = StyleSheet.create({
         paddingRight: 5,
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         color: '#333',
         flex: 1,
     },

@@ -48,7 +48,7 @@ const $ = StyleSheet.create({
     },
     titleText: {
         color: '#fff',
-        fontSize: 21,
+        fontSize: 20,
     },
     right: {
         flex: 1,

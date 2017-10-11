@@ -20,7 +20,8 @@ import { color } from './config';
 import { Toolbar } from './components';
 const window = Dimensions.get('window');
 
-import { StaticView } from './components';
+// import { StaticView } from './components';
+import StaticView from 'react-static-view/react-native';
 
 class Main extends Component {
 
@@ -154,10 +155,14 @@ const $ = StyleSheet.create({
     },
     otherToolbarText: {
         color: '#fff',
-        fontSize: 21,
+        fontSize: 18,
         marginLeft: 60,
-        fontWeight: '400',
+        top: 1,
+        fontWeight: '500',
         includeFontPadding: false,
         textAlignVertical: 'center',
+        textShadowColor: 'rgba(1, 1, 1, 0.1)',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 4,
     }
 });

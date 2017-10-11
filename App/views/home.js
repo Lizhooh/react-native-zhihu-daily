@@ -6,10 +6,11 @@ import {
     TouchableOpacity as Touch,
     ActivityIndicator,
 } from 'react-native';
-import { Refresh, Box, StaticView } from '../components';
+import { Refresh, Box } from '../components';
 import { color } from '../config';
 import { getSectionName } from '../functions';
 import Swiper from 'react-native-swiper';
+import StaticView from 'react-static-view/react-native';
 
 export default class Home extends Component {
 
@@ -189,5 +190,11 @@ const $ = StyleSheet.create({
         fontSize: 22,
         padding: 10,
         paddingBottom: 18,
+        textShadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        textShadowRadius: 5,
+        textShadowColor: 'rgba(1, 1, 1, 0.6)',
     },
 });

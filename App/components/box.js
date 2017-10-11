@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+// home, theme 列表项
 export default ({ item, onPress }) => (
     <View style={$.box} key={item.id}>
         <Touch
@@ -57,7 +58,7 @@ const $ = StyleSheet.create({
         paddingRight: 5,
     },
     leftTitle: {
-        fontSize: 18,
+        fontSize: 16,
         color: '#333',
     },
     right: {
@@ -68,6 +69,7 @@ const $ = StyleSheet.create({
         width: 100,
         height: 80,
         borderRadius: 2,
+        backgroundColor: 'rgba(1, 1, 1, 0.3)',
     },
     multipic: {
         position: 'absolute',

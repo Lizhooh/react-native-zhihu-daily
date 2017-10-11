@@ -10,7 +10,8 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { articleActions } from '../redux/actions';
-import { Topbar, Refresh, StaticView } from '../components';
+import { Topbar, Refresh } from '../components';
+import StaticView from 'react-static-view/react-native';
 import { color } from '../config';
 import WebViewAuto from '../components/article/webview-auto-height';
 import Header from '../components/article/header';
@@ -45,7 +46,7 @@ class Article extends Component {
 
     // 渲染文章主体
     renderBody = data => (
-        <StaticView count={2}>
+        <StaticView render={3}>
             <WebViewAuto
                 style={styles.webview}
                 css={data.style}
@@ -64,7 +65,7 @@ class Article extends Component {
     // 文章头部
     renderHeader = data => {
         return (
-            <StaticView count={2}>
+            <StaticView render={3}>
                 <Header data={data} />
             </StaticView>
         )

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
     StyleSheet,
-    View, Text,
     TouchableOpacity as Touch,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -47,4 +46,3 @@ const $ = StyleSheet.create({
         textShadowRadius: 6,
     },
 })
-

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text, Image,
+    View,
     ScrollView,
 } from 'react-native';
 import { Topbar, Make, SelectBox } from '../components';

@@ -4,10 +4,8 @@ import {
     View, Text, Image,
     SectionList,
     TouchableOpacity as Touch,
-    ActivityIndicator,
 } from 'react-native';
 import { Refresh, Box } from '../components';
-import { color } from '../config';
 import { getSectionName } from '../functions';
 import Swiper from 'react-native-swiper';
 import StaticView from 'react-static-view/react-native';

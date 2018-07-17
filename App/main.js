@@ -14,7 +14,6 @@ import { mainActions } from './redux/actions';
 import Menu from './views/menu';
 import Home from './views/home';
 import Theme from './views/theme';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { color } from './config';
 import { Toolbar } from './components';

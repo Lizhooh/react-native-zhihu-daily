@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text,
+    View,
     WebView,
-    TouchableOpacity as Touch,
     ActivityIndicator,
 } from 'react-native';
 

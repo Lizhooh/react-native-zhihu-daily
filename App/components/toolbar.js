@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View, Text,
-    ToolbarAndroid,
-    TouchableOpacity as Touch,
 } from 'react-native';
-import { color } from '../config';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 /**
@@ -40,7 +36,7 @@ export default ({ title, isHome, onActionSelected, onIconClicked }) => {
             actions={actions()}
             onActionSelected={onActionSelected}
             onIconClicked={onIconClicked}
-            />
+        />
     );
 };
 

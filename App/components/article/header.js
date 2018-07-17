@@ -2,7 +2,6 @@ import React from 'react';
 import {
     StyleSheet,
     View, Text, Image,
-    TouchableOpacity as Touch,
 } from 'react-native';
 
 // ## 文章的头部

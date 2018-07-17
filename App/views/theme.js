@@ -3,12 +3,10 @@ import {
     StyleSheet,
     View, Text, Image,
     TouchableOpacity as Touch,
-    FlatList,
     ListView,
 } from 'react-native';
 import { Box } from '../components';
-import { color } from '../config';
-import { Topbar, Refresh } from '../components';
+import { Refresh } from '../components';
 import StaticView from 'react-static-view/react-native';
 
 export default class Theme extends Component {

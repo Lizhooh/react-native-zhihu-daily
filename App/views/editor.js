@@ -1,8 +1,7 @@
 import React from 'react';
 import {
     StyleSheet,
-    View, Text, Image,
-    TouchableOpacity as Touch,
+    View,
     WebView,
     Platform,
 } from 'react-native';

@@ -1,5 +1,6 @@
+
 ## 知乎日报 （非官方）
-知乎日报，使用 **React Native** (Android) 开发。
+知乎日报，使用 **React Native** （Android）开发，目前已不更新了。
 
 ### 不具备功能
 - 与登录账号相关的
@@ -30,18 +31,6 @@ react-native run-ios
 npm run build
 ```
 
-### use vscode
-
-```
-install react-native-tools
-
-use vscode open file.
-
-run debug (F5).
-```
-
-![react-native-tools](/resoucre/react-native-tool.png)
-
 ### code structure
 
 ```js
@@ -67,10 +56,6 @@ App
 ├── main.js           // 主要文件
 └── navigator.js      // 导航器
 ```
-
-### download
-已经打包了的 App
-![app](/resoucre/1496245257.png)
 
 ## License
 此作品，仅限于个人兴趣与学习。

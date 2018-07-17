@@ -1,7 +1,6 @@
 import React from 'react';
 import {
     StyleSheet,
-    View,
     ListView,
     Dimensions,
     ToastAndroid as Toast,
